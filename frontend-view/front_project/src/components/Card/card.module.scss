@@ -1,0 +1,38 @@
+.card {
+  background: #d2c6e7;
+  padding:1.3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-bottom:1.1rem;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1.4fr);
+}
+
+.item {
+  display: flex;
+  margin: 1.4rem;
+}
+
+.item strong {
+  color: #020202;
+}
+
+.item span {
+  color: #220229;
+  font-weight: bold;
+}
+
+.heading {
+    text-align: center;
+    margin:1.6rem;
+    font-size: 1.8rem;
+    color:rgb(44, 7, 78);
+    font-weight: bolder;
+}

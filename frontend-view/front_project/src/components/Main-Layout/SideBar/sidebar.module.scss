@@ -1,0 +1,59 @@
+@use '@/src/styles/variables' as *;
+.sidebar {
+  width: 260px;
+  padding: $padding-sm;
+  border-right: 1px solid #626364;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  overflow-y:hidden;
+  background-color: rgb(210, 210, 248);
+  color:var(--color-black);
+  font-size: $font-sm;
+  font-weight: bold;
+}
+
+.logo {
+  font-size:1.5rem;
+  font-weight: bolder;
+
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 1.1rem ;
+
+
+}
+
+.menu,
+.active-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu:hover {
+  background:rgb(144, 137, 235);
+  color:rgb(255, 255, 255);
+}
+
+.active-menu {
+  background:rgb(158, 133, 233);;
+  color: black;
+}
+.image{
+  margin: 1.2rem auto;
+  cursor: pointer;
+}
+
+
+

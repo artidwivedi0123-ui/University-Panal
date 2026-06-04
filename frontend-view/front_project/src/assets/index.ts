@@ -1,0 +1,13 @@
+export {default as UniversityIcon} from  '@/src/assets/university.jpg';
+export {default as Courses} from '@/src/assets/courses.png';
+export {default as Semester} from '@/src/assets/semester.png';
+export {default  as Subject}  from "@/src/assets/subjects.png";
+export {default  as Students} from '@/src/assets/students.png';
+export {default  as DashboardImg} from '@/src/assets/dashboard.png';
+export {default as FIcon} from "@/src/assets/female-graduate-student.png";
+export {default as MIcon} from "@/src/assets/scholar.png";
+export {default as SubDash} from  "@/src/assets/subDash.png";
+export {default as StuDash} from  "@/src/assets/stuDash.png";
+export {default as RegisterLogo} from "@/src/assets/register.png";
+export {default as UniversityLogo} from  "@/src/assets/universityLogo.png";
+export {default as fessLogo} from "@/src/assets/feesStructure.png";

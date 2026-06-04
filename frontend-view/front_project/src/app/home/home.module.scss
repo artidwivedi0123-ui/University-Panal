@@ -1,0 +1,76 @@
+@use "@/src/styles/variables" as v;
+
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  &__cards {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__card {
+    background:rgb(144, 137, 235);
+    width: 350px;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  &__card:hover {
+    transform: translateY(-5px);
+  }
+
+  &__title {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-black);
+  }
+
+  &__btn {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-black);
+    color: var(--color-white);
+    transition: all 0.3s ease;
+  }
+
+  &__btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+}
+
+.head-cont{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(12, 12, 12);
+  border-radius: 1.5rem;
+  padding:1.5rem;
+  margin: 1.6rem;
+}
+
+.heading{
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin:1.4rem;
+
+}

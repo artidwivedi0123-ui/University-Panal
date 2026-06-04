@@ -1,0 +1,9 @@
+ @use '@/src/styles/variables' as *;
+ 
+ .container{
+          padding:$padding-md;
+          border : 1px solid #ddd;
+          border-radius:$border-radius-md;
+          max-width: 700px;
+          margin:$margin-md  auto;
+        }

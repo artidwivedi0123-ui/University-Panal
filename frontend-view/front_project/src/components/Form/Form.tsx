@@ -1,0 +1,343 @@
+import {
+  UNIVERSITY_SECTION_PAGES_ROUTES,
+  UNIVERSITY_SECTION_TYPE,
+} from "@/src/types/university-section.type";
+import style from "@/src/components/Form/form.module.scss";
+import Input from "../Input/Input";
+import { ICourseData } from "@/src/modules/university/course/modal/ICourse";
+import { ISemesterData } from "@/src/modules/university/semester/modal/ISemester";
+import Select from "../select/Select";
+interface FormProps {
+  formData: any;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  course?: ICourseData[];
+  semester?: ISemesterData[];
+  type: UNIVERSITY_SECTION_PAGES_ROUTES;
+}
+
+export default function Form({
+  formData,
+  handleChange,
+  type,
+  onSubmit,
+  semester,
+  course,
+}: FormProps) {
+  const cou = type === UNIVERSITY_SECTION_TYPE.COURSES;
+  const sem = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
+  const sub = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
+  const stu = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
+  //   console.log(
+  //   "semester_id",
+  //   formData.semester_id,
+  //   typeof formData.semester_id
+  // );
+
+  return (
+    <div className={style["container"]}>
+      <h2 className={style["heading"]}>
+        {cou && "Add Courses in University Panel"}
+        {sem && "Add Semester in  University Panel"}
+        {sub && "Add Subject in University Panel"}
+        {stu && "Add Students in University  Panel"}
+      </h2>
+
+      <form className={style["form"]} onSubmit={onSubmit}>
+        {cou && (
+          <>
+            <div className={style["field"]}>
+              <label className={style["label"]}>Course Name</label>
+
+              <Input
+                name="course_name"
+                value={formData.course_name}
+                placeholder="Course Name"
+                onChange={handleChange}
+                type="text"
+                classname={style["input"]}
+              />
+              <label className={style["label"]}> Choose Course Type</label>
+              <div className={style["radio-group"]}>
+                <label className={style["radio-label"]}>
+                  <input
+                    type="radio"
+                    name="course_type"
+                    value="UG"
+                    checked={formData.course_type === "UG"}
+                    onChange={handleChange}
+                  />
+                  UG
+                </label>
+
+                <label className={style["radio-label"]}>
+                  <input
+                    type="radio"
+                    name="course_type"
+                    value="PG"
+                    checked={formData.course_type === "PG"}
+                    onChange={handleChange}
+                  />
+                  PG
+                </label>
+              </div>
+            </div>
+          </>
+        )}
+      {sem && (
+  <>
+    <label className={style["label"]}>
+      Course
+    </label>
+
+    <Select
+      name="course_id"
+      value={formData.course_id || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        course?.map((item) => ({
+          label: `${item.course_name} (${item.course_type})`,
+          value: item.id!,
+        })) || []
+      }
+    />
+
+    <label className={style["label"]}>
+      Semester Number
+    </label>
+
+    <Input
+      name="semester_number"
+      value={formData.semester_number || ""}
+      onChange={handleChange}
+      type="number"
+      classname={style["input"]}
+    />
+  </>
+)}
+   {sub && (
+  <>
+    <label className={style["label"]}>
+      Subject Name
+    </label>
+
+    <Input
+      name="subject_name"
+      value={formData.subject_name || ""}
+      onChange={handleChange}
+      type="text"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Subject Code
+    </label>
+
+    <Input
+      name="subject_code"
+      value={formData.subject_code || ""}
+      onChange={handleChange}
+      type="text"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Credits
+    </label>
+
+    <Input
+      name="credits"
+      value={formData.credits || 4}
+      onChange={handleChange}
+      type="number"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Course
+    </label>
+
+    <Select
+      name="course_name"
+      value={formData.course_name || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        course?.map((item) => ({
+          label: item.course_name,
+          value: item.course_name,
+        })) || []
+      }
+    />
+
+    <label className={style["label"]}>
+      Semester
+    </label>
+
+    <Select
+      name="semester_id"
+      value={formData.semester_id || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        semester
+          ?.filter(
+            (sem) =>
+              sem.course_name ===
+              formData.course_name
+          )
+          .map((sem) => ({
+            label: `Semester ${sem.semester_number}`,
+            value: sem.id!,
+          })) || []
+      }
+    />
+  </>
+)}
+      {stu && (
+  <>
+    <label className={style["label"]}>
+      Student Name
+    </label>
+
+    <Input
+      name="name"
+      value={formData.name || ""}
+      onChange={handleChange}
+      type="text"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Roll Number
+    </label>
+
+    <Input
+      name="roll_number"
+      value={formData.roll_number || ""}
+      onChange={handleChange}
+      type="text"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Gender
+    </label>
+
+    <Select
+      name="gender"
+      value={formData.gender || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={[
+        {
+          label: "Male",
+          value: "M",
+        },
+        {
+          label: "Female",
+          value: "F",
+        },
+      ]}
+    />
+
+    <label className={style["label"]}>
+      Course
+    </label>
+
+    <Select
+      name="course_id"
+      value={formData.course_id || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        course?.map((item) => ({
+          label: item.course_name,
+          value: item.id!,
+        })) || []
+      }
+    />
+
+    <label className={style["label"]}>
+      Semester
+    </label>
+
+    <Select
+      name="semester_id"
+      value={formData.semester_id || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        semester
+          ?.filter(
+            (sem) =>
+              sem.course_id ===
+              Number(formData.course_id)
+          )
+          .map((sem) => ({
+            label: `Semester ${sem.semester_number}`,
+            value: sem.id!,
+          })) || []
+      }
+    />
+
+    <label className={style["label"]}>
+      Marks
+    </label>
+
+    <Input
+      name="marks"
+      value={formData.marks || ""}
+      onChange={handleChange}
+      type="number"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Grade Points
+    </label>
+
+    <Input
+      name="grade_points"
+      value={formData.grade_points || ""}
+      onChange={handleChange}
+      type="number"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Result
+    </label>
+
+    <Select
+      name="result"
+      value={formData.result || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={[
+        {
+          label: "Pass",
+          value: "Pass",
+        },
+        {
+          label: "Fail",
+          value: "Fail",
+        },
+      ]}
+    />
+  </>
+)}
+
+        <button className={style["button"]} type="submit">
+          {cou && "Add Course"}
+          {sem && "Add Semester"}
+          {sub && "Add Subjects"}
+          {stu && "Add Students"}
+        </button>
+      </form>
+    </div>
+  );
+}

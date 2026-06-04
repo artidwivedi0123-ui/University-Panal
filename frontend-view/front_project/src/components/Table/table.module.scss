@@ -1,0 +1,160 @@
+@use '@/src/styles/variables' as *;
+.table-container {
+    margin: $margin-sm;
+    padding: $padding-sm;
+}
+
+.table-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.heading {
+    font-size: $font-md;
+    color: var(--color-white);
+    font-weight: bold;.table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+    text-align: center;
+}
+.sub-heading {
+    font-size:$font-sm;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.table{
+width: 100%;
+border-collapse: collapse;
+border:black;
+
+  th {
+    padding:$padding-sm;
+    text-align: center;
+    white-space: nowrap;
+    font-size: $font-md;
+    background-color:  rgb(59, 1, 57);
+    color:white;
+    font-weight: bold;
+  }
+
+ 
+  td{
+    text-align: center;
+    white-space: nowrap;
+    font-size:$font-sm;
+    font-weight: bolder;
+    padding: 0.8rem;
+    background: rgb(186, 183, 223);
+
+  }
+}
+
+
+.addbtn {
+    margin:1.3rem;
+    padding:1.3rem;
+    border: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius:$border-radius-sm;
+    background-color: var(--color-dark-violet);
+    color: var(--color-white);
+}
+
+
+.del-btn {
+    margin: 0.9rem;
+    padding:0.7rem;
+    border: none;
+    font-weight: bold;
+    border-radius:$border-radius-sm;
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.edit-btn {
+     margin: 0.9rem;
+    padding:0.7rem;
+    border: none;
+    font-weight: bold;
+    border-radius: $border-radius-sm;
+    background-color: var(--color-black);
+    color:var(--color-white);
+}
+
+.view-btn {
+     margin: 0.9rem;
+    padding:0.7rem;
+    border: none;
+    font-weight: bold;
+    border-radius: $border-radius-sm;
+    background-color: var(--color-black);
+    color:var(--color-white);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.page-number {
+  cursor: pointer;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 1.0rem;
+  border-radius: 6px;
+}
+
+
+.active {
+  background:black;
+  color: white;
+  border-radius: 50%;
+}
+
+.prev-btn,
+.next-btn{
+  margin:0.4rem;
+  padding:0.4rem;
+  font-weight:bold;
+  border-radius:1.2rem;
+  border:1px solid black;
+  font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-input {
+  padding:0.8rem;
+  margin:1rem;
+  border:1px solid black;
+  border-radius: 1.3rem;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: bold;
+
+  &::placeholder{
+    color: rgb(53, 5, 53);
+  }
+}
+

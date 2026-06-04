@@ -1,0 +1,92 @@
+@use '@/src/styles/variables' as *;
+
+.container {
+  width: $min-width;
+  max-width:$max-width;
+  margin: $margin-lg auto;
+  padding: $padding-sm;
+  background-color: var(--color-white);
+  border: 1px solid black;
+  border-radius: $border-radius-md;
+}
+
+.heading {
+  text-align: center;
+  font-size: $font-md;
+  font-weight: bolder;
+  margin-bottom: $margin-sm;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-md;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-md;
+}
+
+.label {
+  font-size:1.1rem;
+  font-weight:bold;
+ 
+}
+
+.input {
+  width: 100%;
+  padding: $padding-sm;
+  border: 1px solid #cbd5e1;
+  border-radius: $border-radius-md;
+  font-size: 0.9rem;
+  font-weight:bold;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.input:focus {
+  border-color: #010124;
+  box-shadow: 0 0 0 3px rgba(2, 24, 71, 0.1);
+}
+
+.button {
+  margin-top: $margin-sm;
+  padding: $padding-sm;
+  border: none;
+  background: #080d18;
+  color: var(--color-white);
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: $font-sm;
+  transition: 0.3s ease;
+}
+
+.button:hover {
+  background: #000000;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.6rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.select {
+  padding:0.9rem;
+  border-radius: $border-radius-sm;
+  font-size:0.98rem;
+  font-weight: bold;
+}

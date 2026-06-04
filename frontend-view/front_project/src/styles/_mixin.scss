@@ -1,0 +1,49 @@
+@use  './variables';
+@mixin button {
+    border-radius: variables.$border-radius-md;
+    color: variables.$color-black;
+    padding: variables.$padding-md;
+    margin: variables.$margin-md;
+}
+@mixin center{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@mixin small-screen {
+    @media (max-width:#{variables.$breakpoints-small-screen}) {
+        @content;
+    }
+}
+
+@mixin small-screen-down {
+    @media (max-width:#{variables.$breakpoints-small-screen}) {
+        @content;
+    }
+}
+
+@mixin medium-screen-up {
+    @media (max-width:#{variables.$breakpoints-medium-screen}) {
+        @content;
+    }
+}
+@mixin desktop-sm-up {
+    @media (min-width: #{variables.$breakpoints-desktop-sm}) {
+        @content;
+    }
+}
+
+@mixin desktop-md-up {
+    @media (min-width:#{variables.$breakpoints-desktop-md}) {
+        @content;
+    }
+}
+
+@mixin desktop-lg-up {
+    @media (min-width: #{variables.$breakpoints-desktop-lg}) {
+        @content;
+    }
+}
+
+
