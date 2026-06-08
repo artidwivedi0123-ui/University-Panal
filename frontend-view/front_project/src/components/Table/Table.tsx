@@ -2,13 +2,11 @@ import {
   UNIVERSITY_SECTION_PAGES_ROUTES,
   UNIVERSITY_SECTION_TYPE,
 } from "@/src/types/university-section.type";
-
 import style from "@/src/components/Table/table.module.scss";
-
 import Image from "next/image";
-
 import {
   Courses,
+  Fees,
   FIcon,
   MIcon,
   Semester,
@@ -24,14 +22,14 @@ interface TableProps {
   handleEdit?: (id: any) => void;
   viewDetails?: (id: any) => void;
   addBtn?: () => void;
-  openDeleteModal: (id: number) => void;
+  openDeleteModal?: (id: number) => void;
   search?: string;
   setSearch?: (value: string) => void;
   currentPage?: number;
   totalPages?: number;
   onSearch?: () => void;
   setCurrentPage?: (page: number) => void;
-  totalRecords:number;
+  totalRecords?:number;
 
 }
 
@@ -55,6 +53,7 @@ export default function Table({
   const semester = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
   const subjects = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
   const students = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
+  const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const getHeaders = () => {
     if (course) {
       return ["Course Name", "Course Type", "Actions"];
@@ -85,59 +84,81 @@ export default function Table({
         "Actions",
       ];
     }
+    if(fees) {
+      return [
+        "Course Name",
+        "Semester Number",
+        "Tutition Fees",
+        "Exam Fees",
+        "Library Fees",
+        "Other Fees",
+        "Total Fees",
+        "Action"
+      ];
+    }
     return [];
   };
 
   const renderRows = () => {
     return data?.map((item, index) => {
-      // if (course) {
-      //   return (
-      //     <tr key={index}>
-      //       <td>{item.course_name}</td>
-      //       <td>{item.course_type}</td>
-      //       <td>
-      //         <button
-      //           className={style["edit-btn"]}
-      //           onClick={() => handleEdit?.(item.id)}
-      //         >
-      //           Edit
-      //         </button>
-      //         <button
-      //           className={style["del-btn"]}
-      //           onClick={() => openDeleteModal?.(item.id)}
-      //         >
-      //           Delete
-      //         </button>
-      //       </td>
-      //     </tr>
-      //   );
-      // }
+       const totalFee =
+  Number(item.tuition_fee || 0) +
+  Number(item.exam_fee || 0) +
+  Number(item.library_fee || 0) +
+  Number(item.other_fee || 0);
+      if (fees) {
+        return (
+          <tr key={index}>
+            <td>{item.course_name}</td>
+            <td>{getOrdinal(item.semester_number)}</td>
+              <td>${item.tuition_fee}</td>
+            <td>${item.exam_fee}</td>
+              <td>${item.library_fee}</td>
+            <td>${item.other_fee}</td>
+              <td>${Number(totalFee)}</td>
+            <td>
+              <button
+                className={style["edit-btn"]}
+                onClick={() => handleEdit?.(item.id)}
+              >
+                Edit
+              </button>
+              <button
+                className={style["del-btn"]}
+                onClick={() => openDeleteModal?.(item.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        );
+      }
 
-      // if (semester) {
-      //   return (
-      //     <tr key={index}>
-      //       <td>{getOrdinal(item.semester_number)}</td>
-      //       {/* <td>{item.id}</td> */}
-      //       <td>{item.course_name}</td>
-      //       <td>{item.course_type}</td>
+      if (semester) {
+        return (
+          <tr key={index}>
+            <td>{getOrdinal(item.semester_number)}</td>
+            {/* <td>{item.id}</td> */}
+            <td>{item.course_name}</td>
+            <td>{item.course_type}</td>
 
-      //       <td>
-      //         <button
-      //           className={style["edit-btn"]}
-      //           onClick={() => handleEdit?.(item.id)}
-      //         >
-      //           Edit
-      //         </button>
-      //         <button
-      //           className={style["del-btn"]}
-      //           onClick={() => openDeleteModal?.(item.id)}
-      //         >
-      //           Delete
-      //         </button>
-      //       </td>
-      //     </tr>
-      //   );
-      // }
+            <td>
+              <button
+                className={style["edit-btn"]}
+                onClick={() => handleEdit?.(item.id)}
+              >
+                Edit
+              </button>
+              <button
+                className={style["del-btn"]}
+                onClick={() => openDeleteModal?.(item.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        );
+      }
 
       if (subjects) {
         return (
@@ -229,6 +250,8 @@ export default function Table({
                 ? "Subjects Table"
                 : students
                   ? "Students Detailed Table"
+                : fees 
+                  ? "Course Fees Detailed Table"
                   : "Table View"}
         </h2>
         <Image
@@ -241,6 +264,8 @@ export default function Table({
                   ? Subject
                   : students
                     ? Students
+                  : fees 
+                    ? Fees
                     : ""
           }
           height={120}

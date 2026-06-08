@@ -64,9 +64,15 @@ export interface IStudentDashboard {
   students:string[];
 }
 
+export interface IStudentCourseSummary {
+  courseName:string;
+  totalStudents:number;
+}
+
 
 export interface IStudentDashboardResponse {
   success:boolean;
   totalStudents:number;
+  students:IStudentCourseSummary[];
   dashboard:IStudentDashboard[];
 }

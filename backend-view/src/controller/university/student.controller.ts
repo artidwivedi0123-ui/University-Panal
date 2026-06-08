@@ -248,10 +248,7 @@ export const deleteStudent = async (req: Request, res: Response) => {
 };
 
 // get student Dshboard
-export const getStudentDashboard = async (
-  req: Request,
-  res: Response
-) => {
+export const getStudentDashboard = async (req: Request, res: Response) => {
   try {
     const totalResult = await pool.query(`
       SELECT COUNT(*) as total_students
@@ -279,11 +276,24 @@ export const getStudentDashboard = async (
         semesters.semester_number
     `);
 
+    const studentResult = await pool.query(
+      `
+      select 
+          courses.course_name,
+          count (*) total_students
+          from students
+          JOIN  courses  ON 
+            courses.id = students.course_id
+            GROUP BY courses.course_name`,
+    );
+
     res.status(200).json({
       success: true,
-      totalStudents: Number(
-        totalResult.rows[0].total_students
-      ),
+      totalStudents: Number(totalResult.rows[0].total_students),
+      students: studentResult.rows.map((item) => ({
+        courseName: item.course_name,
+        totalStudents: Number(item.total_students),
+      })),
       dashboard: dashboardResult.rows,
     });
   } catch (error) {

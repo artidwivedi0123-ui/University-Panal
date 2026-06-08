@@ -11,3 +11,4 @@ export {default as StuDash} from  "@/src/assets/stuDash.png";
 export {default as RegisterLogo} from "@/src/assets/register.png";
 export {default as UniversityLogo} from  "@/src/assets/universityLogo.png";
 export {default as fessLogo} from "@/src/assets/feesStructure.png";
+export {default  as Fees} from "@/src/assets/fees.png";

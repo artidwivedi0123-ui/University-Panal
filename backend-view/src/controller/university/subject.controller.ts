@@ -46,10 +46,7 @@ export const createSubjects = async (req: Request, res: Response) => {
 };
 
 // GET SUBJECTS
-export const getSubjects = async (
-  req: Request,
-  res: Response
-) => {
+export const getSubjects = async (req: Request, res: Response) => {
   try {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 5;
@@ -77,7 +74,7 @@ export const getSubjects = async (
       LIMIT $2
       OFFSET $3
       `,
-      [`%${search}%`, limit, offset]
+      [`%${search}%`, limit, offset],
     );
 
     const countResult = await pool.query(
@@ -88,12 +85,10 @@ export const getSubjects = async (
         subject_name ILIKE $1
         OR subject_code ILIKE $1
       `,
-      [`%${search}%`]
+      [`%${search}%`],
     );
 
-    const totalRecords = Number(
-      countResult.rows[0].count
-    );
+    const totalRecords = Number(countResult.rows[0].count);
 
     res.status(200).json({
       success: true,
@@ -102,9 +97,7 @@ export const getSubjects = async (
         page,
         limit,
         totalRecords,
-        totalPages: Math.ceil(
-          totalRecords / limit
-        ),
+        totalPages: Math.ceil(totalRecords / limit),
       },
     });
   } catch (error) {
@@ -151,13 +144,13 @@ export const getSubjectById = async (req: Request, res: Response) => {
 
 export const updateSubject = async (req: Request, res: Response) => {
   try {
-    
     const { id } = req.params;
-console.log("ID =", id);
-console.log("BODY =", req.body);
-    const { subject_name, subject_code, credits, semester_id, course_name } = req.body;
-   const result = await pool.query(
-  `
+    console.log("ID =", id);
+    console.log("BODY =", req.body);
+    const { subject_name, subject_code, credits, semester_id, course_name } =
+      req.body;
+    const result = await pool.query(
+      `
   UPDATE subjects
   SET
     subject_name = $1,
@@ -168,15 +161,8 @@ console.log("BODY =", req.body);
   WHERE id = $6
   RETURNING *
   `,
-  [
-    subject_name,
-    subject_code,
-    credits,
-    semester_id,
-    course_name,
-    id,
-  ]
-);
+      [subject_name, subject_code, credits, semester_id, course_name, id],
+    );
     if (result.rows.length === 0) {
       return res.status(400).json({
         success: false,
@@ -229,10 +215,7 @@ export const deleteSubject = async (req: Request, res: Response) => {
   }
 };
 
-export const getSubjectDashboard = async (
-  req: Request,
-  res: Response
-) => {
+export const getSubjectDashboard = async (req: Request, res: Response) => {
   try {
     const totalResult = await pool.query(`
       SELECT COUNT(*) AS total
@@ -256,43 +239,38 @@ export const getSubjectDashboard = async (
         semesters.semester_number
     `);
 
-
-    const courseResult  = await  pool.query(
+    const courseResult = await pool.query(
       `
-      SELECT DISTINCT course_name 
-       FROM subjects 
-       ORDER BY  course_name`
+     select DISTINCT course_name,
+    count(*)  as total_subjects  from 
+    subjects 
+    GROUP BY course_name
+    ORDER BY course_name`,
     );
 
-  const courses = courseResult.rows.map(
-  (item) => item.course_name
-);
-    const semesterWise =
-      dashboardResult.rows.map((item) => ({
-        courseName: item.course_name,
-        semester: item.semester_number,
-        totalSubjects: Number(
-          item.total_subjects
-        ),
-        subjects: item.subject_names,
-      }));
+    
+    const semesterWise = dashboardResult.rows.map((item) => ({
+      courseName: item.course_name,
+      semester: item.semester_number,
+      totalSubjects: Number(item.total_subjects),
+      subjects: item.subject_names,
+    }));
 
-    res.status(200).json({
-      success: true,
-      totalSubjects: Number(
-        totalResult.rows[0].total
-      ),
-      semesterWise,
-      courses
-    });
-
+  res.status(200).json({
+  success: true,
+  totalSubjects: Number(totalResult.rows[0].total),
+  courses: courseResult.rows.map((item) => ({
+    courseName: item.course_name,
+    totalSubjects: Number(item.total_subjects),
+  })),
+  semesterWise,
+});
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
       success: false,
-      message:
-        "Error in fetching Subject Dashboard",
+      message: "Error in fetching Subject Dashboard",
     });
   }
 };

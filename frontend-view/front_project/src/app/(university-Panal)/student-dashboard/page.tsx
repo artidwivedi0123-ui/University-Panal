@@ -8,14 +8,16 @@ import { getOrdinal } from "@/src/utils/app.utils";
 
 export default function SubjectDashPage() {
 
- const {stuDashboard,totalStudents} = useStudentsState();
+ const {stuDashboard,totalStudents,
+  courses,
+ } = useStudentsState();
 
  const cards = [
   {
     title: "Total Students",
     count: totalStudents,
+    students:courses.map((s)=> `${s.courseName} (${s.totalStudents})`),
      image: StuDash,
-    students: [],
    
   },
 

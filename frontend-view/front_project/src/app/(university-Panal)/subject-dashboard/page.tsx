@@ -15,12 +15,14 @@ export default function SubjectDashPage() {
   } = UseSubjectState();
 
 const cards = [
-  {
-    title: "Total Subjects",
-    count: totalSubjects,
-    image: SubDash,
-    subjects: courses,
-  },
+ {
+  title: "Total Subjects",
+  count: totalSubjects,
+  subjects: courses.map(
+    (c) => `${c.courseName} (${c.totalSubjects})`
+  ),
+  image: SubDash,
+},
 
   ...subDashboard.map((item) => ({
     title: `${item.courseName} - Semester :)

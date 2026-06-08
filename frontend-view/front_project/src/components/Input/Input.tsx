@@ -19,7 +19,7 @@ export default function Input({
         <>
         <input 
         name={name}
-        value={value}
+        value={value ?? ""}
         placeholder={placeholder}
         type={type}
         className={classname}

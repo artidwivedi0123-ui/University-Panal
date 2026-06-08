@@ -1,9 +1,7 @@
 
 interface SelectProps {
   name: string;
-
   value: string | number;
-
   onChange: (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => void;
@@ -22,24 +20,24 @@ export default function Select({
   options,
 }: SelectProps) {
   return (
-    <select
-      name={name}
-      value={value || ""}
-      onChange={onChange}
-      className={classname}
-    >
-      <option value="">
-        Select Option
-      </option>
+   <select
+  name={name}
+  value={value}
+  onChange={onChange}
+  className={classname}
+>
+  <option value="">
+    Select Option
+  </option>
 
-      {options.map((option,index) => (
-        <option
-          key={index}
-          value={option.value}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
+  {options.map((option) => (
+    <option
+      key={option.value}
+      value={option.value}
+    >
+      {option.label}
+    </option>
+  ))}
+</select>
   );
 }

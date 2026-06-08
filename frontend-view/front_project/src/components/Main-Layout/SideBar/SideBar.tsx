@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   Courses,
   DashboardImg,
+  Fees,
   Semester,
   StuDash,
   Students,
@@ -24,17 +25,17 @@ export default function Sidebar() {
       image:DashboardImg
     },
     {
-      title: "Courses",
+      title: "Available Courses",
       route: "/courses",
       image: Courses,
     },
     {
-      title: "Semesters",
+      title: "Available Semesters",
       route: "/semesters",
       image: Semester,
     },
     {
-      title: "Subjects",
+      title: "Subjects Management",
       route: "/subjects",
       image: Subject,
     },
@@ -44,7 +45,7 @@ export default function Sidebar() {
       image:SubDash
     },
     {
-      title: "Students",
+      title: "Students Management",
       route: "/students",
       image: Students,
     },
@@ -53,6 +54,11 @@ export default function Sidebar() {
       route:"/student-dashboard",
       image:StuDash
     },
+    {
+      title:"Fee Structure Management",
+      route:"/fee-structure",
+      image:Fees
+    }
   
   ];
 

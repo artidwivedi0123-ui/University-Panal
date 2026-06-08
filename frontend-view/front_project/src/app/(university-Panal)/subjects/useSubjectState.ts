@@ -1,5 +1,6 @@
 import Dashboard from "@/src/components/Dashboard/Dashboard";
 import {
+  ICourseSummary,
   ISubjectById,
   ISubjectDashboard,
   ISubjectData,
@@ -24,7 +25,7 @@ const [limit,setLimit] = useState<number>(10);
 const [search, setSearch] = useState<string>("");
 const [searchInput, setSearchInput] = useState<string>("");
 const [totalPages, setTotalPages] = useState<number>(0);
-const [courses, setCourses] =useState<string[]>([]);
+const [courses, setCourses] =useState<ICourseSummary[]>([]);
 const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [subDashboard,setSubDashboard] = useState<ISubjectDashboard[]>([]);
@@ -87,8 +88,6 @@ const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
     };
 
     if (isEdit) {
-       console.log("Edit ID =", id);
-  console.log("Payload =", payload);
 
       SubjectApiProvider.apolloInstance.updateSubject(
         Number(id),

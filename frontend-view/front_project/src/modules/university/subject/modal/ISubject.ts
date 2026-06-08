@@ -54,9 +54,15 @@ export interface ISubjectDashboard {
     subjects:string[];
 }
 
-export interface ISubjectDashboardResponse {
-  success:boolean;
-  totalSubjects:number;
-  courses:string[];
-  semesterWise:ISubjectDashboard[];
+
+export interface ICourseSummary {
+  courseName: string;
+  totalSubjects: number;
 }
+
+export interface ISubjectDashboardResponse {
+  success: boolean;
+  totalSubjects: number;
+  courses: ICourseSummary[];
+  semesterWise: ISubjectDashboard[];
+};

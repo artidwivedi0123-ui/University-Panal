@@ -32,5 +32,14 @@ export const STUDENT ={
 
 export const AUTH  = {
     REGISTER:'/auth/register/create',
-    LOGIN:'/auth/login/create'
+    LOGIN:'/auth/login/create',
+    FORGOTPASSWORD:'/auth/forgot-password/create',
+}
+
+
+export const FEES = {
+    CREATEFEES:'/api/fee-structure/create',
+    GETFEES:'/api/fee-structure',
+    DELETEFEES:'/api/fee-structure',
+    UPDATEFEES:'/api/fee-structure',
 }

@@ -1,5 +1,6 @@
 import {
   IStudentById,
+  IStudentCourseSummary,
   IStudentDashboard,
   IStudentsData,
   IStudentsInput,
@@ -21,6 +22,7 @@ const [showModal,setShowModal] = useState<boolean>(false);
   const [page,setPage] = useState<number>(1);
   const [limit,setLimit] = useState<number>(10);
   const [search,setSearch] = useState<string>("");
+  const [courses,setCourses] = useState<IStudentCourseSummary[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
   const [totalPages,setTotalPages]= useState<number>(0);
   const [totalRecordStu,setTotalRecordStu]= useState<number>(0);
@@ -204,6 +206,7 @@ const fetchStuDashboard = () => {
     (res)=>{
       setStuDashboard(res.dashboard);
       setTotalStudents(res.totalStudents);
+      setCourses(res.students);
     },
     (err)=>{
       toast.error("Error  in fetching Students Dashboard");
@@ -241,6 +244,7 @@ useEffect(()=>{
     handleSearch,
     totalRecordStu,
     totalStudents,
-    stuDashboard
+    stuDashboard,
+    courses
   };
 };
