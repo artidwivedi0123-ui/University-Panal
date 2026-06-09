@@ -3,7 +3,8 @@ export const UNIVERSITY_SECTION_TYPE = {
     SEMESTERS:"semesters",
     STUDENTS:"students",
     SUBJECTS:"subjects",
-    FEESTRUCTURE:"fee-structure"
+    FEESTRUCTURE:"fee-structure",
+    STUDENTFEES:"student-fees"
     // CREATE_STUDENTS:"add-students"
 } as  const;
 

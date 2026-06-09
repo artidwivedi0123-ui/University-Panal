@@ -9,6 +9,7 @@ import studentRoutes  from "./routes/university/student.routes.js"
 import loginRoutes from "./routes/auth/login.routes.js";
 import registerRoutes from "./routes/auth/register.routes.js";
 import feesStructureRoutes from  "./routes/fees-management/fee-structure.routes.js";
+import studentFeesRoutes from  "./routes/fees-management/student-fee.routes.js";
 dotenv.config();
 
 const app = express();
@@ -18,7 +19,7 @@ app.get("/", (req, res) => {
 });
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -35,8 +36,8 @@ app.use("/api/subject",subjectRoutes);
 app.use("/api/student",studentRoutes);
 
 // Fees Struture 
-
 app.use("/api/fee-structure",feesStructureRoutes);
+app.use("/api/student-fees",studentFeesRoutes);
 
 // app.get("/test-db", async (req, res) => {
 

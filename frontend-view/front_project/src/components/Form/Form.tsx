@@ -7,6 +7,8 @@ import Input from "../Input/Input";
 import { ICourseData } from "@/src/modules/university/course/modal/ICourse";
 import { ISemesterData } from "@/src/modules/university/semester/modal/ISemester";
 import Select from "../select/Select";
+import { IStudentsData } from "@/src/modules/university/student/modal/IStudents";
+import { IFeeStructureData } from "@/src/modules/fees/fees-struct/modal/IFees";
 interface FormProps {
   formData: any;
   handleChange: (
@@ -15,6 +17,8 @@ interface FormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   course?: ICourseData[];
   semester?: ISemesterData[];
+  students?:IStudentsData[];
+  feeStructure?:IFeeStructureData[],
   type: UNIVERSITY_SECTION_PAGES_ROUTES;
 }
 
@@ -25,28 +29,57 @@ export default function Form({
   onSubmit,
   semester,
   course,
+  students,
+  feeStructure
 }: FormProps) {
   const cou = type === UNIVERSITY_SECTION_TYPE.COURSES;
   const sem = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
   const sub = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
   const stu = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
-  //   console.log(
-  //   "semester_id",
-  //   formData.semester_id,
-  //   typeof formData.semester_id
-  // );
+ const stufees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
+
+
 
   const filteredSemesters =
     semester?.filter(
       (sem) => Number(sem.course_id) === Number(formData.course_id),
     ) || [];
 
- const totalFee =
-  Number(formData.tuition_fee || 0) +
-  Number(formData.exam_fee || 0) +
-  Number(formData.library_fee || 0) +
-  Number(formData.other_fee || 0);
+const selectedFee = feeStructure?.find(
+  fee => fee.id === Number(formData.fee_structure_id)
+);
+
+const totalamount = Number(selectedFee?.total_fee || 0);
+const remaining =
+  totalamount - Number(formData.amount_paid || 0);
+
+const totalFee =
+   Number(formData.tuition_fee || 0) +
+   Number(formData.exam_fee || 0) +
+   Number(formData.library_fee || 0) +
+   Number(formData.other_fee || 0);
+
+let payment_status = "Pending";
+
+if (remaining <= 0) {
+  payment_status = "Paid";
+} else if (remaining > 0) {
+  payment_status = "Partial";
+}
+
+const selectedStudent = students?.find(
+  (student) => Number(student.id) === Number(formData.student_id)
+);
+// console.log("Selected Students",selectedStudent);
+
+
+const filteredFees = feeStructure?.filter(
+  (fee) =>
+    fee.course_name === selectedStudent?.course_name &&
+    Number(fee.semester_number) ===
+      Number(selectedStudent?.semester_number)
+);
   return (
     <div className={style["container"]}>
       <h2 className={style["heading"]}>
@@ -55,6 +88,7 @@ export default function Form({
         {sub && "Add Subject in University Panel"}
         {stu && "Add Students in University  Panel"}
         {fees && "Add Fees Details in University Panal"}
+        {stufees && "Add Student Fees Details in University Panal"}
       </h2>
 
       <form className={style["form"]} onSubmit={onSubmit}>
@@ -378,10 +412,91 @@ export default function Form({
               type="number"
               placeholder="Enter Amount of Total Fees"
               classname={style["input"]}
-              
             />
           </>
         )}
+
+      {stufees && (
+  <>
+    <label className={style["label"]}>
+      Student
+    </label>
+    <Select
+      name="student_id"
+      value={formData.student_id || ""}
+      onChange={handleChange}
+      classname={style["select"]}
+      options={
+        students?.map((student) => ({
+          label: `${student.name} (${student.roll_number})`,
+          value: student.id!,
+        })) || []
+      }
+    />
+
+    <label className={style["label"]}>
+      Fee Structure
+    </label>
+    <Select
+  name="fee_structure_id"
+  value={formData.fee_structure_id || ""}
+  onChange={handleChange}
+  classname={style["select"]}
+  options={
+    filteredFees?.map((fee) => ({
+      label: `${fee.course_name} - Semester ${fee.semester_number} - ₹${fee.total_fee}`,
+      value: fee.id!,
+    })) || []
+  }
+/>
+
+    <label className={style["label"]}>
+      Amount Paid
+    </label>
+    <Input
+      name="amount_paid"
+      value={formData.amount_paid}
+      onChange={handleChange}
+      type="number"
+      placeholder="Enter Amount Paid"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Payment Date
+    </label>
+    <Input
+      name="payment_date"
+      value={formData.payment_date}
+      onChange={handleChange}
+      type="date"
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Due Amount
+    </label>
+    <Input
+      name="due_amount"
+      value={remaining}
+      type="number"
+      onChange={handleChange}
+      classname={style["input"]}
+    />
+
+    <label className={style["label"]}>
+      Payment Status
+    </label>
+    <Input
+      name="payment_status"
+      value={payment_status}
+      type="text"
+      onChange={handleChange}
+      classname={style["input"]}
+      placeholder="Enter Payment Status"
+    />
+  </>
+)}
 
         <button className={style["button"]} type="submit">
           {cou && "Add Course"}
@@ -389,6 +504,7 @@ export default function Form({
           {sub && "Add Subjects"}
           {stu && "Add Students"}
           {fees && "Add Fees Record"}
+          {stufees && "Add Student Fees Record"}
         </button>
       </form>
     </div>

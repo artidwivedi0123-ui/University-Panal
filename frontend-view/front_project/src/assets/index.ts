@@ -12,3 +12,5 @@ export {default as RegisterLogo} from "@/src/assets/register.png";
 export {default as UniversityLogo} from  "@/src/assets/universityLogo.png";
 export {default as fessLogo} from "@/src/assets/feesStructure.png";
 export {default  as Fees} from "@/src/assets/fees.png";
+export {default as StudentFees} from "@/src/assets/studentFees.png";
+export {default as FeesDash} from "@/src/assets/feesDash.png";

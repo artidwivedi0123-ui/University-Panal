@@ -2,8 +2,8 @@ import {
     IFeesDetailsById,
   IFeeStructureData,
   IFeeStructureInput,
-} from "@/src/modules/fees/modal/IFees";
-import { FeesApiProvider } from "@/src/modules/fees/provider/fees.provider";
+} from "@/src/modules/fees/fees-struct/modal/IFees";
+import { FeesApiProvider } from "@/src/modules/fees/fees-struct/provider/fees.provider";
 import { useParams, useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";

@@ -41,6 +41,16 @@ export default function FeeStructureFees(){
                     message="Are you really  want to  delete  this Fees Record"
                     onCancel={closeDeleteModal}
                     onConfirm={handleDeleteFeesRecord}
+                    title="Delete Fees Record"
+                    />
+                )
+            }  {
+                showModal && (
+                    <ModalBox 
+                    confirmText="Delete"
+                    message="Are you really  want to  delete  this Fees Record"
+                    onCancel={closeDeleteModal}
+                    onConfirm={handleDeleteFeesRecord}
                     title="Delte Fees Record"
                     />
                 )

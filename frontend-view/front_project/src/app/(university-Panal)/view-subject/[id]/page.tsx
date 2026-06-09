@@ -3,7 +3,7 @@
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseSubjectState } from "../../subjects/useSubjectState";
 import DetailCard from "@/src/components/Card/Card";
-import { SubDash } from "@/src/assets";
+
 
 export default function SubjectDetails() {
   const {

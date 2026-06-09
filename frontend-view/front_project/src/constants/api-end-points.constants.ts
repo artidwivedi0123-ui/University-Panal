@@ -43,3 +43,11 @@ export const FEES = {
     DELETEFEES:'/api/fee-structure',
     UPDATEFEES:'/api/fee-structure',
 }
+
+
+export const STUDENTFEES = {
+    CREATESTUDFEES:'/api/student-fees/create',
+    GETSTUDFEES:'/api/student-fees',
+    DELETESTUDFEES:'/api/student-fees',
+    UPDATESTUDFEES:'/api/student-fees'
+}

@@ -8,3 +8,29 @@ export  function capitialize(str:string){
     return  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
 }
+
+
+export const formatDateTime = (date: string) => {
+  return new Date(date).toLocaleString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+    weekday:"short",
+    minute:"2-digit",
+    second:"2-digit",
+    hour:"2-digit",
+    hour12: true,
+  });
+};
+
+
+export const currencyFormatter = (rupees: number): string => {
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    // Optional: Removes decimal paisa (.00) if you only want whole numbers
+    maximumFractionDigits: 0 
+  });
+
+  return formatter.format(rupees);
+}

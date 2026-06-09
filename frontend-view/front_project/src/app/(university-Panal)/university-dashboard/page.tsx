@@ -24,6 +24,7 @@ export default function UniversityDashboardPage() {
     return (
 
         <MainLayout>
+            <h2>Dashboard Summary for the University</h2>
             <Dashboard
                 cards={dashboardDetails}
             />

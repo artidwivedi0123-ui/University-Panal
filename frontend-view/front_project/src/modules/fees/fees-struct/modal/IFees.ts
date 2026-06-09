@@ -27,15 +27,13 @@ export interface IFeesDetailsByIdResponse{
     data:IFeesDetailsById;
 }
 
-export interface IFeeStructureData  {
-    id:number;
-    course_name:string;
-    semester_number:number;
-    tuition_fee:number;
-    exam_fee:number;
-    library_fee:number;
-    other_fee:number;
-    total_fee?:number;
+export interface IFeeStructureData {
+    id?: number;
+    course_id: number;
+    semester_id: number;
+    course_name: string;
+    semester_number: number;
+    total_fee: number;
 }
 
 
@@ -49,3 +47,5 @@ export interface IFeeStructureResponse {
         totalPage:number;
     };
 };
+
+

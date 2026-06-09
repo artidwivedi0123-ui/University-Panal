@@ -10,10 +10,11 @@ import {
   FIcon,
   MIcon,
   Semester,
+  StudentFees,
   Students,
   Subject,
 } from "@/src/assets";
-import { getOrdinal } from "@/src/utils/app.utils";
+import { currencyFormatter, formatDateTime, getOrdinal } from "@/src/utils/app.utils";
 
 interface TableProps {
   data: any[];
@@ -54,6 +55,7 @@ export default function Table({
   const subjects = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
   const students = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
+  const stuFees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
   const getHeaders = () => {
     if (course) {
       return ["Course Name", "Course Type", "Actions"];
@@ -96,26 +98,41 @@ export default function Table({
         "Action"
       ];
     }
+
+    if(stuFees) {
+      return [
+        "Student Name",
+        "Roll Number",
+        "Course Name",
+        "Semester",
+        "Total Fees",
+        "Amount Paid",
+        "Due Amount",
+        "Payment Status",
+        "Payment Date",
+        "Action"
+      ]
+    }
     return [];
   };
 
   const renderRows = () => {
     return data?.map((item, index) => {
-       const totalFee =
-  Number(item.tuition_fee || 0) +
-  Number(item.exam_fee || 0) +
-  Number(item.library_fee || 0) +
-  Number(item.other_fee || 0);
+       const totalFee = Number(item.tuition_fee || 0) +
+                        Number(item.exam_fee || 0) +
+                        Number(item.library_fee || 0) +
+                        Number(item.other_fee || 0);
+                     
       if (fees) {
         return (
           <tr key={index}>
             <td>{item.course_name}</td>
             <td>{getOrdinal(item.semester_number)}</td>
-              <td>${item.tuition_fee}</td>
-            <td>${item.exam_fee}</td>
-              <td>${item.library_fee}</td>
-            <td>${item.other_fee}</td>
-              <td>${Number(totalFee)}</td>
+              <td>{currencyFormatter(item.tuition_fee)}</td>
+            <td>{currencyFormatter(item.exam_fee)}</td>
+              <td>{currencyFormatter(item.library_fee)}</td>
+            <td>{currencyFormatter(item.other_fee)}</td>
+              <td>{currencyFormatter(Number(totalFee))}</td>
             <td>
               <button
                 className={style["edit-btn"]}
@@ -132,6 +149,37 @@ export default function Table({
             </td>
           </tr>
         );
+      }
+
+
+      if(stuFees) {
+        return (
+          <tr key={index}>
+           <td>{item.name}</td>
+           <td>{item.roll_number}</td>
+           <td>{item.course_name}</td>
+           <td>{getOrdinal(item.semester_number)}</td>
+           <td>{currencyFormatter(item.total_fee)}</td>
+           <td>{currencyFormatter(item.amount_paid)}</td>
+           <td>{currencyFormatter(item.due_amount)}</td>
+           <td>{item.payment_status}</td>
+           <td>{formatDateTime(item.payment_date)}</td>
+            <td>
+              <button
+                className={style["edit-btn"]}
+                onClick={() => handleEdit?.(item.id)}
+              >
+                Edit
+              </button>
+              <button
+                className={style["del-btn"]}
+                onClick={() => openDeleteModal?.(item.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        )
       }
 
       if (semester) {
@@ -252,6 +300,8 @@ export default function Table({
                   ? "Students Detailed Table"
                 : fees 
                   ? "Course Fees Detailed Table"
+                : stuFees 
+                  ? "Student Fees Detailed Table"
                   : "Table View"}
         </h2>
         <Image
@@ -266,6 +316,8 @@ export default function Table({
                     ? Students
                   : fees 
                     ? Fees
+                  : stuFees
+                      ? StudentFees
                     : ""
           }
           height={120}

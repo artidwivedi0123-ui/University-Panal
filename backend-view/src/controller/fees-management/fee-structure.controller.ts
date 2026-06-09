@@ -67,7 +67,9 @@ export const getFeeStructure = async (req: Request, res: Response) => {
     const feeStruct = await pool.query(
       `
           select 
-                fee_structure.id,
+                 fee_structure.id,
+                fee_structure.course_id,
+                fee_structure.semester_id,
                 courses.course_name,
                 semesters.semester_number,
                 fee_structure.tuition_fee,
@@ -76,13 +78,13 @@ export const getFeeStructure = async (req: Request, res: Response) => {
                 fee_structure.other_fee,
                 fee_structure.total_fee
                 FROM fee_structure
-                JOIN courses ON 
-                fee_structure.course_id = courses.id
-                JOIN semesters ON
-                fee_structure.semester_id = semesters.id
+                JOIN courses
+                  ON fee_structure.course_id = courses.id
+                  JOIN semesters
+                  ON fee_structure.semester_id = semesters.id
                 WHERE courses.course_name  ILIKE $1
                 OR semesters.semester_number::TEXT ILIKE $1
-                ORDER BY semesters.id ASC
+                ORDER BY courses.id ASC
                 LIMIT $2
                 OFFSET $3
             `,
@@ -232,3 +234,28 @@ export const getFeeStructureById = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+export const feesStrctureDashboard =   async (
+  req:Request,
+  res:Response,
+)=>{
+  try {
+    const totalResult = await pool.query(
+      `
+      SELECT SUM(tuition_fee) as total_tuition_fee,
+courses.course_name 
+from fee_structure JOIN courses ON 
+fee_structure.course_id = courses.id 
+WHERE courses.course_name = 'MCA'
+GROUP BY courses.course_name;
+      `
+    );
+    res.status(200).json({
+      success:true,
+    result:totalResult.rows[0],
+  });
+  } catch (error) {
+    
+  }
+}

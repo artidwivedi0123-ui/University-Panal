@@ -6,13 +6,16 @@ import {
   Courses,
   DashboardImg,
   Fees,
+  FeesDash,
   Semester,
   StuDash,
+  StudentFees,
   Students,
   SubDash,
   Subject,
   UniversityLogo,
 } from "@/src/assets";
+import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
 
 
 export default function Sidebar() {
@@ -21,44 +24,55 @@ export default function Sidebar() {
   const menus = [
      {
       title:"Dashboard",
-      route:"/university-dashboard",
+      route:UNIVERSITYROUTES.UNIVERSITYDASHBOARD,
       image:DashboardImg
     },
     {
       title: "Available Courses",
-      route: "/courses",
+      route: UNIVERSITYROUTES.COURSES,
       image: Courses,
     },
     {
       title: "Available Semesters",
-      route: "/semesters",
+      route: UNIVERSITYROUTES.SEMESTERS,
       image: Semester,
     },
     {
       title: "Subjects Management",
-      route: "/subjects",
+      route: UNIVERSITYROUTES.SUBJECTS,
       image: Subject,
     },
      {
       title:"Subject Dashboard",
-      route:"/subject-dashboard",
+      route:UNIVERSITYROUTES.SUBJECTDASHBOARD,
       image:SubDash
     },
     {
       title: "Students Management",
-      route: "/students",
+      route: UNIVERSITYROUTES.STUDENTS,
       image: Students,
     },
       {
       title:"Student Dashboard",
-      route:"/student-dashboard",
+      route:UNIVERSITYROUTES.STUDENTDASHBOARD,
       image:StuDash
     },
     {
       title:"Fee Structure Management",
       route:"/fee-structure",
       image:Fees
+    },
+    {
+      title:"Fee Structure Dashboard",
+      route:"/",
+      image:FeesDash
+    },
+    {
+      title:"Student Fees Management",
+      route:"/student-fees",
+      image:StudentFees
     }
+
   
   ];
 
