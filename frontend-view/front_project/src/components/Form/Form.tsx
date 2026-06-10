@@ -180,9 +180,7 @@ const filteredFees = feeStructure?.filter(
               type="text"
               classname={style["input"]}
             />
-
             <label className={style["label"]}>Credits</label>
-
             <Input
               name="credits"
               value={formData.credits || 4}

@@ -236,26 +236,48 @@ export const getFeeStructureById = async (req: Request, res: Response) => {
 };
 
 
-export const feesStrctureDashboard =   async (
-  req:Request,
-  res:Response,
-)=>{
+export const getFeeStructureDashboard = async (
+  req: Request,
+  res: Response
+) => {
   try {
-    const totalResult = await pool.query(
-      `
-      SELECT SUM(tuition_fee) as total_tuition_fee,
-courses.course_name 
-from fee_structure JOIN courses ON 
-fee_structure.course_id = courses.id 
-WHERE courses.course_name = 'MCA'
-GROUP BY courses.course_name;
-      `
-    );
+
+
+    const totalFeeResult = await pool.query(`
+      SELECT SUM(total_fee) AS total_fee
+      FROM fee_structure
+    `);
+
+    const courseSummaryResult = await pool.query(`
+      SELECT
+        c.id,
+        c.course_name,
+        SUM(fs.tuition_fee) AS tuition_fee,
+        SUM(fs.exam_fee) AS exam_fee,
+        SUM(fs.library_fee) AS library_fee,
+        SUM(fs.other_fee) AS other_fee,
+        SUM(fs.total_fee) AS total_fee
+      FROM fee_structure fs
+      JOIN courses c
+      ON fs.course_id = c.id
+      GROUP BY c.id,c.course_name
+      ORDER BY c.course_name
+    `);
     res.status(200).json({
-      success:true,
-    result:totalResult.rows[0],
-  });
+      success: true,
+      data: {
+        totalFee:
+          Number(totalFeeResult.rows[0].total_fee) || 0,
+        courses: courseSummaryResult.rows
+      }
+    });
+
   } catch (error) {
-    
+    console.error(error);
+
+    res.status(500).json({
+      success:false,
+      message:"Error fetching dashboard"
+    });
   }
-}
+};

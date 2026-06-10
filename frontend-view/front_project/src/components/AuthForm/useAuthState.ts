@@ -146,12 +146,10 @@ const router  = useRouter();
           "full_name",
           user.full_name
         );
-
         toast.success(
           "Login Successful"
         );
         router.push("/university-dashboard")
-
         setLoading(false);
       },
 

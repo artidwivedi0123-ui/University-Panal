@@ -1,9 +1,15 @@
 import { Request, Response } from "express";
 import pool from "../../db/db.js";
+
+
+
+//  Note: In Semester  Data the create,getId,update,delete are  not required  for  the UI as  in University Panel the  Semesters are 
+//  mostly defined so for UI there is  only the use  simple get api (for Card  form) 
+//  but  available  here  for  the Testing and Practice with the  Postman 
+// create Semester
 export const createSemester = async (req: Request, res: Response) => {
   try {
     const { semester_number, course_id } = req.body;
-
     if (!semester_number || !course_id) {
       return res.status(400).json({
         success: false,
@@ -37,7 +43,7 @@ export const getSemester = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
                 `
-                    SELECT
+          SELECT
           semesters.id,
           semesters.semester_number,
           semesters.course_id,
@@ -61,7 +67,7 @@ export const getSemester = async (req: Request, res: Response) => {
     });
   }
 };
-
+//  get By Id
 export const getSemesterById = async (
   req: Request,
   res: Response
@@ -69,6 +75,12 @@ export const getSemesterById = async (
   try {
     const { id } = req.params;
 
+      if (isNaN(Number(id))) {
+      return res.status(404).json({
+        success: false,
+        message: "Id must be valid number",
+      });
+    }
     const result = await pool.query(
       `
       SELECT *
@@ -77,21 +89,18 @@ export const getSemesterById = async (
       `,
       [id]
     );
-
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Semester not found",
+        message: "Semester Id is not found in DB",
       });
     }
-
     res.status(200).json({
       success: true,
       data: result.rows[0],
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Error fetching Semester",
@@ -99,6 +108,7 @@ export const getSemesterById = async (
   }
 };
 
+// Update Semester
 export const updateSemester = async (
   req: Request,
   res: Response
@@ -109,6 +119,28 @@ export const updateSemester = async (
       semester_number,
       course_id,
     } = req.body;
+
+    if(isNaN(Number(id))){
+       return  res.status(404).json({
+        success:false,
+        message:"Id must be a valid number"
+      });
+    }
+
+    if(!semester_number || !course_id){
+      return res.status(200).json({
+        success:true,
+        message:"Semester Number and Course Id  must be required"
+      });
+    }
+
+    if(isNaN(Number(semester_number)) || isNaN(Number(course_id))){
+      return res.status(404).json({
+          success:false,
+          message:"Both Semester Number and Course Id must be a number",
+      });
+    }
+
     const result = await pool.query(
       `
       UPDATE courses
@@ -148,6 +180,7 @@ export const updateSemester = async (
   }
 };
 
+//  Delete Semester
 export const deleteSemester = async (
   req: Request,
   res: Response
@@ -155,6 +188,12 @@ export const deleteSemester = async (
   try {
     const { id } = req.params;
 
+      if(isNaN(Number(id))){
+       return  res.status(404).json({
+        success:false,
+        message:"Id must be a valid number"
+      });
+    }
     const result = await pool.query(
       `
       DELETE FROM semesters
@@ -167,7 +206,7 @@ export const deleteSemester = async (
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Course not found",
+        message: "Semester id  not found in DB",
       });
     }
 

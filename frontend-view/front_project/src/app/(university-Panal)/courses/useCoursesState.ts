@@ -1,14 +1,14 @@
 import { ICourseData } from "@/src/modules/university/course/modal/ICourse";
 import { CourseApiProvider } from "@/src/modules/university/course/provider/courseProvider";
 import {  useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useCoursesState = () => {
   const [course, setCourse] = useState<ICourseData[]>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const fetchCourses = () => {
+  const fetchCourses = useCallback(() => {
     setLoading(true);
     CourseApiProvider.apolloInstance.getCourse(
       (res) => {
@@ -20,14 +20,11 @@ export const useCoursesState = () => {
         console.error(err);
       },
     );
-  };
+  },[loading]);
 
   useEffect(() => {
     fetchCourses();
   }, []);
-
-
-
 
   return {
     course,

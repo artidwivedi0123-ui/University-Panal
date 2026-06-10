@@ -14,13 +14,81 @@ export const createStudents = async (req: Request, res: Response) => {
       grade_points,
       result,
     } = req.body;
-    //    console.log(course_id,semester_id);
-    if (!course_id || !semester_id) {
-      return res.status(400).json({
-        success: false,
-        message: "Please provided  the  Student's course and semester",
+
+
+  switch(true){
+    case !semester_id && !course_id: 
+    return res.status(404).json({
+      success:false,
+      message:"Please Provide the  Semester Id and Course Id",
+    });
+
+    case !name.trim():
+      return  res.status(404).json({
+        success:false,
+        message:"Student Name must be required"
       });
-    }
+
+      case !roll_number.trim(): 
+      return res.status(404).json({
+        success:false,
+        message:"Student Roll Number must be required",
+      })
+    
+      case !grade_points: 
+      return res.status(404).json({
+        success:false,
+        message:"Grade Points must be Required",
+      });
+
+      case !gender:
+        return res.status(404).json({
+          success:false,
+          message:"Gender must be Required",
+        });
+
+         case !["M","F"].includes(gender):
+        return res.status(404).json({
+          success:false,
+          message:"Gender must be Male and Female",
+        });
+        case !result: 
+        return res.status(404).json({
+          success:false,
+          message:"Result must be Required",
+        });
+
+         case !["Pass","Fail"].includes(result):
+        return res.status(404).json({
+          success:false,
+          message:"Result  must be Pass and Fail",
+        });
+
+      case !marks:
+        return res.status(404).json({
+          success:true,
+          message:"Marks must be Required",
+        });
+
+      case marks < 0 || marks >100 :
+         return res.status(404).json({
+          success:false,
+          message:"Marks must be  lie between 0 to 100",
+        });
+
+      case !grade_points :
+        return res.status(404).json({
+          success:false,
+          message:"Grade Points must be  Required",
+        });
+
+      case grade_points < 0 || grade_points > 10 :
+        return res.status(404).json({
+          success:false,
+          message:"Grade Points  must be  between 0 to 10",
+        });   
+  }
+
     const results = await pool.query(
       `
         INSERT INTO students 
@@ -125,6 +193,13 @@ export const getstudentById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
+    if(isNaN(Number(id))){
+      return res.status(404).json({
+        success:false,
+        message:"Id must be a valid number"
+      });
+    }
+
     const result = await pool.query(
       `
             SELECT * 
@@ -136,7 +211,7 @@ export const getstudentById = async (req: Request, res: Response) => {
     if (result.rows.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "Student not found",
+        message: "Student not found in DB",
       });
     }
     res.status(200).json({
@@ -168,6 +243,14 @@ export const updateStudent = async (req: Request, res: Response) => {
       result,
     } = req.body;
 
+    if(isNaN(Number(id))){
+      return res.status(404).json({
+        success:false,
+        message:"Id must be  a number",
+      });
+    }
+
+
     const results = await pool.query(
       `
         UPDATE students
@@ -198,7 +281,7 @@ export const updateStudent = async (req: Request, res: Response) => {
     if (results.rows.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "Student not found",
+        message: "Student not found in DB",
       });
     }
     res.status(201).json({

@@ -6,30 +6,32 @@ import {
   IStudentsInput,
 } from "@/src/modules/university/student/modal/IStudents";
 import { StudentApiProvider } from "@/src/modules/university/student/provider/studentProvider";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
 
 export const useStudentsState = () => {
   const params = useParams();
-  const id  = params?.id as string;
+  const id = params?.id as string;
   const isEdit = !!id;
   const [students, setStudents] = useState<IStudentsData[]>([]);
-  const [studentDetails, setStudentDetails] = useState<IStudentById | null>(null);
-const [selectedStudentId,setSelectedStudentId]  = useState<number | null>(null);
-const [showModal,setShowModal] = useState<boolean>(false);
+  const [studentDetails, setStudentDetails] = useState<IStudentById | null>(
+    null,
+  );
+  const [selectedStudentId, setSelectedStudentId] = useState<number | null>(
+    null,
+  );
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [page,setPage] = useState<number>(1);
-  const [limit,setLimit] = useState<number>(10);
-  const [search,setSearch] = useState<string>("");
-  const [courses,setCourses] = useState<IStudentCourseSummary[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [search, setSearch] = useState<string>("");
+  const [courses, setCourses] = useState<IStudentCourseSummary[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [totalPages,setTotalPages]= useState<number>(0);
-  const [totalRecordStu,setTotalRecordStu]= useState<number>(0);
-  const [stuDashboard,setStuDashboard] = useState<IStudentDashboard[]>([]);
-  const [totalStudents,setTotalStudents]= useState<number>(0);
-  // console.log(params.id);
-
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalRecordStu, setTotalRecordStu] = useState<number>(0);
+  const [stuDashboard, setStuDashboard] = useState<IStudentDashboard[]>([]);
+  const [totalStudents, setTotalStudents] = useState<number>(0);
   const [studentData, setStudentData] = useState<IStudentsInput>({
     name: "",
     roll_number: "",
@@ -62,7 +64,7 @@ const [showModal,setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     fetchStudents();
-  }, [page,search]);
+  }, [page, search]);
 
   const handleChangeStudent = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -70,154 +72,157 @@ const [showModal,setShowModal] = useState<boolean>(false);
     const { name, value } = e.target;
     setStudentData((prev) => ({
       ...prev,
-      [name]: ["marks", "grade_points", "course_id", "semester_id"].includes(
-        name,
-      )
-        ? value
-          ? Number(value)
-          : 0
-        : value,
+      [name]: value
     }));
   };
-  const handleSubmitStudent = (
-  e: React.FormEvent<HTMLFormElement>
-) => {
-  e.preventDefault();
+  const handleSubmitStudent = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const payload: IStudentsInput = {
+      name: studentData.name,
+      roll_number: studentData.roll_number,
+      gender: studentData.gender,
+      marks: studentData.marks,
+      grade_points: studentData.grade_points,
+      result: studentData.result,
+      course_id: studentData.course_id,
+      semester_id: studentData.semester_id,
+    };
+    if (isEdit) {
+      StudentApiProvider.apolloInstance.updateStudent(
+        Number(id),
+        payload,
+        () => {
+          toast.success("Student Updated Successfully");
+          router.push("/students");
+        },
+        (err) => {
+          toast.error(err?.response?.data?.message);
+        },
+      );
+    } else {
+  switch (true) {
+  case !studentData.course_id || !studentData.semester_id:
+    return toast.error("Please select Course and Semester");
 
-  const payload: IStudentsInput = {
-    name: studentData.name,
-    roll_number: studentData.roll_number,
-    gender: studentData.gender,
-    marks: studentData.marks,
-    grade_points: studentData.grade_points,
-    result: studentData.result,
-    course_id: studentData.course_id,
-    semester_id: studentData.semester_id,
+  case !studentData.name?.trim():
+    return toast.error("Student Name is required");
+
+  case !studentData.roll_number?.trim():
+    return toast.error("Student Roll Number is required");
+
+  case !studentData.gender:
+    return toast.error("Please select Gender");
+
+  case !studentData.result:
+    return toast.error("Please select Result");
+
+  case !studentData.marks :
+    return toast.error("Please fill the Marks of Student");
+    
+  case !studentData.grade_points: 
+  return toast.error("Please fill the   Grade Points of Student");
+
+  case studentData.marks < 0 || studentData.marks > 100:
+    return toast.error("Marks must be lie between 0 to 100");
+
+  case studentData.grade_points < 0 || studentData.grade_points > 10 :
+    return toast.error("Grade Points must be lie  in between 0 and 10");
+
+  default:
+    break;
+}
+      StudentApiProvider.apolloInstance.createStudent(
+        payload,
+        () => {
+          toast.success("Student Added Successfully");
+          router.push("/students");
+        },
+        (err) => {
+          toast.error(err?.response?.data?.message);
+        },
+      );
+    }
+  };
+  const openDeleteModal = (id: number) => {
+    setSelectedStudentId(id);
+    setShowModal(true);
   };
 
-  if (isEdit) {
-    StudentApiProvider.apolloInstance.updateStudent(
-      Number(id),
-      payload,
-      () => {
-        toast.success(
-          "Student Updated Successfully"
-        );
-        router.push("/students");
-      },
-      (err) => {
-        toast.error(
-          err?.response?.data?.message
-        );
-      }
-    );
-  } else {
-    StudentApiProvider.apolloInstance.createStudent(
-      payload,
-      () => {
-        toast.success(
-          "Student Added Successfully"
-        );
-
-        router.push("/students");
-      },
-      (err) => {
-        toast.error(
-          err?.response?.data?.message
-        );
-      }
-    );
-  }
-};
-  const openDeleteModal = (id:number)=>{
-      setSelectedStudentId(id);
-      setShowModal(true);
-  };
-
-  const closeDeleteModal = ()=>{
-      setSelectedStudentId(null);
-      setShowModal(false);
+  const closeDeleteModal = () => {
+    setSelectedStudentId(null);
+    setShowModal(false);
   };
 
   const handleDeleteStudent = () => {
-     setLoading(true);
-    if(selectedStudentId === null)
-      return ;
+    setLoading(true);
+    if (selectedStudentId === null) return;
 
-      StudentApiProvider.apolloInstance.deleteStudent(
-        selectedStudentId,
-        (res) => {
-          setLoading(false);
-          setStudents((prev) => prev.filter((st) => st.id !== selectedStudentId));
-          toast.success("Deleted Successfully!!");
-          closeDeleteModal();
-        },
-        (err) => {
-          setLoading(false);
-          toast.error(err?.response?.data?.message) ||
-            "Error  while in deleting Student";
-        },
-      );
+    StudentApiProvider.apolloInstance.deleteStudent(
+      selectedStudentId,
+      (res) => {
+        setLoading(false);
+        setStudents((prev) => prev.filter((st) => st.id !== selectedStudentId));
+        toast.success("Deleted Successfully!!");
+        closeDeleteModal();
+      },
+      (err) => {
+        setLoading(false);
+        toast.error(err?.response?.data?.message) ||
+          "Error  while in deleting Student";
+      },
+    );
   };
 
-const fetchStudentById = () => {
+  const fetchStudentById = () => {
+    console.log("id =", id);
 
-  console.log("id =", id);
+    if (!id) return;
 
-  if (!id) return;
-
-  StudentApiProvider.apolloInstance
-    .getStudentById(
+    StudentApiProvider.apolloInstance.getStudentById(
       Number(id),
       (res) => {
         setStudentDetails(res.data);
-
         setStudentData({
           name: res.data.name,
           roll_number: res.data.roll_number,
           gender: res.data.gender,
           marks: res.data.marks,
-          grade_points:
-            res.data.grade_points,
+          grade_points: res.data.grade_points,
           result: res.data.result,
-          course_id:
-            res.data.course_id,
-          semester_id:
-            res.data.semester_id,
+          course_id: res.data.course_id,
+          semester_id: res.data.semester_id,
         });
       },
-      console.error
+      console.error,
     );
-};
+  };
 
-useEffect(()=>{
-  fetchStudentById()
-},[id]);
+  useEffect(() => {
+    fetchStudentById();
+  }, [id]);
 
-const handleSearch = () => {
-  setPage(1);
-  setSearch(searchInput);
-  fetchStudents();
-};
- 
+  const handleSearch = () => {
+    setPage(1);
+    setSearch(searchInput);
+    fetchStudents();
+  };
 
-const fetchStuDashboard = () => {
-  StudentApiProvider.apolloInstance.getStudentDashboard(
-    (res)=>{
-      setStuDashboard(res.dashboard);
-      setTotalStudents(res.totalStudents);
-      setCourses(res.students);
-    },
-    (err)=>{
-      toast.error("Error  in fetching Students Dashboard");
-    }
-  )
-}
+  const fetchStuDashboard = useCallback(() => {
+    StudentApiProvider.apolloInstance.getStudentDashboard(
+      (res) => {
+        setStuDashboard(res.dashboard);
+        setTotalStudents(res.totalStudents);
+        setCourses(res.students);
+      },
+      (err) => {
+        toast.error(err.response.data.message || "Error  while adding content");
+      },
+    );
+  },[loading]);
 
-
-useEffect(()=>{
-  fetchStuDashboard();
-},[]);
+  useEffect(() => {
+    fetchStuDashboard();
+  }, []);
 
   return {
     studentDetails,
@@ -245,6 +250,10 @@ useEffect(()=>{
     totalRecordStu,
     totalStudents,
     stuDashboard,
-    courses
+    courses,
   };
 };
+
+
+
+ 

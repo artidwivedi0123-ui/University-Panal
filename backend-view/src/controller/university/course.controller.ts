@@ -1,17 +1,21 @@
 import { Request, Response } from "express";
 import pool from "../../db/db.js";
 
-// Create Course
-export const createCourse = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const {
-      course_name,
-      course_type,
-    } = req.body;
 
+//  Note: In course Data the create,getId,update,delete are  not required  for  the UI as  in University Panel the  Courses are 
+//  mostly defined so for UI there is  only the use  simple get api (for Card  form) 
+//  but  available  here  for  the Testing and Practice with the  Postman 
+
+// Create Course
+export const createCourse = async (req: Request, res: Response) => {
+  try {
+    const { course_name, course_type } = req.body;
+    if (!course_name || !course_type) {
+      res.status(404).json({
+        success: false,
+        message: "Course name and Course Type must be Required",
+      });
+    }
     const result = await pool.query(
       `
       INSERT INTO courses
@@ -19,9 +23,8 @@ export const createCourse = async (
       VALUES ($1,$2)
       RETURNING *
       `,
-      [course_name, course_type]
+      [course_name, course_type],
     );
-
     res.status(201).json({
       success: true,
       message: "Course Created Successfully",
@@ -29,7 +32,6 @@ export const createCourse = async (
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Error while Creating Course",
@@ -38,10 +40,7 @@ export const createCourse = async (
 };
 
 // Get All Courses
-export const getCourse = async (
-  req: Request,
-  res: Response
-) => {
+export const getCourse = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(`
       SELECT *
@@ -63,13 +62,18 @@ export const getCourse = async (
   }
 };
 
+
 // Get Course By Id
-export const getCourseById = async (
-  req: Request,
-  res: Response
-) => {
+export const getCourseById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+
+    if (isNaN(Number(id))) {
+      return res.status(404).json({
+        success: false,
+        message: "Id must be valid",
+      });
+    }
 
     const result = await pool.query(
       `
@@ -77,13 +81,13 @@ export const getCourseById = async (
       FROM courses
       WHERE id = $1
       `,
-      [id]
+      [id],
     );
 
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Course not found",
+        message: "Course Id is not found in DB",
       });
     }
 
@@ -102,18 +106,24 @@ export const getCourseById = async (
 };
 
 // Update Course
-export const updateCourse = async (
-  req: Request,
-  res: Response
-) => {
+export const updateCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const { course_name, course_type } = req.body;
 
-    const {
-      course_name,
-      course_type,
-    } = req.body;
+    if (isNaN(Number(id))) {
+      return res.status(404).json({
+        success: false,
+        message: "Id must be a valid number",
+      });
+    }
 
+    if (!course_name || !course_type) {
+      return res.status(404).json({
+        success: false,
+        message: "Course name and Course Type must be Required",
+      });
+    }
     const result = await pool.query(
       `
       UPDATE courses
@@ -123,20 +133,14 @@ export const updateCourse = async (
       WHERE id = $3
       RETURNING *
       `,
-      [
-        course_name,
-        course_type,
-        id,
-      ]
+      [course_name, course_type, id],
     );
-
-    // if (result.rows.length === 0) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: "Course not found",
-    //   });
-    // }
-
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Course Id is not found  in DB",
+      });
+    }
     res.status(200).json({
       success: true,
       message: "Course Updated Successfully",
@@ -153,12 +157,16 @@ export const updateCourse = async (
 };
 
 // Delete Course
-export const deleteCourse = async (
-  req: Request,
-  res: Response
-) => {
+export const deleteCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+
+    if (isNaN(Number(id))) {
+      return res.status(404).json({
+        success: false,
+        message: "Id must be valid number",
+      });
+    }
 
     const result = await pool.query(
       `
@@ -166,13 +174,13 @@ export const deleteCourse = async (
       WHERE id = $1
       RETURNING *
       `,
-      [id]
+      [id],
     );
 
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Course not found",
+        message: "Course Id  not found in DB",
       });
     }
 
@@ -182,7 +190,6 @@ export const deleteCourse = async (
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Error deleting Course",

@@ -49,3 +49,25 @@ export interface IFeeStructureResponse {
 };
 
 
+export interface IFeeDashboardCourse {
+  id: number;
+  course_name: string;
+  tuition_fee: string;
+  exam_fee: string;
+  library_fee: string;
+  other_fee: string;
+  total_fee: string;
+}
+
+
+
+export interface IFeeDashboardData {
+  totalFee: number;
+  courses: IFeeDashboardCourse[];
+}
+
+export interface IFeeDashboardResponse {
+  success: boolean;
+  data: IFeeDashboardData;
+}
+

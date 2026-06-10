@@ -1,5 +1,6 @@
 import { AxiosService } from "@/src/services/axios.service";
 import {
+  IFeeDashboardResponse,
     IFeesDetailsByIdResponse,
   IFeeStructureData,
   IFeeStructureInput,
@@ -89,6 +90,19 @@ export class FeesApiProvider extends AxiosService {
       error(err);
     }
   }
+
+  async getFeesDashboard(
+    success:(data:IFeeDashboardResponse)=>void,
+    error:(err:string | any)=>void,
+  ){
+    try {
+      const response = await this.get<IFeeDashboardResponse>(FEES.FEESDASHBOARD);
+      success(response.data);
+    } catch (err) {
+      error(err);
+    }
+  }
+
 
   
 }

@@ -42,6 +42,7 @@ export const FEES = {
     GETFEES:'/api/fee-structure',
     DELETEFEES:'/api/fee-structure',
     UPDATEFEES:'/api/fee-structure',
+    FEESDASHBOARD:'/api/fee-structure/fee-dashboard'
 }
 
 

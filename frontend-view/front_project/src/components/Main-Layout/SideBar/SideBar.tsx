@@ -64,7 +64,7 @@ export default function Sidebar() {
     },
     {
       title:"Fee Structure Dashboard",
-      route:"/",
+      route:"/fees-dashboard",
       image:FeesDash
     },
     {

@@ -1,4 +1,5 @@
 import {
+  IFeeDashboardData,
     IFeesDetailsById,
   IFeeStructureData,
   IFeeStructureInput,
@@ -32,6 +33,7 @@ export const UseFeesStructState = () => {
     library_fee: "" as any,
     other_fee: "" as any,
   });
+  const [feesDashboard,setFeesDashboard] = useState<IFeeDashboardData | null>(null);
   const router = useRouter();
   const fetchFees = () => {
     setLoading(true);
@@ -117,7 +119,6 @@ export const UseFeesStructState = () => {
 
   const fetchFeesById = () =>{
     if(!id) return ;
-
     FeesApiProvider.apolloInstance.getFeesById(
         Number(id),
         (res)=>{
@@ -158,7 +159,7 @@ const  closeDeleteModal =() =>
 {
   setSelecteFeesId(null);
   setShowModal(false);
-}
+};
 
 
 
@@ -179,7 +180,26 @@ const handleDeleteFeesRecord = ()=>{
       toast.error(err?.response?.data?.meesage || "Error while deleting Fees Record");
     }
   )
-}
+};
+
+
+const fetchFeesDasboard = ()=>{
+  setLoading(false);
+  FeesApiProvider.apolloInstance.getFeesDashboard(
+    (res)=>{
+        setFeesDashboard(res.data);
+    },
+    (err)=>{
+      toast.error("Error in fetch Fees Dashboard");
+    }
+  )
+};
+
+useEffect(()=>{
+  fetchFeesDasboard();
+},[]);
+
+
 
   return {
     feesData,
@@ -204,7 +224,8 @@ const handleDeleteFeesRecord = ()=>{
     setSearchInput,
     totalPages,
     totalRecords,
-    handleSearch
+    handleSearch,
+    feesDashboard
 
 
   };

@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTENDURL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
