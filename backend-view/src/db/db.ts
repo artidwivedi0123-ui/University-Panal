@@ -19,6 +19,6 @@ pool.connect()
 })
 .catch(()=>{
     console.log("Error in Database Connection");
-})
+});
 
 export default pool;

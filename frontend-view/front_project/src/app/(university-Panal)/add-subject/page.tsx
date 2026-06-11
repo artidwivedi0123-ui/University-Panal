@@ -10,7 +10,6 @@ export default function AddSubjectsPage(){
     const {
         handleChangeSubject,
         handleSubmitSubjects,
-        router,
         subjectData
      } = UseSubjectState();
      const {course} = useCoursesState();

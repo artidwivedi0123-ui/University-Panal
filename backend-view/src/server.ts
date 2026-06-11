@@ -2,14 +2,14 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./db/db.js";
-import courseRoutes from "./routes/university/course.routes.js";
-import semesterRoutes from "./routes/university/semester.routes.js";
-import subjectRoutes from "./routes/university/subject.routes.js";
-import studentRoutes  from "./routes/university/student.routes.js"
-import loginRoutes from "./routes/auth/login.routes.js";
-import registerRoutes from "./routes/auth/register.routes.js";
-import feesStructureRoutes from  "./routes/fees-management/fee-structure.routes.js";
-import studentFeesRoutes from  "./routes/fees-management/student-fee.routes.js";
+import courseRoutes from "../src/module/universityPanel/routes/course.routes.js";
+import semesterRoutes from "../src/module/universityPanel/routes/semester.routes.js";
+import subjectRoutes from "../src/module/universityPanel/routes/subject.routes.js";
+import studentRoutes  from "../src/module/universityPanel/routes/student.routes.js"
+import loginRoutes from "../src/module/auth/routes/login.routes.js";
+import registerRoutes from "../src/module/auth/routes/register.routes.js";
+import feesStructureRoutes from  "../src/module/fees-management/routes/fees-struct.routes.js";
+import studentFeesRoutes from  "../src/module/fees-management/routes/student-fees.routes.js";
 dotenv.config();
 
 const app = express();

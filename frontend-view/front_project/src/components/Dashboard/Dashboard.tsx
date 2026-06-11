@@ -4,7 +4,7 @@ type DashboardType = {
   title?: string;
   description?: string;
   image?: any;
-  count?: number | number;
+  count?: string | number;
   subjects?: string[];
   students?: string[];
   fees?: string[];

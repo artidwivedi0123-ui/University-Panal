@@ -7,7 +7,6 @@ export const useCoursesState = () => {
   const [course, setCourse] = useState<ICourseData[]>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-
   const fetchCourses = useCallback(() => {
     setLoading(true);
     CourseApiProvider.apolloInstance.getCourse(
@@ -20,11 +19,11 @@ export const useCoursesState = () => {
         console.error(err);
       },
     );
-  },[loading]);
+  },[]);
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [fetchCourses]);
 
   return {
     course,

@@ -1,4 +1,4 @@
-import Dashboard from "@/src/components/Dashboard/Dashboard";
+import { APPCONSTANTS } from "@/src/constants/app.constants";
 import {
   ICourseSummary,
   ISubjectById,
@@ -10,29 +10,23 @@ import { SubjectApiProvider } from "@/src/modules/university/subject/provider/su
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
 export const UseSubjectState = () => {
   const [subjects, setSubjects] = useState<ISubjectData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const params = useParams();
   const id = params?.id as string;
   const isEdit = !!id;
-  const [selectedSubjectId, setSelectedSubjectId] = useState<number | null>(
-    null,
-  );
-  const [page, setPage] = useState<number>(1);
-const [limit,setLimit] = useState<number>(10);
-const [search, setSearch] = useState<string>("");
-const [searchInput, setSearchInput] = useState<string>("");
-const [totalPages, setTotalPages] = useState<number>(0);
-const [courses, setCourses] =useState<ICourseSummary[]>([]);
-const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
+  const [selectedSubjectId, setSelectedSubjectId] = useState<number | null>(null);
+  const [page, setPage] = useState<number>(APPCONSTANTS.PAGE);
+  const [search, setSearch] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [courses, setCourses] = useState<ICourseSummary[]>([]);
+  const [totalRecordSub, setTotalRecordSub] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [subDashboard,setSubDashboard] = useState<ISubjectDashboard[]>([]);
-  const [totalSubjects,setTotalSubjects] = useState<number>(0);
-  const [subjectDetails, setSubjectDetails] = useState<ISubjectById | null>(
-    null,
-  );
+  const [subDashboard, setSubDashboard] = useState<ISubjectDashboard[]>([]);
+  const [totalSubjects, setTotalSubjects] = useState<number>(0);
+  const [subjectDetails, setSubjectDetails] = useState<ISubjectById | null>(null);
   const [subjectData, setSubjectData] = useState<ISubjectData>({
     subject_name: "",
     credits: 4,
@@ -41,26 +35,25 @@ const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
     course_name: "",
   });
   const router = useRouter();
+  const limit = APPCONSTANTS.LIMIT;
 
- const fetchSubjects = () => {
-  SubjectApiProvider.apolloInstance.getSubjects(
-    page,
-    limit,
-    search,
-    (res) => {
-      setSubjects(res.data);
-      setTotalPages(
-        res.pagination.totalPages
-      );
-      setTotalRecordSub(res.pagination.totalRecords);
-    },
-    console.error
-  );
-};
+  const fetchSubjects = () => {
+    SubjectApiProvider.apolloInstance.getSubjects(
+      page,
+      limit,
+      search,
+      (res) => {
+        setSubjects(res.data);
+        setTotalPages(res.pagination.totalPages);
+        setTotalRecordSub(res.pagination.totalRecords);
+      },
+      console.error,
+    );
+  };
 
   useEffect(() => {
     fetchSubjects();
-  }, [page,search]);
+  }, [page, search]);
 
   const handleChangeSubject = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -88,13 +81,12 @@ const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
     };
 
     if (isEdit) {
-
       SubjectApiProvider.apolloInstance.updateSubject(
         Number(id),
         payload,
         () => {
           toast.success("Subject Updated Successfully!!");
-          console.log("payload",payload);
+          console.log("payload", payload);
           router.push("/subjects");
         },
         (err) => {
@@ -174,34 +166,32 @@ const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
     );
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchSubjectById();
-  },[id]);
+  }, [id]);
 
-  const handleSearch =() =>{
+  const handleSearch = () => {
     setPage(1);
     setSearch(searchInput);
     fetchSubjects();
-  }
+  };
 
-  const fetchSubDashboard =()=>{
+  const fetchSubDashboard = () => {
     SubjectApiProvider.apolloInstance.getSubjectDashboard(
-      (res)=>{
+      (res) => {
         setSubDashboard(res.semesterWise);
         setTotalSubjects(res.totalSubjects);
         setCourses(res.courses);
       },
-      (err)=>{
+      (err) => {
         toast.error("Error in fetching Subject Dashboard");
-      }
-    )
-  }
+      },
+    );
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchSubDashboard();
-  },[]);
-
-
+  }, []);
 
   return {
     subjects,
@@ -228,6 +218,6 @@ const [totalRecordSub,setTotalRecordSub] = useState<number>(0);
     setSearchInput,
     subDashboard,
     totalSubjects,
-    courses
+    courses,
   };
 };

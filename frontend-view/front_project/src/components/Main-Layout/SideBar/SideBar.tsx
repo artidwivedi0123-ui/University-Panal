@@ -94,6 +94,7 @@ export default function Sidebar() {
               width={90}
               height={90}
               alt="University"
+              loading="eager"
 
             />
         {

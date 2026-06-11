@@ -56,6 +56,8 @@ export default function HomePage() {
         width={180}
         height={180}
         alt="University"
+        loading="eager"
+        unoptimized
       />
 
       <h2 className={style["home-container__title"]}>

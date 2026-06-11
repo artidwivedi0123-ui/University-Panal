@@ -18,11 +18,11 @@ export const UseSemesterState = () => {
         setLoading(false);
       }
     );
-  },[loading]);
+  },[]);
 
   useEffect(() => {
     fetchSemester();
-  }, []);
+  }, [fetchSemester]);
 
   return {
     semester,
