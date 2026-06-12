@@ -1,6 +1,6 @@
 import pool from "../../../db/db.js";
 import jwt from "jsonwebtoken";
-
+// RT service
 export const refreshService = async (refreshToken: string) => {
   const result = await pool.query(
     `
@@ -29,6 +29,6 @@ export const refreshService = async (refreshToken: string) => {
 )
 
 return {
-    access_token
+    access_token,
 }
 };
