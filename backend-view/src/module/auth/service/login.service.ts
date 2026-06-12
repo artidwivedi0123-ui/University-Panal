@@ -3,8 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Login } from "../model/login.model.js";
 
-export const loginService = async (login:Login)=> {
-  
+export const loginService = async (login: Login) => {
   const result = await pool.query(
     `
         SELECT * FROM users  WHERE email = $1
@@ -22,25 +21,44 @@ export const loginService = async (login:Login)=> {
   if (!isMatch) {
     throw new Error("Invalid Password");
   }
-
-  const token = jwt.sign(
+  const access_token = jwt.sign(
     {
       id: user.id,
       role: user.role,
     },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "1d",
+      expiresIn: "10m",
     },
   );
 
+  const refresh_token = jwt.sign(
+    {
+      id: user.id,
+    },
+    process.env.JWT_REFRESH_SECRET as string,
+    {
+      expiresIn: "15m",
+    },
+  );
+
+  await pool.query(
+    `
+    UPDATE users 
+    SET refresh_token = $1
+    where id = $2
+    `,
+    [refresh_token, user.id],
+  );
+
   return {
-    token,
+    access_token,
+    refresh_token,
     user: {
       id: user.id,
       full_name: user.full_name,
       role: user.role,
-      email:user.email,
+      email: user.email,
     },
   };
 };

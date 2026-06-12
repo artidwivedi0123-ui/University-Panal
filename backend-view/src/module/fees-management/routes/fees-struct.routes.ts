@@ -1,4 +1,5 @@
 import express from "express";
+import { authMiddleware } from "../../auth/middleware/auth.middleware.js";
 import {
   createFeeStructure,
   getFeeStructure,
@@ -10,11 +11,11 @@ import {
 
 const router = express.Router();
 
-router.post("/create", createFeeStructure);
-router.get("/", getFeeStructure);
-router.put("/:id", updateFeesStructure);
-router.delete("/:id", deleteFeeStructure);
-router.get("/fee-dashboard", getFeeStructureDashboard);
-router.get("/:id", getFeeStructureById);
+router.post("/create",authMiddleware,createFeeStructure);
+router.get("/",authMiddleware, getFeeStructure);
+router.put("/:id", authMiddleware,updateFeesStructure);
+router.delete("/:id", authMiddleware,deleteFeeStructure);
+router.get("/fee-dashboard", authMiddleware,getFeeStructureDashboard);
+router.get("/:id", authMiddleware,getFeeStructureById);
 
 export default router;

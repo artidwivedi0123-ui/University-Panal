@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import { authMiddleware } from "../../auth/middleware/auth.middleware.js";
 import {
   createStudentFees,
   deleteStudentFees,
@@ -9,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.post("/create", createStudentFees);
-router.get("/", getStudentFees);
-router.get("/:id", getStudentFeesById);
-router.delete("/:id", deleteStudentFees);
-router.put("/:id", updateStudentFees);
+router.post("/create", authMiddleware,createStudentFees);
+router.get("/", authMiddleware,getStudentFees);
+router.get("/:id", authMiddleware,getStudentFeesById);
+router.delete("/:id", authMiddleware,deleteStudentFees);
+router.put("/:id", authMiddleware,updateStudentFees);
 
 export default router;

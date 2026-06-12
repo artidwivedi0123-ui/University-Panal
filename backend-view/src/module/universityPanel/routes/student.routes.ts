@@ -1,4 +1,5 @@
 import express from "express";
+import { authMiddleware } from "../../auth/middleware/auth.middleware.js";
 import {
   createStudents,
   getStudents,
@@ -7,13 +8,14 @@ import {
   updateStudent,
   deleteStudent,
 } from "../controllers/student.controllers.js";
+import { roleMiddleware } from "../../auth/middleware/role.middleware.js";
 const router = express.Router();
 
-router.post("/create", createStudents);
-router.get("/", getStudents);
-router.get("/:id", getstudentById);
-router.put("/:id", updateStudent);
-router.delete("/:id", deleteStudent);
-router.get("/student/dashboard", getStudentDashboard);
+router.post("/create",authMiddleware,roleMiddleware("admin"),createStudents);
+router.get("/", authMiddleware,getStudents);
+router.get("/:id",authMiddleware ,getstudentById);
+router.put("/:id", authMiddleware,roleMiddleware("admin"),updateStudent);
+router.delete("/:id", authMiddleware,roleMiddleware("admin"),deleteStudent);
+router.get("/student/dashboard", authMiddleware,getStudentDashboard);
 
 export default router;

@@ -2,9 +2,10 @@ import { Request,Response } from "express";
 import { Login } from "../model/login.model.js";
 import { validateLogin } from "../validation/login.validation.js";
 import { loginService } from "../service/login.service.js";
+import { AuthRequest } from "../model/auth-req.model.js";
 
 export const loginUser = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ) => {
   try {
