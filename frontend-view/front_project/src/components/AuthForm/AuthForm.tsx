@@ -9,7 +9,7 @@ interface AuthFormProps {
   formData: any;
   loading: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
 }
 export default function AuthForm({
   formData,

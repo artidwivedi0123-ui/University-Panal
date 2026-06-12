@@ -16,7 +16,7 @@ login:Login
     case !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email):
       return "Please enter a valid email address";
 
-    case !password?.trim():
+    case !password:
       return "Password is required";
 
     case password.length < 6:

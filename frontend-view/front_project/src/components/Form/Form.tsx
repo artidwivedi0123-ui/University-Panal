@@ -14,7 +14,7 @@ interface FormProps {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
   course?: ICourseData[];
   semester?: ISemesterData[];
   students?:IStudentsData[];

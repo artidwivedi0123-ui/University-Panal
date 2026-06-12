@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import pool from "./db/db.js";
+import refreshRoutes from  "../src/module/auth/routes/refresh.routes.js";
+import logoutRoutes from "../src/module/auth/routes/logout.routes.js";
 import courseRoutes from "../src/module/universityPanel/routes/course.routes.js";
 import semesterRoutes from "../src/module/universityPanel/routes/semester.routes.js";
 import subjectRoutes from "../src/module/universityPanel/routes/subject.routes.js";
@@ -26,8 +27,10 @@ app.use(
 );
 // auth routes
 
-app.use("/auth/login",loginRoutes);
-app.use("/auth/register",registerRoutes);
+app.use("/auth/",loginRoutes);
+app.use("/auth/",registerRoutes);
+app.use("/auth",logoutRoutes);
+app.use("/auth",refreshRoutes);
 
 // university Panel Routes
 app.use("/api/course",courseRoutes);

@@ -116,7 +116,7 @@ export const useStudentsState = () => {
   }
 };
 
-  const handleSubmitStudent = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitStudent = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const checkError = validateStudent(studentData);
     if(checkError) {
@@ -152,7 +152,7 @@ export const useStudentsState = () => {
           router.push(UNIVERSITYROUTES.STUDENTS);
         },
         (err) => {
-          toast.error(err?.res?.data?.message);
+          toast.error(err?.response?.data?.message);
         },
       );
     }

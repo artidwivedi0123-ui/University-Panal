@@ -31,8 +31,10 @@ export const STUDENT ={
 
 
 export const AUTH  = {
-    REGISTER:'/auth/register/create',
-    LOGIN:'/auth/login/create',
+    REGISTER:'/auth/register',
+    LOGIN:'/auth/login',
+    REFRESH:'/auth/refresh',
+    LOGOUT:'/auth/logout',
     FORGOTPASSWORD:'/auth/forgot-password/create',
 }
 

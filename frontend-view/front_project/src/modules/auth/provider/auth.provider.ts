@@ -1,5 +1,10 @@
 import { AxiosService } from "@/src/services/axios.service";
-import { ILoginInput, ILoginResponse, IRegisterInput, IRegisterResponse } from "../modal/auth";
+import {
+  ILoginInput,
+  ILoginResponse,
+  IRegisterInput,
+  IRegisterResponse,
+} from "../modal/auth";
 import { AUTH } from "@/src/constants/api-end-points.constants";
 
 export class AuthApiProvider extends AxiosService {
@@ -18,27 +23,25 @@ export class AuthApiProvider extends AxiosService {
     }
   }
 
-
-
   async login(
-  params: ILoginInput,
-  success: (data: ILoginResponse) => void,
-  error: (err: any | string) => void
-) {
+    params: ILoginInput,
+    success: (data: ILoginResponse) => void,
+    error: (err: any | string) => void,
+  ) {
+    try {
+      const res = await this.post<ILoginResponse>(AUTH.LOGIN, params);
 
-  try {
-
-    const res = await this.post<ILoginResponse>(
-      AUTH.LOGIN,
-      params
-    );
-
-    success(res.data);
-
-  } catch (err) {
-
-    error(err);
-
+      success(res.data);
+    } catch (err) {
+      error(err);
+    }
   }
-}
+  async logout(success: (data: any) => void, error: (err: any) => void) {
+    try {
+      const res = await this.post(AUTH.LOGOUT, {});
+      success(res.data);
+    } catch (err) {
+      error(err);
+    }
+  }
 }

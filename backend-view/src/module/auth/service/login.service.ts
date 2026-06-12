@@ -28,7 +28,7 @@ export const loginService = async (login: Login) => {
     },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "10m",
+      expiresIn: "15m",
     },
   );
 
@@ -38,7 +38,7 @@ export const loginService = async (login: Login) => {
     },
     process.env.JWT_REFRESH_SECRET as string,
     {
-      expiresIn: "15m",
+      expiresIn: "10m",
     },
   );
 

@@ -5,6 +5,7 @@ import { ICourseInput, ICourseResponse } from "../modal/ICourse";
 export class CourseApiProvider extends AxiosService {
   static apolloInstance = new CourseApiProvider();
 
+  
   async getCourse(
     success: (data: ICourseResponse) => void,
     error: (err: string | any) => void,

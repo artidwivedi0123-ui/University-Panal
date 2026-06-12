@@ -46,7 +46,7 @@ export default function HomePage() {
         className={style["home-container__btn"]}
         onClick={() => router.push("/register")}
       >
- Register and Join Us!!
+       Register and Join Us!!
       </button>
     </div>
     
@@ -81,14 +81,14 @@ export default function HomePage() {
       />
 
       <h2 className={style["home-container__title"]}>
-        Fees Structure of Several Courses
+        Login  for Checking Your Data
       </h2>
 
       <button
         className={style["home-container__btn"]}
-        onClick={() => router.push("/university-dashboard")}
+        onClick={() => router.push("/login")}
       >
-      Buy Course Online or Offline
+        Login 
       </button>
     </div> 
 

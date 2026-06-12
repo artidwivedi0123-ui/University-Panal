@@ -8,7 +8,7 @@ import {
 } from "@/src/modules/university/subject/modal/ISubject";
 import { SubjectApiProvider } from "@/src/modules/university/subject/provider/subjectProvider";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 export const UseSubjectState = () => {
   const [subjects, setSubjects] = useState<ISubjectData[]>([]);
@@ -37,7 +37,7 @@ export const UseSubjectState = () => {
   const router = useRouter();
   const limit = APPCONSTANTS.LIMIT;
 
-  const fetchSubjects = () => {
+  const fetchSubjects = useCallback(() => {
     SubjectApiProvider.apolloInstance.getSubjects(
       page,
       limit,
@@ -49,11 +49,11 @@ export const UseSubjectState = () => {
       },
       console.error,
     );
-  };
+  },[page,limit,search]);
 
   useEffect(() => {
     fetchSubjects();
-  }, [page, search]);
+  }, [fetchSubjects]);
 
   const handleChangeSubject = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -67,7 +67,7 @@ export const UseSubjectState = () => {
     }));
   };
 
-  const handleSubmitSubjects = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitSubjects = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
@@ -98,14 +98,11 @@ export const UseSubjectState = () => {
         payload,
         (res) => {
           setLoading(false);
-
           toast.success("Subject Added Successfully");
-
           router.push("/subjects");
         },
         (err) => {
           setLoading(false);
-
           toast.error(
             err?.response?.data?.message || "Error in Adding Subject",
           );
@@ -114,17 +111,17 @@ export const UseSubjectState = () => {
     }
   };
 
-  const openDeleteModal = (id: number) => {
+  const openDeleteModal = useCallback((id: number) => {
     setSelectedSubjectId(id);
     setShowModal(true);
-  };
+  },[]);
 
-  const closeDeleteModal = () => {
+  const closeDeleteModal = useCallback(() => {
     setSelectedSubjectId(null);
     setShowModal(false);
-  };
+  },[]);
 
-  const handleDeleteSubject = () => {
+  const handleDeleteSubject = useCallback (()=> {
     setLoading(true);
     if (selectedSubjectId === null) return;
 
@@ -142,11 +139,10 @@ export const UseSubjectState = () => {
           "Error while deleting Subject";
       },
     );
-  };
+  },[]);
 
-  const fetchSubjectById = () => {
+  const fetchSubjectById = useCallback(() => {
     if (!id) return;
-
     SubjectApiProvider.apolloInstance.getSubjectById(
       Number(id),
       (res) => {
@@ -164,19 +160,19 @@ export const UseSubjectState = () => {
         console.error(err);
       },
     );
-  };
+  },[id]);
 
   useEffect(() => {
     fetchSubjectById();
-  }, [id]);
+  },[fetchSubjectById]);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     setPage(1);
     setSearch(searchInput);
     fetchSubjects();
-  };
+  },[searchInput]);
 
-  const fetchSubDashboard = () => {
+  const fetchSubDashboard = useCallback(() => {
     SubjectApiProvider.apolloInstance.getSubjectDashboard(
       (res) => {
         setSubDashboard(res.semesterWise);
@@ -187,11 +183,11 @@ export const UseSubjectState = () => {
         toast.error("Error in fetching Subject Dashboard");
       },
     );
-  };
+  },[]);
 
   useEffect(() => {
     fetchSubDashboard();
-  }, []);
+  }, [fetchSubDashboard]);
 
   return {
     subjects,

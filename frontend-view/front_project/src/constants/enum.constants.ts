@@ -1,0 +1,5 @@
+export enum AUTHENUM {
+    REFRESH_TOKEN="refresh_token",
+    ACCESS_TOKEN="access_token",
+    ROLE="role",
+}

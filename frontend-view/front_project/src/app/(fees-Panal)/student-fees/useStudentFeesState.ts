@@ -76,7 +76,7 @@ const handleStuFees = (
   }));
 };
 
-  const handleSubmitStudFees = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitStudFees = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
    const payload: IStudentFeesInput = {
   student_id: stuFeesInput.student_id,
