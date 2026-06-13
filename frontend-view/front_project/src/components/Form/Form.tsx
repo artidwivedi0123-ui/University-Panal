@@ -128,6 +128,15 @@ const filteredFees = feeStructure?.filter(
                   PG
                 </label>
               </div>
+              <label className={style["label"]}>Total Semester</label>
+              <Input 
+              classname={style["input"]}
+              name="total_semesters"
+              onChange={handleChange}
+              type="number"
+              value={Number(formData.total_semesters)}
+              placeholder="Enter Total Semester"
+              />
             </div>
           </>
         )}

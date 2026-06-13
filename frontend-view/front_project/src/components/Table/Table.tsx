@@ -14,7 +14,11 @@ import {
   Students,
   Subject,
 } from "@/src/assets";
-import { currencyFormatter, formatDateTime, getOrdinal } from "@/src/utils/app.utils";
+import {
+  currencyFormatter,
+  formatDateTime,
+  getOrdinal,
+} from "@/src/utils/app.utils";
 
 interface TableProps {
   data: any[];
@@ -30,8 +34,7 @@ interface TableProps {
   totalPages?: number;
   onSearch?: () => void;
   setCurrentPage?: (page: number) => void;
-  totalRecords?:number;
-
+  totalRecords?: number;
 }
 
 export default function Table({
@@ -48,7 +51,7 @@ export default function Table({
   setCurrentPage,
   totalPages,
   onSearch,
-  totalRecords
+  totalRecords,
 }: TableProps) {
   const course = type === UNIVERSITY_SECTION_TYPE.COURSES;
   const semester = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
@@ -66,12 +69,7 @@ export default function Table({
     }
 
     if (subjects) {
-      return [
-        "Subject Name",
-        "Subject Code",
-        "Semester",
-        "Actions",
-      ];
+      return ["Subject Name", "Subject Code", "Semester", "Actions"];
     }
 
     if (students) {
@@ -86,7 +84,7 @@ export default function Table({
         "Actions",
       ];
     }
-    if(fees) {
+    if (fees) {
       return [
         "Course Name",
         "Semester Number",
@@ -95,11 +93,11 @@ export default function Table({
         "Library Fees",
         "Other Fees",
         "Total Fees",
-        "Action"
+        "Action",
       ];
     }
 
-    if(stuFees) {
+    if (stuFees) {
       return [
         "Student Name",
         "Roll Number",
@@ -110,29 +108,30 @@ export default function Table({
         "Due Amount",
         "Payment Status",
         "Payment Date",
-        "Action"
-      ]
+        "Action",
+      ];
     }
     return [];
   };
 
   const renderRows = () => {
     return data?.map((item, index) => {
-       const totalFee = Number(item.tuition_fee || 0) +
-                        Number(item.exam_fee || 0) +
-                        Number(item.library_fee || 0) +
-                        Number(item.other_fee || 0);
-                     
+      const totalFee =
+        Number(item.tuition_fee || 0) +
+        Number(item.exam_fee || 0) +
+        Number(item.library_fee || 0) +
+        Number(item.other_fee || 0);
+
       if (fees) {
         return (
           <tr key={index}>
             <td>{item.course_name}</td>
             <td>{getOrdinal(item.semester_number)}</td>
-              <td>{currencyFormatter(item.tuition_fee)}</td>
+            <td>{currencyFormatter(item.tuition_fee)}</td>
             <td>{currencyFormatter(item.exam_fee)}</td>
-              <td>{currencyFormatter(item.library_fee)}</td>
+            <td>{currencyFormatter(item.library_fee)}</td>
             <td>{currencyFormatter(item.other_fee)}</td>
-              <td>{currencyFormatter(Number(totalFee))}</td>
+            <td>{currencyFormatter(Number(totalFee))}</td>
             <td>
               <button
                 className={style["edit-btn"]}
@@ -151,20 +150,42 @@ export default function Table({
         );
       }
 
-
-      if(stuFees) {
+      if (stuFees) {
         return (
           <tr key={index}>
-           <td>{item.name}</td>
-           <td>{item.roll_number}</td>
-           <td>{item.course_name}</td>
-           <td>{getOrdinal(item.semester_number)}</td>
-           <td>{currencyFormatter(item.total_fee)}</td>
-           <td>{currencyFormatter(item.amount_paid)}</td>
-           <td>{currencyFormatter(item.due_amount)}</td>
-           <td>{item.payment_status}</td>
-           <td>{formatDateTime(item.payment_date)}</td>
+            <td>{item.name}</td>
+            <td>{item.roll_number}</td>
+            <td>{item.course_name}</td>
+            <td>{getOrdinal(item.semester_number)}</td>
+            <td>{currencyFormatter(item.total_fee)}</td>
+            <td>{currencyFormatter(item.amount_paid)}</td>
+            <td>{currencyFormatter(item.due_amount)}</td>
+            <td>{item.payment_status}</td>
+            <td>{formatDateTime(item.payment_date)}</td>
             <td>
+              <button
+                className={style["edit-btn"]}
+                onClick={() => handleEdit?.(item.id)}
+              >
+                Edit
+              </button>
+              <button
+                className={style["del-btn"]}
+                onClick={() => openDeleteModal?.(item.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        );
+      }
+
+      if(course) {
+        return (
+          <tr key={index}>
+            <td>{item.course_name}</td>
+            <td>{item.course_type}</td>
+             <td>
               <button
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
@@ -298,11 +319,11 @@ export default function Table({
                 ? "Subjects Table"
                 : students
                   ? "Students Detailed Table"
-                : fees 
-                  ? "Course Fees Detailed Table"
-                : stuFees 
-                  ? "Student Fees Detailed Table"
-                  : "Table View"}
+                  : fees
+                    ? "Course Fees Detailed Table"
+                    : stuFees
+                      ? "Student Fees Detailed Table"
+                      : "Table View"}
         </h2>
         <Image
           src={
@@ -314,20 +335,21 @@ export default function Table({
                   ? Subject
                   : students
                     ? Students
-                  : fees 
-                    ? Fees
-                  : stuFees
-                      ? StudentFees
-                    : ""
+                    : fees
+                      ? Fees
+                      : stuFees
+                        ? StudentFees
+                        : ""
           }
           height={120}
           width={120}
           alt="table-image"
         />
         <p className={style["sub-heading"]}>Total Records : {totalRecords}</p>
-         <div className={style["search-container"]}>
-          <input className={style["search-input"]}
-          placeholder="Search Here..."
+        <div className={style["search-container"]}>
+          <input
+            className={style["search-input"]}
+            placeholder="Search Here..."
             value={search}
             onChange={(e) => {
               const value = e.target.value;
@@ -342,7 +364,7 @@ export default function Table({
               }
             }}
           />
-          </div>
+        </div>
         <button className={style["addbtn"]} onClick={addBtn}>
           {course
             ? "Add Course"
@@ -377,7 +399,7 @@ export default function Table({
             )}
           </tbody>
         </table>
-         <div className={style["pagination"]}>
+        <div className={style["pagination"]}>
           <button
             className={style["prev-btn"]}
             disabled={currentPage === 1}
@@ -404,7 +426,7 @@ export default function Table({
           <button
             className={style["next-btn"]}
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage?.(currentPage!+ 1)}
+            onClick={() => setCurrentPage?.(currentPage! + 1)}
           >
             Next
           </button>

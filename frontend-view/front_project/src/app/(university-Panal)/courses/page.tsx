@@ -6,6 +6,7 @@ import style from "@/src/app/(university-Panal)/courses/course.module.scss";
 
 export default function CoursePage() {
   const { course } = useCoursesState();
+  console.log("courses",course);
   return (
     <>
       <MainLayout>

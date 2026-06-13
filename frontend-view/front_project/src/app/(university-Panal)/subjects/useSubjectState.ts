@@ -111,17 +111,17 @@ export const UseSubjectState = () => {
     }
   };
 
-  const openDeleteModal = useCallback((id: number) => {
+  const openDeleteModal = (id: number) => {
     setSelectedSubjectId(id);
     setShowModal(true);
-  },[]);
+  };
 
-  const closeDeleteModal = useCallback(() => {
+  const closeDeleteModal = () => {
     setSelectedSubjectId(null);
     setShowModal(false);
-  },[]);
+  };
 
-  const handleDeleteSubject = useCallback (()=> {
+  const handleDeleteSubject = ()=> {
     setLoading(true);
     if (selectedSubjectId === null) return;
 
@@ -139,7 +139,7 @@ export const UseSubjectState = () => {
           "Error while deleting Subject";
       },
     );
-  },[]);
+  };
 
   const fetchSubjectById = useCallback(() => {
     if (!id) return;

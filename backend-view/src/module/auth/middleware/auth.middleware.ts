@@ -40,7 +40,7 @@ export const authMiddleware =  (
         res.status(500).json({
             success:false,
             message:"Invalid Token Expression, Something went wrong"
-        })
+        });
     }
 
 }

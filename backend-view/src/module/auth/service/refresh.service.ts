@@ -16,17 +16,21 @@ export const refreshService = async (refreshToken: string) => {
     throw new Error("Invalid  Refresh Token");
   }
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET as string);
+ jwt.verify(
+  refreshToken,
+  process.env.JWT_REFRESH_SECRET as string
+) as jwt.JwtPayload;
 
-  const access_token = jwt.sign(
-    {
-        id:user.id,
-        role:user.role,
-    },
-    process.env.JWT_SECRET as string, {
-        expiresIn:"10m"
-    }
-)
+const access_token = jwt.sign(
+  {
+    id: user.id,
+    role: user.role,
+  },
+  process.env.JWT_SECRET as string,
+  {
+    expiresIn: "15m",
+  }
+);
 
 return {
     access_token,

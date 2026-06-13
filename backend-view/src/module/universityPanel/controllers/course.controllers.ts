@@ -5,9 +5,23 @@ import { validateCourse } from "../validation/course.validation.js";
 import { validateId } from "../../../validation/common.validation.js";
 
 
-//  Note: In course Data the create,getId,update,delete are  not required  for  the UI as  in University Panel the  Courses are 
-//  mostly defined so for UI there is  only the use  simple get api (for Card  form) 
-//  but  available  here  for  the Testing and Practice with the  Postman 
+/*
+  Note:
+  Course CRUD APIs (create, getById, update, delete) are implemented
+  and available for backend testing and future expansion.
+
+  However, in the current University Panel UI, courses are treated as
+  master data and are usually predefined by the administration.
+
+  Therefore, the frontend currently uses only the GET API to display
+  course information (cards, dropdowns, etc.).
+
+  The remaining CRUD operations are primarily available for:
+  - Postman testing
+  - Admin panel extensions
+  - Future feature development
+*/
+
 
 // Create Course
 export const createCourse = async (req: Request, res: Response) => {
@@ -24,11 +38,11 @@ export const createCourse = async (req: Request, res: Response) => {
     const result = await pool.query(
       `
       INSERT INTO courses
-      (course_name, course_type)
-      VALUES ($1,$2)
+      (course_name, course_type,total_semesters)
+      VALUES ($1,$2,$3)
       RETURNING *
       `,
-      [course.course_name, course.course_type],
+      [course.course_name, course.course_type,course.total_semesters],
     );
     res.status(201).json({
       success: true,
@@ -138,8 +152,9 @@ export const updateCourse = async (req: Request, res: Response) => {
       UPDATE courses
       SET
         course_name = $1,
-        course_type = $2
-      WHERE id = $3
+        course_type = $2,
+        total_semesters = $3
+      WHERE id = $4
       RETURNING *
       `,
       [course.course_name, course.course_type, id],

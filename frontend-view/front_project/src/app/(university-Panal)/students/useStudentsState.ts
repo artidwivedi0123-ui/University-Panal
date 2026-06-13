@@ -158,17 +158,17 @@ export const useStudentsState = () => {
     }
   };
   
-  const openDeleteModal = useCallback((id: number) => {
+  const openDeleteModal = (id: number) => {
     setSelectedStudentId(id);
     setShowModal(true);
-  },[]);
+  };
 
-  const closeDeleteModal = useCallback(() => {
+  const closeDeleteModal = () => {
     setSelectedStudentId(null);
     setShowModal(false);
-  },[]);
+  };
 
-  const handleDeleteStudent = useCallback(() => {
+  const handleDeleteStudent =() => {
     setLoading(true);
     if (selectedStudentId === null) return;
 
@@ -186,7 +186,7 @@ export const useStudentsState = () => {
           "Error  while in deleting Student";
       },
     );
-  },[]);
+  };
 
   const fetchStudentById = useCallback(() => {
     if (!id) return;

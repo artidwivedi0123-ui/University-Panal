@@ -3,6 +3,7 @@ import style from "./sidebar.module.scss";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  CourseManaged,
   Courses,
   DashboardImg,
   Fees,
@@ -16,6 +17,7 @@ import {
   UniversityLogo,
 } from "@/src/assets";
 import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
+import { title } from "process";
 
 
 export default function Sidebar() {

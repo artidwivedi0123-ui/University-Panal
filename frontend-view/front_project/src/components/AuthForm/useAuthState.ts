@@ -80,14 +80,12 @@ export const UseAuthState = () => {
       (response) => {
         const token = response.data.access_token;
         const rToken = response.data.refresh_token;
-        const user = response.data.user;
-
-        Cookies.set("access_token", token, {
-          expires: 1, // 1 day
-        });
-        Cookies.set("refresh_token",rToken);
+        Cookies.set("access_token", token);
+        Cookies.set("refresh_token", rToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         toast.success("Login Successful");
         router.push("/university-dashboard");
+
         setLoading(false);
       },
 
@@ -101,17 +99,15 @@ export const UseAuthState = () => {
   const logout = useCallback(() => {
     AuthApiProvider.apolloInstance.logout(
       () => {
+        toast.success("Logout Successful"); 
         Cookies.remove("access_token");
-        toast.success("Logout Successful");
-
-        router.replace("/login");
-      },
-
-      () => {
-        Cookies.remove("access_token");
+        Cookies.remove("refresh_token");
         localStorage.removeItem("user");
-
         router.replace("/login");
+        
+      },
+      (err) => {
+        toast.error(err?.response?.data?.message || "Error in Logout ");
       },
     );
   }, [router]);

@@ -1,11 +1,11 @@
 import { COURSE } from "@/src/constants/api-end-points.constants";
 import { AxiosService } from "@/src/services/axios.service";
-import { ICourseInput, ICourseResponse } from "../modal/ICourse";
+import { ICourseByIdResponse, ICourseData, ICourseInput, ICourseResponse } from "../modal/ICourse";
 
 export class CourseApiProvider extends AxiosService {
   static apolloInstance = new CourseApiProvider();
 
-  
+  //  get  All Courses
   async getCourse(
     success: (data: ICourseResponse) => void,
     error: (err: string | any) => void,
@@ -17,7 +17,7 @@ export class CourseApiProvider extends AxiosService {
       error(err);
     }
   }
-
+ // Create Course
   async createCourse(
     params:ICourseInput,
     success:(data:ICourseResponse)=>void,
@@ -31,13 +31,14 @@ export class CourseApiProvider extends AxiosService {
     }
   }
 
+  // get Course By Id
   async getCourseById(
   id: number,
-  success: (data: any) => void,
+  success: (data:ICourseByIdResponse) => void,
   error: (err: any) => void,
 ) {
   try {
-    const res = await this.get(
+    const res = await this.get<ICourseByIdResponse>(
       `${COURSE.GETCOURSES}/${id}`
     );
 
@@ -47,14 +48,15 @@ export class CourseApiProvider extends AxiosService {
   }
 }
 
+//  update Course
 async updateCourse(
   id: number,
   params: ICourseInput,
-  success: (data: any) => void,
+  success: (data: ICourseResponse) => void,
   error: (err: any) => void,
 ) {
   try {
-    const res = await this.put(
+    const res = await this.put<ICourseResponse>(
       `${COURSE.UPDATECOURSE}/${id}`,
       params
     );
@@ -65,14 +67,14 @@ async updateCourse(
   }
 }
 
-
+// Delete Course
 async deleteCourse(
   id: number,
-  success: (data: any) => void,
+  success: (data: ICourseData) => void,
   error: (err: any) => void,
 ) {
   try {
-    const res = await this.delete(
+    const res = await this.delete<ICourseData>(
       `${COURSE.DELTECOURSE}/${id}`
     );
 

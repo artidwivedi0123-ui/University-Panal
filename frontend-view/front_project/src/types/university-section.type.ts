@@ -1,4 +1,5 @@
 export const UNIVERSITY_SECTION_TYPE = {
+    COURSE:"course",
     COURSES:"courses",
     SEMESTERS:"semesters",
     STUDENTS:"students",
