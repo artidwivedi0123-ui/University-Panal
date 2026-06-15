@@ -1,5 +1,6 @@
 import { AxiosService } from "@/src/services/axios.service";
 import {
+  IAllStudentsResponse,
   IStudentByIdResponse,
   IStudentDashboard,
   IStudentDashboardResponse,
@@ -106,6 +107,18 @@ export class StudentApiProvider extends AxiosService {
         STUDENT.DASHBOARDSTUDENT,
       );
       success(res.data);
+    } catch (err) {
+      error(err);
+    }
+  }
+
+  async getAllStudents(
+    success:(data:IAllStudentsResponse)=>void,
+    error:(err:string | any)=>void,
+  ) {
+    try {
+      const response = await this.get<IAllStudentsResponse>(STUDENT.ALLSTUDENTS);
+      success(response.data);
     } catch (err) {
       error(err);
     }

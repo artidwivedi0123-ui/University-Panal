@@ -6,10 +6,8 @@ import {
 } from "@/src/modules/fees/fees-struct/modal/IFees";
 import { FeesApiProvider } from "@/src/modules/fees/fees-struct/provider/fees.provider";
 import { useParams, useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
 export const UseFeesStructState = () => {
   const params = useParams();
   const id = params?.id as string;

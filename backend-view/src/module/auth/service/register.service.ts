@@ -1,19 +1,10 @@
 import pool from "../../../db/db.js";
+import { Request,Response } from "express";
 import bcrypt from "bcryptjs";
 import { Register } from "../model/register.model.js";
 
 export const registerService = async (register: Register) => {
-  const exixtingUser = await pool.query(
-    `
-        SELECT * FROM users 
-        WHERE email = $1
-        `,
-    [register.email],
-  );
 
-  if (exixtingUser.rows.length > 0) {
-    throw new Error("Email already Exist");
-  }
 
   const hashedPassword = await bcrypt.hash(register.password, 10);
 

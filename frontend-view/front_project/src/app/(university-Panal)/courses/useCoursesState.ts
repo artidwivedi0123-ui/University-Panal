@@ -13,7 +13,7 @@ export const useCoursesState = () => {
   const id = params?.id as string;
   const [courseDetailId, setCourseDetailsId] = useState<ICourseById | null>(null);
   const isEdit = !!id;
-  const [course, setCourse] = useState<ICourseData[]>();
+  const [course, setCourse] = useState<ICourseData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectCourseId, setSelectCourseId] = useState<number | null>(null);

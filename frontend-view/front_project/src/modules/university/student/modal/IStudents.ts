@@ -9,10 +9,15 @@ export interface IStudentsData {
   course_name: string;
   course_type: string;
   semester_number: number;
-
   course_id?: number;
   semester_id?: number;
   
+}
+
+
+export interface IAllStudentsResponse {
+  success:boolean;
+  data:IStudentsData[];
 }
 
 export interface IStudentResponse {

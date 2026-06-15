@@ -17,7 +17,6 @@ import {
   UniversityLogo,
 } from "@/src/assets";
 import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
-import { title } from "process";
 
 
 export default function Sidebar() {
@@ -28,6 +27,11 @@ export default function Sidebar() {
       title:"Dashboard",
       route:UNIVERSITYROUTES.UNIVERSITYDASHBOARD,
       image:DashboardImg
+    },
+    {
+      title:"Course Mangement",
+      route:"/course",
+      image:CourseManaged,
     },
     {
       title: "Available Courses",

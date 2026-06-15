@@ -37,7 +37,7 @@ export const authMiddleware =  (
         req.user = decode;
         next();
     } catch (error) {
-        res.status(500).json({
+        res.status(401).json({
             success:false,
             message:"Invalid Token Expression, Something went wrong"
         });

@@ -169,7 +169,6 @@ export const UseSubjectState = () => {
   const handleSearch = useCallback(() => {
     setPage(1);
     setSearch(searchInput);
-    fetchSubjects();
   },[searchInput]);
 
   const fetchSubDashboard = useCallback(() => {

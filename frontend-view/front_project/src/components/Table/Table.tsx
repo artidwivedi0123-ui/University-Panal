@@ -53,7 +53,7 @@ export default function Table({
   onSearch,
   totalRecords,
 }: TableProps) {
-  const course = type === UNIVERSITY_SECTION_TYPE.COURSES;
+  const course = type === UNIVERSITY_SECTION_TYPE.COURSE;
   const semester = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
   const subjects = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
   const students = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
@@ -61,7 +61,7 @@ export default function Table({
   const stuFees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
   const getHeaders = () => {
     if (course) {
-      return ["Course Name", "Course Type", "Actions"];
+      return ["Course Name", "Course Type","Total Semester","Actions"];
     }
 
     if (semester) {
@@ -185,6 +185,7 @@ export default function Table({
           <tr key={index}>
             <td>{item.course_name}</td>
             <td>{item.course_type}</td>
+            <td>{item.total_semesters}</td>
              <td>
               <button
                 className={style["edit-btn"]}
@@ -339,14 +340,16 @@ export default function Table({
                       ? Fees
                       : stuFees
                         ? StudentFees
-                        : ""
+                        : Courses
           }
           height={120}
           width={120}
           alt="table-image"
         />
-        <p className={style["sub-heading"]}>Total Records : {totalRecords}</p>
-        <div className={style["search-container"]}>
+        {!course && !semester && (
+          <>
+          <p className={style["sub-heading"]}>Total Records : {totalRecords}</p>
+           <div className={style["search-container"]}>
           <input
             className={style["search-input"]}
             placeholder="Search Here..."
@@ -364,7 +367,10 @@ export default function Table({
               }
             }}
           />
-        </div>
+          </div>
+          </>
+        )}
+        {/* <p className={style["sub-heading"]}>Total Records : {totalRecords}</p> */}
         <button className={style["addbtn"]} onClick={addBtn}>
           {course
             ? "Add Course"
@@ -399,7 +405,8 @@ export default function Table({
             )}
           </tbody>
         </table>
-        <div className={style["pagination"]}>
+        {!course && (
+           <div className={style["pagination"]}>
           <button
             className={style["prev-btn"]}
             disabled={currentPage === 1}
@@ -431,6 +438,8 @@ export default function Table({
             Next
           </button>
         </div>
+        )}
+       
       </div>
     </div>
   );

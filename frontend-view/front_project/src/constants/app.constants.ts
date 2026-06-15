@@ -1,5 +1,5 @@
 export const APPCONSTANTS = {
   PAGE:1,
-  LIMIT:6,
+  LIMIT:10,
   
 }

@@ -24,7 +24,7 @@ export const createStudentFees = async (req: Request, res: Response) => {
     const total_fee = Number(fetchResultForFees.rows[0].total_fee);
     const due_amount = total_fee - Number(studeFees.amount_paid);
     let payment_status = "Pending";
-    if (due_amount <= 0) {
+    if (Number(due_amount <= 0)) {
       payment_status = "Paid";
     } else if (Number(studeFees.amount_paid) > 0) {
       payment_status = "Partial";

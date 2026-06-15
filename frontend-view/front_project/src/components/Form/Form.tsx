@@ -61,7 +61,6 @@ const totalFee =
    Number(formData.other_fee || 0);
 
 let payment_status = "Pending";
-
 if (remaining <= 0) {
   payment_status = "Paid";
 } else if (remaining > 0) {

@@ -8,7 +8,6 @@ import { StudentFeesApiProvider } from "@/src/modules/fees/fees-student/provider
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
 export const useStudentFeesState = () => {
 const [stuFeesInput, setStudFeesInput] = useState<IStudentFeesInput>({
   student_id: 0,

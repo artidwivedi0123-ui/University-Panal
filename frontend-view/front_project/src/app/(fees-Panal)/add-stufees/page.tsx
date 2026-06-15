@@ -11,7 +11,7 @@ export default function AddStudentFeesPage(){
         handleSubmitStudFees,
         stuFeesInput
     } = useStudentFeesState();
-    const {students}= useStudentsState();
+    const {allStudData}= useStudentsState();
     const {feesStruct} = UseFeesStructState();
 
     // console.log(" Check semester",semester);
@@ -23,7 +23,7 @@ export default function AddStudentFeesPage(){
             handleChange={handleStuFees}
             onSubmit={handleSubmitStudFees}
             type={UNIVERSITY_SECTION_TYPE.STUDENTFEES}
-            students={students}
+            students={allStudData}
             feeStructure={feesStruct}
 
             />

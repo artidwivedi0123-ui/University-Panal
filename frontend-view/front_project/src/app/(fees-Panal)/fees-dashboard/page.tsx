@@ -13,14 +13,14 @@ export default function FeesDashboard() {
   const cards = [
     {
       title: "Total Fee Structure",
-      count: `${currencyFormatter(feesDashboard?.totalFee || 0)}`,
+      count: `${currencyFormatter(Number(feesDashboard?.totalFee))}`,
       image: FeesDash,
       fees: [],
     },
 
     ...(feesDashboard?.courses.map((course) => ({
       title: course.course_name,
-      count: `₹${Number(course.total_fee)}`,
+      count: `${currencyFormatter(Number(course.total_fee))}`,
       image: FeesDash,
       fees: [
         `Tuition Fee : ${currencyFormatter(Number(course.tuition_fee))}`,

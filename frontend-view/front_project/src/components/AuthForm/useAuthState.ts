@@ -85,7 +85,6 @@ export const UseAuthState = () => {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         toast.success("Login Successful");
         router.push("/university-dashboard");
-
         setLoading(false);
       },
 
@@ -104,7 +103,6 @@ export const UseAuthState = () => {
         Cookies.remove("refresh_token");
         localStorage.removeItem("user");
         router.replace("/login");
-        
       },
       (err) => {
         toast.error(err?.response?.data?.message || "Error in Logout ");

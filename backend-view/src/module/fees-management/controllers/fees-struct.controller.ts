@@ -8,8 +8,7 @@ export const createFeeStructure = async (req: Request, res: Response) => {
   try {
     const fees: FeesStructure = req.body;
 
-    const total_fee =
-      fees.tuition_fee + fees.exam_fee + fees.library_fee + fees.other_fee;
+    const total_fee =  fees.tuition_fee + fees.exam_fee + fees.library_fee + fees.other_fee;
 
     const feesError = validateFees(fees);
     if (feesError) {

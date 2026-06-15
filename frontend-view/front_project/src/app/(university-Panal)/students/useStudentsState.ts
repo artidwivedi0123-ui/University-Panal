@@ -20,6 +20,7 @@ export const useStudentsState = () => {
   const [studentDetails, setStudentDetails] = useState<IStudentById | null>(
     null,
   );
+  const [allStudData,setAllStudData] = useState<IStudentsData[]>([]);
   const [selectedStudentId, setSelectedStudentId] = useState<number | null>(
     null,
   );
@@ -67,6 +68,26 @@ export const useStudentsState = () => {
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]);
+
+
+  const fetchAllStudents = useCallback(()=>{
+    setLoading(true);
+
+    StudentApiProvider.apolloInstance.getAllStudents(
+      (res)=>{
+        setLoading(false);
+        setAllStudData(res.data);
+      },
+      (err)=>{
+        toast.error(err.response?.data?.message || "Error while fetching Students");
+      }
+    )
+
+  },[]);
+
+  useEffect(()=>{
+    fetchAllStudents();
+  },[fetchAllStudents]);
 
  const handleChangeStudent = (
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -262,6 +283,7 @@ export const useStudentsState = () => {
     totalStudents,
     stuDashboard,
     courses,
+    allStudData
   };
 };
 

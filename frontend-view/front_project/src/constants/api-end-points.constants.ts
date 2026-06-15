@@ -26,7 +26,8 @@ export const STUDENT ={
     CREATESTUDENT:'/api/student/create',
     DELETESTUDENT:'/api/student',
     UPDATESTUDENT:'/api/student',
-    DASHBOARDSTUDENT:'/api/student/student/dashboard'
+    DASHBOARDSTUDENT:'/api/student/student/dashboard',
+    ALLSTUDENTS:'/api/student/all',
 }
 
 

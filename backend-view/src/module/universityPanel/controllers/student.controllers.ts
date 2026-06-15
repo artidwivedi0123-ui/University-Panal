@@ -65,7 +65,45 @@ export const createStudents = async (req: Request, res: Response) => {
   }
 };
 
-// get students
+
+export const getAllStudents = async (req:Request,res:Response)=>{
+  try {
+    const resultData = await  pool.query(
+      `
+       SELECT
+        students.id,
+        students.name,
+        students.roll_number,
+        students.gender,
+        students.marks,
+        students.grade_points,
+        students.result,
+        courses.course_name,
+        courses.course_type,
+        semesters.semester_number
+      FROM students
+      JOIN courses
+        ON students.course_id = courses.id
+      JOIN semesters
+        ON students.semester_id = semesters.id
+        ORDER BY students.id ASC
+      `,
+    );
+    res.status(200).json({
+      success:true,
+      data:resultData.rows,
+    });
+  }
+  catch(error){
+    console.log("Error Data",error);
+  res.status(500).json({
+    success:false,
+    message:"Error in  Fetching Students",
+  });
+  }
+}
+
+// get students with pagination
 export const getStudents = async (req: Request, res: Response) => {
   try {
     const page = Number(req.query.page) || 1;
