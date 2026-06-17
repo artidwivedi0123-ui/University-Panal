@@ -9,7 +9,6 @@ export default function ViewStudentPage() {
     studentDetails,
     loading,
   } = useStudentsState();
-
   if (loading) {
     return <p>Loading...</p>;
   }

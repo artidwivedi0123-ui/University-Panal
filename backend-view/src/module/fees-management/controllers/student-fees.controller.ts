@@ -55,8 +55,8 @@ export const createStudentFees = async (req: Request, res: Response) => {
         studeFees.student_id,
         studeFees.fee_structure_id,
         studeFees.amount_paid,
-        studeFees.due_amount,
-        studeFees.payment_status,
+        due_amount,
+        payment_status,
         studeFees.payment_date,
       ],
     );
@@ -273,15 +273,15 @@ export const updateStudentFees = async (req: Request, res: Response) => {
         due_amount = $4,
         payment_status = $5,
         payment_date = $6
-      WHERE id = $7
-      RETURNING *
+        WHERE id = $7
+        RETURNING *
       `,
       [
         studeFees.student_id,
         studeFees.fee_structure_id,
         studeFees.amount_paid,
-        studeFees.due_amount,
-        studeFees.payment_status,
+        due_amount,
+        payment_status,
         studeFees.payment_date,
         id,
       ],

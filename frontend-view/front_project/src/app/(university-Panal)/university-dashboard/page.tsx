@@ -8,8 +8,8 @@ import { UseSubjectState } from "../subjects/useSubjectState";
 import { UseSemesterState } from "../semesters/useSemesterState";
 import { useCoursesState } from "../courses/useCoursesState";
 import { UseDashboard } from "@/src/components/Dashboard/useDashboardState";
-import Image from "next/image";
-export default function UniversityDashboardPage() {
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+const UniversityDashboardPage=()=>{
     const { totalRecordStu } = useStudentsState();
     const { totalRecords } = UseSubjectState();
     const { semester } = UseSemesterState();
@@ -31,4 +31,6 @@ export default function UniversityDashboardPage() {
         </MainLayout>
 
     );
-}
+};
+
+export default withAdmin(UniversityDashboardPage);

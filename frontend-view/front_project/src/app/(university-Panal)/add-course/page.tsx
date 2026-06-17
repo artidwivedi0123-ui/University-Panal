@@ -3,8 +3,9 @@ import Form from "@/src/components/Form/Form";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { useCoursesState } from "../courses/useCoursesState";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function AddCourse(){
+const AddCourse=()=>{
     const {courseData,handleChangeCourse,handleSubmitCourse} = useCoursesState();
     return  (
       <MainLayout>
@@ -17,4 +18,5 @@ export default function AddCourse(){
     />
       </MainLayout>
     )
-}
+};
+export default withAdmin(AddCourse);

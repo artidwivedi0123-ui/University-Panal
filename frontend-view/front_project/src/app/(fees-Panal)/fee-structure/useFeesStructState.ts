@@ -6,7 +6,7 @@ import {
 } from "@/src/modules/fees/fees-struct/modal/IFees";
 import { FeesApiProvider } from "@/src/modules/fees/fees-struct/provider/fees.provider";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 export const UseFeesStructState = () => {
   const params = useParams();
@@ -93,7 +93,6 @@ export const UseFeesStructState = () => {
         (res) => {
           toast.success("Fees Details Updated Successfully");
           router.push("/fee-structure");
-          console.log()
         },
         (err) => {
           toast.error(err?.response?.data?.message);
@@ -115,7 +114,7 @@ export const UseFeesStructState = () => {
     }
   };
 
-  const fetchFeesById = () =>{
+  const fetchFeesById = useCallback(() =>{
     if(!id) return ;
     FeesApiProvider.apolloInstance.getFeesById(
         Number(id),
@@ -135,11 +134,11 @@ export const UseFeesStructState = () => {
             toast.error("Error in fetch error");
         }
     )
-  }
+  },[id]);
 
   useEffect(()=>{
     fetchFeesById();
-  },[id]);
+  },[fetchFeesById]);
 
 
  const handleSearch = () => {
@@ -224,7 +223,5 @@ useEffect(()=>{
     totalRecords,
     handleSearch,
     feesDashboard
-
-
   };
 };

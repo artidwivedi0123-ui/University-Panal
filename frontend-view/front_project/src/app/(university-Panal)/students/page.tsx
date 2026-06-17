@@ -5,8 +5,9 @@ import { useStudentsState } from "./useStudentsState";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import ModalBox from "@/src/components/Modal/Modal";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function StudentsPage() {
+const StudentsPage=()=> {
   const {
     students,
     router,
@@ -55,4 +56,5 @@ export default function StudentsPage() {
       </MainLayout>
     </>
   );
-}
+};
+export default withAdmin(StudentsPage);

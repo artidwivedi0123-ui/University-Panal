@@ -15,18 +15,21 @@ import {
   useStudentsState
 }
 from "../students/useStudentsState";
-import { useCoursesState } from "../courses/useCoursesState";
-import { UseSemesterState } from "../semesters/useSemesterState";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
 
-export default function AddStudentsPage() {
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+
+
+const  AddStudentsPage=()=>{
 
   const {
     studentData,
     handleChangeStudent,
     handleSubmitStudent,
   } = useStudentsState();
-  const {course} = useCoursesState();
-  const {semester} = UseSemesterState();
+  const {course} = useCourseList();
+  const {semester} = useSemesterList();
 
   return (
 
@@ -45,4 +48,5 @@ export default function AddStudentsPage() {
 
     </MainLayout>
   );
-}
+};
+export default withAdmin(AddStudentsPage);

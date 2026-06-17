@@ -1,5 +1,6 @@
 import '@/src/styles/global.scss';
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from '../context/AuthContext';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -12,7 +13,9 @@ export default function RootLayout({
     >
       <body >
         <ToastContainer/>
-        {children}
+        <AuthProvider>
+             {children}
+        </AuthProvider>
         </body>
     </html>
   );

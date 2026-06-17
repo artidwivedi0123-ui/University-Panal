@@ -5,7 +5,9 @@ import { useStudentFeesState } from "./useStudentFeesState";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import ModalBox from "@/src/components/Modal/Modal";
 
-export default function StudentFeesPage(){
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+
+const StudentFeesPage=()=>{
     const {studFeesData,router,showModal,
         handleDeleteStudFeeRecord,
         openDeleteModal,
@@ -50,4 +52,5 @@ export default function StudentFeesPage(){
         </MainLayout>
         </>
     )
-}
+};
+export default withAdmin(StudentFeesPage);

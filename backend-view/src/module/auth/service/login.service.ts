@@ -2,53 +2,44 @@ import pool from "../../../db/db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Login } from "../model/login.model.js";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/token.js";
 
 export const loginService = async (login: Login) => {
   const result = await pool.query(
     `
-        SELECT * FROM users  WHERE email = $1
-        `,
-    [login.email],
+    SELECT
+      id,
+      full_name,
+      email,
+      password,
+      role
+    FROM users
+    WHERE email = $1
+    `,
+    [login.email]
   );
 
   const user = result.rows[0];
-
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Invalid Email or Password");
+  }
+  const isPasswordValid = await bcrypt.compare(
+    login.password,
+    user.password
+  );
+  if (!isPasswordValid) {
+    throw new Error("Invalid Email or Password");
   }
 
-  const isMatch = await bcrypt.compare(login.password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid Password");
-  }
-  const access_token = jwt.sign(
-    {
-      id: user.id,
-      role: user.role,
-    },
-    process.env.JWT_SECRET as string,
-    {
-      expiresIn: "15m",
-    },
-  );
-
-  const refresh_token = jwt.sign(
-    {
-      id: user.id,
-    },
-    process.env.JWT_REFRESH_SECRET as string,
-    {
-      expiresIn: "20m",
-    },
-  );
-
+  const access_token = generateAccessToken(user?.id,user?.role);
+  const refresh_token = generateRefreshToken(user?.id,user?.role);
   await pool.query(
     `
-    UPDATE users 
+    UPDATE users
     SET refresh_token = $1
-    where id = $2
+    WHERE id = $2
     `,
-    [refresh_token, user.id],
+    [refresh_token, user.id]
   );
 
   return {
@@ -57,8 +48,8 @@ export const loginService = async (login: Login) => {
     user: {
       id: user.id,
       full_name: user.full_name,
-      role: user.role,
       email: user.email,
+      role: user.role,
     },
   };
 };

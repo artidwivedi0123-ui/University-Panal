@@ -3,17 +3,18 @@ import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseSubjectState } from "../subjects/useSubjectState";
 import Form from "@/src/components/Form/Form";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
-import { useCoursesState } from "../courses/useCoursesState";
-import { UseSemesterState } from "../semesters/useSemesterState";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function AddSubjectsPage(){
+const  AddSubjectsPage=()=>{
     const {
         handleChangeSubject,
         handleSubmitSubjects,
         subjectData
      } = UseSubjectState();
-     const {course} = useCoursesState();
-     const {semester} = UseSemesterState();
+     const {course} = useCourseList();
+     const {semester} = useSemesterList();
      return (
         <MainLayout>
             <Form 
@@ -26,4 +27,5 @@ export default function AddSubjectsPage(){
             />
         </MainLayout>
      )
-}
+};
+export default withAdmin(AddSubjectsPage);

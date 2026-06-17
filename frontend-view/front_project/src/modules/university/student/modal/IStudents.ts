@@ -11,6 +11,8 @@ export interface IStudentsData {
   semester_number: number;
   course_id?: number;
   semester_id?: number;
+   email:string;
+  password?:string;
   
 }
 
@@ -41,6 +43,8 @@ export interface IStudentsInput {
   result: string;
   course_id: number;
   semester_id: number;
+  email:string;
+  password?:string;
 }
 
 export interface IStudentById {
@@ -53,6 +57,8 @@ export interface IStudentById {
   marks: number;
   grade_points: number;
   result: string;
+  email:string;
+  password?:string;
 }
 
 export interface IStudentByIdResponse {

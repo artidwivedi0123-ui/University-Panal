@@ -27,7 +27,7 @@ export const STUDENT ={
     DELETESTUDENT:'/api/student',
     UPDATESTUDENT:'/api/student',
     DASHBOARDSTUDENT:'/api/student/student/dashboard',
-    ALLSTUDENTS:'/api/student/all',
+    ALLSTUDENTS:'/api/student/all-students',
 }
 
 
@@ -54,4 +54,9 @@ export const STUDENTFEES = {
     GETSTUDFEES:'/api/student-fees',
     DELETESTUDFEES:'/api/student-fees',
     UPDATESTUDFEES:'/api/student-fees'
+}
+
+
+export const STUDENTPROFILE ={
+    GETSTUDENTPROFILE:'/api/stud/profile'
 }

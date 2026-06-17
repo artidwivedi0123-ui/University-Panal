@@ -21,7 +21,7 @@ export const useCoursesState = () => {
   const [courseData, setCourseData] = useState<ICourseInput>({
     course_name: "",
     course_type: "",
-    total_semesters:"" as any
+    total_semesters:0
   });
   const fetchCourses = useCallback(() => {
     setLoading(true);
@@ -29,6 +29,7 @@ export const useCoursesState = () => {
       (res) => {
         setLoading(false);
         setCourse(res?.data);
+        console.log("Course Response Data",res?.data);
       },
       (err) => {
         setLoading(false);

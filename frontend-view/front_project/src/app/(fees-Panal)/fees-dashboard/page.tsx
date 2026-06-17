@@ -5,8 +5,9 @@ import Dashboard from "@/src/components/Dashboard/Dashboard";
 import { UseFeesStructState } from "../fee-structure/useFeesStructState";
 import { FeesDash, StuDash } from "@/src/assets";
 import { currencyFormatter } from "@/src/utils/app.utils";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function FeesDashboard() {
+const FeesDashboard=() =>{
   const { feesDashboard } = UseFeesStructState();
 
   
@@ -36,4 +37,5 @@ export default function FeesDashboard() {
       <Dashboard cards={cards} />
     </MainLayout>
   );
-}
+};
+export default  withAdmin(FeesDashboard);

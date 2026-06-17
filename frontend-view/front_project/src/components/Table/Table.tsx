@@ -19,6 +19,7 @@ import {
   formatDateTime,
   getOrdinal,
 } from "@/src/utils/app.utils";
+import { useAuth } from "@/src/context/AuthContext";
 
 interface TableProps {
   data: any[];
@@ -53,6 +54,7 @@ export default function Table({
   onSearch,
   totalRecords,
 }: TableProps) {
+  const {user} = useAuth();
   const course = type === UNIVERSITY_SECTION_TYPE.COURSE;
   const semester = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
   const subjects = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;

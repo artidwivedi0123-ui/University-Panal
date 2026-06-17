@@ -1,62 +1,47 @@
 import pool from "../../../db/db.js";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/token.js";
 
-export const refreshService = async (
-  refreshToken: string
-) => {
+export const refreshService = async (refreshToken: string) => {
+  try {
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET as string,
+    ) as JwtPayload;
+    const userId = decoded.id;
+    console.log("userId",userId);
+    const result = await pool.query(
+      `
+      SELECT id, role, refresh_token
+      FROM users
+      WHERE id = $1
+      `,
+      [userId],
+    );
+    const user = result.rows[0];
+    if (!user) {
+      throw new Error("User not found");
+    }
 
-  const result = await pool.query(
-    `
-    SELECT *
-    FROM users
-    WHERE refresh_token = $1
-    `,
-    [refreshToken]
-  );
+    if (user.refresh_token !== refreshToken) {
+      throw new Error("Invalid Refresh Token");
+    }
+    const access_token = generateAccessToken(user?.id, user?.role);
+    const new_refresh_token = generateRefreshToken(user?.id,user?.role);
+    await pool.query(
+      `
+      UPDATE users
+      SET refresh_token = $1
+      WHERE id = $2
+      `,
+      [new_refresh_token, user.id],
+    );
 
-  const user = result.rows[0];
-
-  if (!user) {
-    throw new Error("Invalid Refresh Token");
+    return {
+      access_token,
+      refresh_token: new_refresh_token,
+    };
+  } catch (error) {
+    throw new Error("Refresh Token Expired or Invalid");
   }
-
-  jwt.verify(
-    refreshToken,
-    process.env.JWT_REFRESH_SECRET as string
-  );
-
-  const access_token = jwt.sign(
-    {
-      id: user.id,
-      role: user.role,
-    },
-    process.env.JWT_SECRET as string,
-    {
-      expiresIn: "15m",
-    }
-  );
-
-  const refresh_token = jwt.sign(
-    {
-      id: user.id,
-    },
-    process.env.JWT_REFRESH_SECRET as string,
-    {
-      expiresIn: "20m",
-    }
-  );
-
-  await pool.query(
-    `
-    UPDATE users
-    SET refresh_token = $1
-    WHERE id = $2
-    `,
-    [refresh_token, user.id]
-  );
-
-  return {
-    access_token,
-    refresh_token,
-  };
 };

@@ -4,10 +4,15 @@ import { Register } from "../model/register.model.js";
 import { validateRegister } from "../validation/register.validation.js";
 import pool from "../../../db/db.js";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const register: Register = req.body;
-    const registerError = validateRegister(register);
+
+    const registerError =
+      validateRegister(register);
 
     if (registerError) {
       return res.status(400).json({
@@ -16,32 +21,43 @@ export const registerUser = async (req: Request, res: Response) => {
       });
     }
 
-
-     const exixtingUser = await pool.query(
-    `
-        SELECT * FROM users 
+    const existingUser =
+      await pool.query(
+        `
+        SELECT id
+        FROM users
         WHERE email = $1
         `,
-    [register.email],
-  );
-  if(exixtingUser.rows.length > 0) {
-    res.status(400).json({
-      success:false,
-      messages:"This user is already exist with the same email id",
-    })
-  }
+        [register.email]
+      );
 
-    const user = await registerService(register);
+    if (
+      existingUser.rows.length > 0
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "User already exists with this email",
+      });
+    }
+
+    const user =
+      await registerService(register);
+
     res.status(201).json({
       success: true,
-      message: "User Registered Successfully",
+      message:
+        "User Registered Successfully",
       data: user,
     });
+
   } catch (error) {
     console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Error in the user Registration",
+      message:
+        "Error in User Registration",
     });
   }
 };

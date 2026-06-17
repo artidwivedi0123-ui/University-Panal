@@ -15,23 +15,24 @@ import {
   useStudentsState
 }
 from "@/src/app/(university-Panal)/students/useStudentsState";
-import { useCoursesState } from "@/src/app/(university-Panal)/courses/useCoursesState";
-import { UseSemesterState } from "@/src/app/(university-Panal)/semesters/useSemesterState";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function EditStudentsPage() {
+const EditStudentsPage=()=>{
 
   const {
     studentData,
     handleChangeStudent,
     handleSubmitStudent,
   } = useStudentsState();
-  const {course} = useCoursesState();
-  const {semester} = UseSemesterState();
+  const {course} = useCourseList();
+  const {semester} = useSemesterList();
+
 
   return (
 
     <MainLayout>
-
       <Form
         formData={studentData}
         handleChange={handleChangeStudent}
@@ -45,4 +46,5 @@ export default function EditStudentsPage() {
 
     </MainLayout>
   );
-}
+};
+export default withAdmin(EditStudentsPage);

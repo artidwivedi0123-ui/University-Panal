@@ -1,15 +1,9 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
-
+import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 import { AUTH } from "../constants/api-end-points.constants";
 import { AppConfig } from "../config/app.config";
-
-const apiClient = axios.create({
-  baseURL: AppConfig.api_url,
-  withCredentials: true,
-});
 
 interface JwtPayload {
   id: number;
@@ -17,102 +11,140 @@ interface JwtPayload {
   exp: number;
 }
 
-let isRefreshing = false;
+ export const apiClient = axios.create({
+  baseURL: AppConfig.api_url,
+  withCredentials: true,
+});
+
 let refreshPromise: Promise<string | null> | null = null;
+
+const saveTokens = (
+  accessToken: string,
+  refreshToken: string
+) => {
+  Cookies.set("access_token", accessToken);
+  Cookies.set("refresh_token", refreshToken);
+};
+
+const clearTokens = () => {
+  Cookies.remove("access_token");
+  Cookies.remove("refresh_token");
+  localStorage.removeItem("user");
+};
+
 const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const refreshToken = Cookies.get("refresh_token");
-    console.log("Check Refresh Token", refreshToken);
 
     if (!refreshToken) {
+      clearTokens();
       return null;
     }
 
-    const response = await axios.post(
+    const { data } = await axios.post(
       `${AppConfig.api_url}${AUTH.REFRESH}`,
       {
         refresh_token: refreshToken,
       },
       {
         withCredentials: true,
-      },
+      }
     );
 
-    const newToken = response.data.data.access_token;
-    console.log("New Token", newToken);
-    if (!newToken) {
-      return null;
-    }
-    Cookies.set("access_token", newToken);
-    return newToken;
+    const accessToken = data.data.access_token;
+    const newRefreshToken = data.data.refresh_token;
+
+    saveTokens(accessToken, newRefreshToken);
+
+    return accessToken;
   } catch (error) {
-    console.error(error);
-    Cookies.remove("access_token");
+    clearTokens();
     return null;
   }
 };
 
+
 apiClient.interceptors.request.use(
   async (config) => {
-    const url = config.url || "";
-    if (
-      url.includes(AUTH.LOGIN) ||
-      url.includes(AUTH.REGISTER) ||
-      url.includes(AUTH.REFRESH)
-    ) {
+    const publicRoutes = [
+      AUTH.LOGIN,
+      AUTH.REGISTER,
+      AUTH.REFRESH,
+    ];
+
+    const isPublicRoute = publicRoutes.some(
+      (route) => config.url?.includes(route)
+    );
+
+    if (isPublicRoute) {
       return config;
     }
 
-    let token = Cookies.get("access_token");
+    let token : string | any = Cookies.get("access_token");
+
     if (!token) {
-      const newToken =
-        await refreshAccessToken();
+      token = await refreshAccessToken();
 
-      if (!newToken) {
+      if (!token) {
         return Promise.reject(
-          new Error("Session Expired")
+          new Error("Session expired")
         );
       }
-
-      token = newToken;
     }
-    const decoded =
-      jwtDecode<JwtPayload>(token);
-    const expiryTime = decoded.exp * 1000;
-    const bufferTime = 30000;
-    if ( expiryTime - Date.now() < bufferTime) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-        refreshPromise = refreshAccessToken().finally(
-            () => {
-              isRefreshing = false;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+
+      const expiresSoon =
+        decoded.exp * 1000 - Date.now() < 30000;
+
+      if (expiresSoon) {
+        if (!refreshPromise) {
+          refreshPromise = refreshAccessToken()
+            .finally(() => {
               refreshPromise = null;
-            }
+            });
+        }
+
+        const newToken = await refreshPromise;
+
+        if (!newToken) {
+          return Promise.reject(
+            new Error("Session expired")
           );
+        }
+
+        token = newToken;
       }
-      const newToken = await refreshPromise;
-      if (!newToken) {
-        return Promise.reject(
-          new Error("Session Expired")
-        );
-      }
-      token = newToken;
+    } catch {
+      clearTokens();
+
+      return Promise.reject(
+        new Error("Invalid token")
+      );
     }
+
     config.headers.Authorization =
       `Bearer ${token}`;
+
     return config;
   }
 );
+
 apiClient.interceptors.response.use(
   (response) => response,
+
   async (error: AxiosError) => {
-    console.error(
-      "Response Error:",
-      error.response?.status,
-      error.response?.data,
-    );
+    if (error.response?.status === 401) {
+      clearTokens();
+
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+    }
 
     return Promise.reject(error);
-  },
+  }
 );
-export default apiClient;
+
+

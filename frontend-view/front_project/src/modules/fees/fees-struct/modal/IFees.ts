@@ -36,6 +36,11 @@ export interface IFeeStructureData {
     total_fee: number;
 }
 
+export interface IFeeStructureResponseData {
+    success:boolean;
+    data:IFeeStructureData[];
+}
+
 
 export interface IFeeStructureResponse {
     success:boolean;

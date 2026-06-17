@@ -11,6 +11,7 @@ import loginRoutes from "../src/module/auth/routes/login.routes.js";
 import registerRoutes from "../src/module/auth/routes/register.routes.js";
 import feesStructureRoutes from  "../src/module/fees-management/routes/fees-struct.routes.js";
 import studentFeesRoutes from  "../src/module/fees-management/routes/student-fees.routes.js";
+import studentProfileRoute from "../src/module/student-profile/routes/student-profile.routes.js";
 dotenv.config();
 
 const app = express();
@@ -41,6 +42,9 @@ app.use("/api/student",studentRoutes);
 // Fees Struture 
 app.use("/api/fee-structure",feesStructureRoutes);
 app.use("/api/student-fees",studentFeesRoutes);
+
+//  Student Profile 
+app.use("/api/stud",studentProfileRoute);
 
 // app.get("/test-db", async (req, res) => {
 

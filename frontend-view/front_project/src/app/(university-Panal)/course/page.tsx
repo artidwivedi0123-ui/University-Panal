@@ -4,7 +4,8 @@ import { useCoursesState } from "../courses/useCoursesState"
 import Table from "@/src/components/Table/Table";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import ModalBox from "@/src/components/Modal/Modal";
-export default function CourseManagedPage(){
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+const  CourseManagedPage=()=>{
     const {course,router,handleDeleteCourse,showModal,
         openDeleteModal,closeDeleteModal
     } = useCoursesState();
@@ -16,6 +17,7 @@ export default function CourseManagedPage(){
             addBtn={()=>router.push('/add-course')}
             openDeleteModal={openDeleteModal}
             handleDelete={handleDeleteCourse}
+            handleEdit={(id)=>router.push(`/edit-course/${id}`)}
             />
 
             {
@@ -31,4 +33,5 @@ export default function CourseManagedPage(){
             }
         </MainLayout>
     )
-}
+};
+export default withAdmin(CourseManagedPage);

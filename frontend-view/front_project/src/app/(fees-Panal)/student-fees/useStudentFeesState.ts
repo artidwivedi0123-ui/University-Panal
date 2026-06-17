@@ -35,7 +35,6 @@ const [stuFeesInput, setStudFeesInput] = useState<IStudentFeesInput>({
 
   const fetchStudentFees = () => {
     setLoading(true);
-
     StudentFeesApiProvider.apolloInstance.getFeesStudent(
       page,
       limit,
@@ -154,7 +153,7 @@ const handleStuFees = (
           due_amount:res.data.due_amount,
           fee_structure_id:res.data.fee_structure_id,
           payment_date: res.data.payment_date?.split("T")[0] || "",
-          payment_status:res.data.payment_status
+          payment_status:res.data.payment_status ??  "Partial"
         });
       },
       (err)=>{

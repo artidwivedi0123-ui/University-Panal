@@ -12,18 +12,19 @@ import {
 from "@/src/types/university-section.type";
 
 import { UseSubjectState } from "../../subjects/useSubjectState";
-import { useCoursesState } from "@/src/app/(university-Panal)/courses/useCoursesState";
-import { UseSemesterState } from "@/src/app/(university-Panal)/semesters/useSemesterState";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function EditStudentsPage() {
 
+const EditSubjectsPage=() =>{
   const {
    subjectData,
    handleChangeSubject,
    handleSubmitSubjects,
   } = UseSubjectState();
-  const {course} = useCoursesState();
-  const {semester} = UseSemesterState();
+  const {course} = useCourseList();
+  const {semester} = useSemesterList();
 
   return (
 
@@ -42,4 +43,5 @@ export default function EditStudentsPage() {
 
     </MainLayout>
   );
-}
+};
+export default withAdmin(EditSubjectsPage);

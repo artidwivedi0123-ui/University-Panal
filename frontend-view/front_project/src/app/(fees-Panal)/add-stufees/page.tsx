@@ -5,16 +5,19 @@ import Form from "@/src/components/Form/Form";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import { useStudentFeesState } from "../student-fees/useStudentFeesState";
 import { useStudentsState } from "../../(university-Panal)/students/useStudentsState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function AddStudentFeesPage(){
+ const AddStudentFeesPage=()=>{
     const {handleStuFees,
         handleSubmitStudFees,
         stuFeesInput
     } = useStudentFeesState();
-    const {allStudData}= useStudentsState();
+    const {allStudData,students}= useStudentsState();
     const {feesStruct} = UseFeesStructState();
 
     // console.log(" Check semester",semester);
+
+    console.log("Fees Structure",feesStruct);
  
     return (
         <MainLayout>
@@ -29,4 +32,5 @@ export default function AddStudentFeesPage(){
             />
         </MainLayout>
     )
-}
+};
+export default withAdmin(AddStudentFeesPage);

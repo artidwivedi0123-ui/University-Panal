@@ -5,8 +5,9 @@ import Dashboard from "@/src/components/Dashboard/Dashboard";
 import { useStudentsState } from "../students/useStudentsState";
 import { StuDash } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function SubjectDashPage() {
+const StudentDashPage=()=>{
 
  const {stuDashboard,totalStudents,
   courses,
@@ -39,4 +40,5 @@ export default function SubjectDashPage() {
       />
     </MainLayout>
   );
-}
+};
+export default withAdmin(StudentDashPage);

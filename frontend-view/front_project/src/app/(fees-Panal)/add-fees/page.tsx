@@ -3,18 +3,19 @@ import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseFeesStructState } from "../fee-structure/useFeesStructState"
 import Form from "@/src/components/Form/Form";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
-import { useCoursesState } from "../../(university-Panal)/courses/useCoursesState";
-import { UseSemesterState } from "../../(university-Panal)/semesters/useSemesterState";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function AddFeesPage(){
+ const  AddFeesPage=()=>{
     const {feesStruct,
         feesData
         ,handleChangeFees,
         handleSubmit
     } = UseFeesStructState();
-    const {course} = useCoursesState();
-    const {semester} = UseSemesterState();
-    // console.log(" Check semester",semester);
+    const {course} = useCourseList();
+    const {semester} = useSemesterList();
+
  
     return (
         <MainLayout>
@@ -28,4 +29,5 @@ export default function AddFeesPage(){
             />
         </MainLayout>
     )
-}
+};
+export default withAdmin(AddFeesPage);

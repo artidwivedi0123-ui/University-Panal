@@ -7,8 +7,7 @@ import { validateId } from "../../../validation/common.validation.js";
 export const createFeeStructure = async (req: Request, res: Response) => {
   try {
     const fees: FeesStructure = req.body;
-
-    const total_fee =  fees.tuition_fee + fees.exam_fee + fees.library_fee + fees.other_fee;
+    const total_fee =  Number(fees.tuition_fee) + Number(fees.exam_fee) + Number(fees.library_fee) + Number(fees.other_fee);
 
     const feesError = validateFees(fees);
     if (feesError) {
@@ -40,7 +39,7 @@ export const createFeeStructure = async (req: Request, res: Response) => {
         fees.exam_fee,
         fees.other_fee,
         fees.library_fee,
-        fees.total_fee,
+        total_fee,
       ],
     );
 
@@ -137,9 +136,7 @@ export const updateFeesStructure = async (req: Request, res: Response) => {
     const { id } = req.params;
     const idError = validateId(id);
     const feesError = validateFees(fees);
-
-    const total_fee =
-      fees.tuition_fee + fees.exam_fee + fees.library_fee + fees.other_fee;
+    const total_fee  = Number(fees.tuition_fee) + Number(fees.exam_fee) + Number(fees.library_fee) + Number(fees.other_fee);
 
     if (idError) {
       return res.status(400).json({

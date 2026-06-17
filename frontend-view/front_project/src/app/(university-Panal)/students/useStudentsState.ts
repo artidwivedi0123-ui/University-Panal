@@ -43,6 +43,8 @@ export const useStudentsState = () => {
     result: "",
     course_id: 0,
     semester_id: 0,
+    email:"",
+    password:"",
   });
   const limit = APPCONSTANTS.LIMIT;
   const router = useRouter();
@@ -152,6 +154,8 @@ export const useStudentsState = () => {
       result: studentData.result,
       course_id: studentData.course_id,
       semester_id: studentData.semester_id,
+      email:studentData.email,
+      password:studentData.password
     };
     if (isEdit) {
       StudentApiProvider.apolloInstance.updateStudent(
@@ -224,6 +228,8 @@ export const useStudentsState = () => {
           result: res.data.result,
           course_id: res.data.course_id,
           semester_id: res.data.semester_id,
+          password:res.data.password,
+          email:res.data.email
         });
       },
       console.error,
@@ -255,6 +261,10 @@ export const useStudentsState = () => {
   useEffect(() => {
     fetchStuDashboard();
   }, [fetchStuDashboard]);
+
+
+
+  
 
   return {
     studentDetails,

@@ -3,7 +3,6 @@ import { useCoursesState } from "@/src/app/(university-Panal)/courses/useCourses
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import Card from "@/src/components/CardContainer/CardContainer";
 import style from "@/src/app/(university-Panal)/courses/course.module.scss";
-
 export default function CoursePage() {
   const { course } = useCoursesState();
   console.log("courses",course);

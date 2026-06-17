@@ -5,8 +5,9 @@ import Form from "@/src/components/Form/Form";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import { useStudentFeesState } from "@/src/app/(fees-Panal)/student-fees/useStudentFeesState";
 import { useStudentsState } from "@/src/app/(university-Panal)/students/useStudentsState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-export default function  EditStudentPage(){
+const   EditStudentFeesPage=()=>{
     const {handleStuFees,
         handleSubmitStudFees,
         stuFeesInput
@@ -26,4 +27,5 @@ export default function  EditStudentPage(){
             />
         </MainLayout>
     )
-}
+};
+export default withAdmin(EditStudentFeesPage);

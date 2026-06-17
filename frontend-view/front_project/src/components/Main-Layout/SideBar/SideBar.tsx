@@ -1,13 +1,14 @@
 "use client";
 import style from "./sidebar.module.scss";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   CourseManaged,
   Courses,
   DashboardImg,
   Fees,
   FeesDash,
+  MIcon,
   Semester,
   StuDash,
   StudentFees,
@@ -17,12 +18,15 @@ import {
   UniversityLogo,
 } from "@/src/assets";
 import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
+import { useAuth } from "@/src/context/AuthContext";
+import { title } from "process";
 
 
 export default function Sidebar() {
+  const {user} = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const menus = [
+  const AdminMenus = [
      {
       title:"Dashboard",
       route:UNIVERSITYROUTES.UNIVERSITYDASHBOARD,
@@ -82,17 +86,45 @@ export default function Sidebar() {
   
   ];
 
+    const StudentMenus = [
+
+    {
+      title: "Available Courses",
+      route: UNIVERSITYROUTES.COURSES,
+      image: Courses,
+    },
+    {
+      title: "Available Semesters",
+      route: UNIVERSITYROUTES.SEMESTERS,
+      image: Semester,
+    },
+    {
+      title:"Student Profile",
+      route:"/student-profile",
+      image:MIcon
+    },
+    {
+      title:" Student Subjects",
+      route:"/student-subject",
+      image:Subject
+    },
+    
+    {
+      title:"Student Fees",
+      route:"/student-fee",
+      image:Fees
+    },
+    
+    
+  
+  ];
+
+  const menus = user?.role === "admin" ? 
+      AdminMenus
+    : StudentMenus;
+
   return (
     <div className={style["sidebar"]}>
-     {/* .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 100vh;
-  overflow-y: auto;
-} */}
-
       <div className={style["menu-container"]}>
               <Image  onClick={()=>router.push("/")}
               className={style["image"]}

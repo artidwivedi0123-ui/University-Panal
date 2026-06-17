@@ -1,5 +1,5 @@
 import { Axios, AxiosResponse } from "axios";
-import apiClient from "../lib/api.client";
+import { apiClient } from "../lib/api.client";
 
 export class AxiosService {
   async post<T, D = unknown>(url: string, data?: D): Promise<AxiosResponse<T>> {

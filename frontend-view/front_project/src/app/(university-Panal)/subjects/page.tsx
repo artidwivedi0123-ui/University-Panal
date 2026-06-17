@@ -5,7 +5,9 @@ import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import ModalBox from "@/src/components/Modal/Modal";
 
-export default function SubjectsPage(){
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+
+const SubjectsPage=()=>{
     const {subjects,router,openDeleteModal,handleDeleteSubject,showModal,closeDeleteModal,totalRecords,
         page,handleSearch,searchInput,setSearchInput,setPage,totalPages
     } = UseSubjectState();
@@ -42,4 +44,6 @@ export default function SubjectsPage(){
         
         </>
     )
-}
+};
+
+export default  withAdmin(SubjectsPage);

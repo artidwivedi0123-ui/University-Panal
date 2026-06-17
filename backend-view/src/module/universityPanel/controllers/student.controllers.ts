@@ -1,66 +1,151 @@
 import { Request, Response } from "express";
 import pool from "../../../db/db.js";
+import bcrypt from "bcryptjs";
 import { Student } from "../models/student.model.js";
 import { validateStudent } from "../validation/student.validation.js";
 import { validateId } from "../../../validation/common.validation.js";
 
 // add(create) students
-export const createStudents = async (req: Request, res: Response) => {
+export const createStudents = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const student: Student = req.body;
-    const studError = validateStudent(student);
+
+    const studError =
+      validateStudent(student);
 
     if (studError) {
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: studError,
       });
     }
 
-    const existingStudent = await pool.query(
-      `
+    // Check Roll Number
+    const existingStudent =
+      await pool.query(
+        `
         SELECT id
         FROM students
         WHERE roll_number = $1
         `,
-      [student.roll_number],
-    );
+        [student.roll_number]
+      );
 
-    if (existingStudent.rows.length > 0) {
+    if (
+      existingStudent.rows.length > 0
+    ) {
       return res.status(409).json({
         success: false,
-        message: "Roll Number already exists",
+        message:
+          "Roll Number already exists",
       });
     }
 
-    const results = await pool.query(
-      `
-        INSERT INTO students 
-        (name,roll_number,gender,course_id,semester_id,marks,grade_points,result) 
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-        RETURNING *`,
-      [
-        student.name,
-        student.roll_number,
-        student.gender,
-        student.course_id,
-        student.semester_id,
-        student.marks,
-        student.grade_points,
-        student.result,
-      ],
-    );
+    // Check Email
+    const existingUser =
+      await pool.query(
+        `
+        SELECT id
+        FROM users
+        WHERE email = $1
+        `,
+        [student.email]
+      );
+
+    if (
+      existingUser.rows.length > 0
+    ) {
+      return res.status(409).json({
+        success: false,
+        message:
+          "Email already exists",
+      });
+    }
+
+    // Create User
+    const hashedPassword =
+      await bcrypt.hash(
+        student.password!,
+        10
+      );
+
+    const userResult =
+      await pool.query(
+        `
+        INSERT INTO users
+        (
+          full_name,
+          email,
+          password,
+          role
+        )
+        VALUES ($1,$2,$3,$4)
+        RETURNING id
+        `,
+        [
+          student.name,
+          student.email,
+          hashedPassword,
+          "student",
+        ]
+      );
+
+    const userId =
+      userResult.rows[0].id;
+
+    // Create Student
+    const results =
+      await pool.query(
+        `
+        INSERT INTO students
+        (
+          name,
+          roll_number,
+          gender,
+          course_id,
+          semester_id,
+          marks,
+          grade_points,
+          result,
+          user_id
+        )
+        VALUES
+        (
+          $1,$2,$3,$4,$5,
+          $6,$7,$8,$9
+        )
+        RETURNING *
+        `,
+        [
+          student.name,
+          student.roll_number,
+          student.gender,
+          student.course_id,
+          student.semester_id,
+          student.marks,
+          student.grade_points,
+          student.result,
+          userId,
+        ]
+      );
+
     res.status(201).json({
       success: true,
-      message: "Student added Successfully",
+      message:
+        "Student Added Successfully",
       data: results.rows[0],
     });
+
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Error in adding students",
+      message:
+        "Error in adding student",
     });
   }
 };

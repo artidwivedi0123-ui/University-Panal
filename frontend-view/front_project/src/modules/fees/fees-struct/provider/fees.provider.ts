@@ -10,6 +10,7 @@ import { FEES } from "@/src/constants/api-end-points.constants";
 
 export class FeesApiProvider extends AxiosService {
   static apolloInstance = new FeesApiProvider();
+
   async getFees(
     page:number,
     limit:number,
@@ -85,6 +86,7 @@ export class FeesApiProvider extends AxiosService {
       const response = await this.get<IFeesDetailsByIdResponse>(
         `${FEES.GETFEES}/${id}`,
       );
+      console.log("The response Data id",id);
       success(response.data);
     } catch (err) {
       error(err);

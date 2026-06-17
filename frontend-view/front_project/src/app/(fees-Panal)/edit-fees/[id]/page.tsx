@@ -2,14 +2,16 @@
 import Form from "@/src/components/Form/Form";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseFeesStructState } from "../../fee-structure/useFeesStructState";
-import { useCoursesState } from "@/src/app/(university-Panal)/courses/useCoursesState";
-import { UseSemesterState } from "@/src/app/(university-Panal)/semesters/useSemesterState";
-import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 
-export default function EditFees (){
+import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
+import { useCourseList } from "@/src/hooks/useCourselistState";
+import { useSemesterList } from "@/src/hooks/useSemesterListState";
+import { withAdmin } from "@/src/hoc/withAdminHoc";
+
+ const EditFees=()=>{
     const {feesData,handleChangeFees,handleSubmit} = UseFeesStructState();
-    const {course} = useCoursesState();
-    const {semester} = UseSemesterState();
+    const {course} = useCourseList();
+    const {semester} = useSemesterList();
     return (
         <MainLayout>
             <Form
@@ -22,4 +24,5 @@ export default function EditFees (){
             />
         </MainLayout>
     )
-}
+};
+export default withAdmin(EditFees);
