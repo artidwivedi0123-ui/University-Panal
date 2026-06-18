@@ -34,8 +34,8 @@ padding:1.1rem;
   }
 
   th {
-     background: rgb(186, 183, 223);
-    color: black;
+     background-color: rgb(180, 127, 201);
+    color: rgb(20, 20, 20);
     font-weight:bolder;
     width: 40%;
   }
@@ -45,6 +45,11 @@ padding:1.1rem;
     color: black;
     font-weight: bold;
   }
+
+  td:hover {
+    background-color: rgb(109, 82, 124);
+    color:white;
+  }
 }
 
 .profile-image {
@@ -52,6 +57,7 @@ padding:1.1rem;
   justify-content: center;
   align-items: center;
   padding:1.1rem;
+  cursor: pointer;
 
   img {
     border-radius: 80%;

@@ -1,17 +1,16 @@
 "use client";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
-import { UseStudentProfileState } from "@/src/app/(university-Panal)/student-profile/useStudentProfileState";
+import { UseStudentProfileState } from "../student-profile/useStudentProfileState";
 import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
-import { getOrdinal } from "@/src/utils/app.utils";
-import style from "@/src/app/(university-Panal)/student-profile/student-profile.module.scss";
+import style from "@/src/app/(student-Profile)/student-profile/student-profile.module.scss";
 export default function StudentProfile() {
   const { studentProfile } = UseStudentProfileState();
   console.log("studentProfile",studentProfile);
   return (
     <MainLayout>
      <div className={style["table-container"]}>
-  <h3 className={style["heading"]}>Student Detailing</h3>
+  <h3 className={style["heading"]}>Subject  Detailing</h3>
 
   <div className={style["profile-image"]}>
     <Image
@@ -40,25 +39,34 @@ export default function StudentProfile() {
         <td>{studentProfile?.profile?.rollNumber}</td>
       </tr>
 
-      <tr>
-        <th>Subject Name</th>
-        <td>{studentProfile?.subjects?.map((it)=>it.subject_name)}</td>
-      </tr>
-
-     <tr>
-        <th>Subject Code</th>
-        <td>{studentProfile?.subjects?.map((it)=>it.subject_code)}</td>
-      </tr>
-
        <tr>
-        <th>Subject Credits</th>
-        <td>{studentProfile?.subjects?.map((it)=>it.credits)}</td>
+        <th>Subjects</th>
+        <td>
+          <table className={style["subject-table"]}>
+            <thead>
+              <tr>
+                <th>Subject Name</th>
+                <th>Subject Code</th>
+                <th>Credits</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentProfile?.subjects?.map((subject, index) => (
+                <tr key={index}>
+                  <td>{subject.subject_name}</td>
+                  <td>{subject.subject_code}</td>
+                  <td>{subject.credits}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </td>
       </tr>
-
-   
     </tbody>
   </table>
 </div>
     </MainLayout>
   );
 }
+
+

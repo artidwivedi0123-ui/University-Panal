@@ -58,6 +58,47 @@ export const createFeeStructure = async (req: Request, res: Response) => {
   }
 };
 
+
+// get  All Fees Structure 
+export const getAllFeeStructure = async (req: Request, res: Response) => {
+  try {
+    const feeStruct = await pool.query(
+      `
+          select 
+                 fee_structure.id,
+                fee_structure.course_id,
+                fee_structure.semester_id,
+                courses.course_name,
+                semesters.semester_number,
+                fee_structure.tuition_fee,
+                fee_structure.exam_fee,
+                fee_structure.library_fee,
+                fee_structure.other_fee,
+                fee_structure.total_fee
+                FROM fee_structure
+                JOIN courses
+                  ON fee_structure.course_id = courses.id
+                  JOIN semesters
+                  ON fee_structure.semester_id = semesters.id
+                ORDER BY courses.id ASC
+            `,
+    );
+    res.status(200).json({
+      success: true,
+      data: feeStruct.rows,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error to fetch  fees Details",
+    });
+  }
+};
+
+
+
+
 // get Fess Structure
 
 export const getFeeStructure = async (req: Request, res: Response) => {

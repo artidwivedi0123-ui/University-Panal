@@ -15,3 +15,4 @@ export {default  as Fees} from "@/src/assets/fees.png";
 export {default as StudentFees} from "@/src/assets/studentFees.png";
 export {default as FeesDash} from "@/src/assets/feesDash.png";
 export {default as CourseManaged} from "@/src/assets/CourseManaged.png";
+export {default as IdCard} from  "@/src/assets/idCard.png";

@@ -9,6 +9,7 @@ import { ISemesterData } from "@/src/modules/university/semester/modal/ISemester
 import Select from "../select/Select";
 import { IStudentsData } from "@/src/modules/university/student/modal/IStudents";
 import { IFeeStructureData } from "@/src/modules/fees/fees-struct/modal/IFees";
+import { useStudentDetailsState } from "@/src/app/(university-Panal)/student-details/useStudentDetailsState";
 interface FormProps {
   formData: any;
   handleChange: (
@@ -38,6 +39,9 @@ export default function Form({
   const stu = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const stufees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
+  const studDetail = type === UNIVERSITY_SECTION_TYPE.STUDENTDETAIL;
+  const { studentDetail, setStuDetailInput,stuDetailInput } =
+    useStudentDetailsState();
 
   const filteredSemesters =
     semester?.filter(
@@ -83,6 +87,7 @@ export default function Form({
         {stu && "Add Students in University  Panel"}
         {fees && "Add Fees Details in University Panal"}
         {stufees && "Add Student Fees Details in University Panal"}
+        {studDetail && "Add Student Details in University Panel"}
       </h2>
 
       <form className={style["form"]} onSubmit={onSubmit}>
@@ -110,7 +115,6 @@ export default function Form({
                   />
                   UG
                 </label>
-
                 <label className={style["radio-label"]}>
                   <input
                     type="radio"
@@ -500,6 +504,156 @@ export default function Form({
           </>
         )}
 
+        {studDetail && (
+          <>
+            <label className={style["label"]}>Select Student</label>
+            <Select
+              name="student_id"
+              classname={style["select"]}
+              value={stuDetailInput.student_id || ""}
+              options={
+                students?.map((student) => ({
+                  label: `${student.name} (${student.roll_number})`,
+                  value: student.id!,
+                })) || []
+              }
+              onChange={(e) => {
+                console.log("Selected Value:", e.target.value);
+                const studentId = Number(e.target.value);
+                const selectedStudent = students?.find(
+                  (student) => Number(student.id) === Number(studentId),
+                );
+
+                console.log("Selected Student:", selectedStudent);
+                setStuDetailInput((prev) => ({
+                  ...prev,
+                  student_id: studentId,
+                  full_name: selectedStudent?.name || "",
+                  email: selectedStudent?.email || "",
+                }));
+              }}
+            />
+
+            <label className={style["label"]}>Full Name</label>
+            <Input
+              name="full_name"
+              value={formData.full_name}
+              onChange={handleChange}
+              placeholder="Enter Full Name"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Email</label>
+            <Input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              type="email"
+              placeholder="Enter Email"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Phone Number</label>
+            <Input
+              name="phone_number"
+              value={formData.phone_number}
+              onChange={handleChange}
+              placeholder="Enter Phone Number"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Address</label>
+            <Input
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Enter Address"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>City</label>
+            <Input
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              placeholder="Enter City"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>State</label>
+            <Input
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              placeholder="Enter State"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Country</label>
+            <Input
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              placeholder="Enter Country"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Date Of Birth</label>
+            <Input
+              name="date_of_birth"
+              value={formData.date_of_birth}
+              onChange={handleChange}
+              type="date"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Father Name</label>
+            <Input
+              name="father_name"
+              value={formData.father_name}
+              onChange={handleChange}
+              placeholder="Enter Father Name"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Mother Name</label>
+            <Input
+              name="mother_name"
+              value={formData.mother_name}
+              onChange={handleChange}
+              placeholder="Enter Mother Name"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Previous School</label>
+            <Input
+              name="previous_school"
+              value={formData.previous_school}
+              onChange={handleChange}
+              placeholder="Enter Previous School"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Previous College</label>
+            <Input
+              name="previous_college"
+              value={formData?.previous_college ?? ""}
+              onChange={handleChange}
+              placeholder="Enter Previous College"
+              classname={style["input"]}
+            />
+
+            <label className={style["label"]}>Previous Study Field</label>
+            <Input
+              name="previous_study_field"
+              value={formData.previous_study_field}
+              onChange={handleChange}
+              placeholder="Commerce / Science / Arts"
+              classname={style["input"]}
+            />
+          </>
+        )}
+
         <button className={style["button"]} type="submit">
           {cou && "Add Course"}
           {sem && "Add Semester"}
@@ -507,6 +661,7 @@ export default function Form({
           {stu && "Add Students"}
           {fees && "Add Fees Record"}
           {stufees && "Add Student Fees Record"}
+          {studDetail && "Add Student Personal Detail"}
         </button>
       </form>
     </div>

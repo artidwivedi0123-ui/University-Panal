@@ -20,9 +20,10 @@ export interface IStudentSubject {
 }
 
 export interface IStudentFees {
-  amount_paid: number;
-  due_amount: number;
+  amount_paid: number |  any;
+  due_amount: number | any;
   payment_status: string;
+  payment_date:string | any  ;
 }
 
 

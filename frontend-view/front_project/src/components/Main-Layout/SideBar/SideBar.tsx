@@ -8,6 +8,7 @@ import {
   DashboardImg,
   Fees,
   FeesDash,
+  IdCard,
   MIcon,
   Semester,
   StuDash,
@@ -58,12 +59,12 @@ export default function Sidebar() {
       image:SubDash
     },
     {
-      title: "Students Management",
+      title: "Student's Result  Management",
       route: UNIVERSITYROUTES.STUDENTS,
       image: Students,
     },
       {
-      title:"Student Dashboard",
+      title:"Student's  Dashboard",
       route:UNIVERSITYROUTES.STUDENTDASHBOARD,
       image:StuDash
     },
@@ -81,14 +82,33 @@ export default function Sidebar() {
       title:"Student Fees Management",
       route:"/student-fees",
       image:StudentFees
+    },
+    {
+      title:"Student Profile Management",
+      route:"/student-details",
+      image:IdCard
     }
 
   
   ];
 
     const StudentMenus = [
-
     {
+      title:"Student Profile",
+      route:"/student-profile",
+      image:MIcon
+    },
+    {
+      title:"About  Subjects",
+      route:"/student-subject",
+      image:Subject
+    }, 
+    {
+      title:"About  Fees",
+      route:"/student-fee",
+      image:Fees
+    },
+     {
       title: "Available Courses",
       route: UNIVERSITYROUTES.COURSES,
       image: Courses,
@@ -98,23 +118,6 @@ export default function Sidebar() {
       route: UNIVERSITYROUTES.SEMESTERS,
       image: Semester,
     },
-    {
-      title:"Student Profile",
-      route:"/student-profile",
-      image:MIcon
-    },
-    {
-      title:" Student Subjects",
-      route:"/student-subject",
-      image:Subject
-    },
-    
-    {
-      title:"Student Fees",
-      route:"/student-fee",
-      image:Fees
-    },
-    
     
   
   ];

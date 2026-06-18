@@ -8,6 +8,7 @@ import {
   Courses,
   Fees,
   FIcon,
+  IdCard,
   MIcon,
   Semester,
   StudentFees,
@@ -19,7 +20,6 @@ import {
   formatDateTime,
   getOrdinal,
 } from "@/src/utils/app.utils";
-import { useAuth } from "@/src/context/AuthContext";
 
 interface TableProps {
   data: any[];
@@ -54,16 +54,16 @@ export default function Table({
   onSearch,
   totalRecords,
 }: TableProps) {
-  const {user} = useAuth();
   const course = type === UNIVERSITY_SECTION_TYPE.COURSE;
   const semester = type === UNIVERSITY_SECTION_TYPE.SEMESTERS;
   const subjects = type === UNIVERSITY_SECTION_TYPE.SUBJECTS;
   const students = type === UNIVERSITY_SECTION_TYPE.STUDENTS;
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const stuFees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
+  const studDetail = type === UNIVERSITY_SECTION_TYPE.STUDENTDETAIL;
   const getHeaders = () => {
     if (course) {
-      return ["Course Name", "Course Type","Total Semester","Actions"];
+      return ["Course Name", "Course Type", "Total Semester", "Actions"];
     }
 
     if (semester) {
@@ -82,7 +82,7 @@ export default function Table({
         "Course",
         "Semester",
         // "Marks",
-        // "Result",
+        "Result",
         "Actions",
       ];
     }
@@ -113,6 +113,17 @@ export default function Table({
         "Action",
       ];
     }
+
+    if (studDetail) {
+      return [
+        "Student Name",
+        "Student Email",
+        "Student Contact Number",
+        "Student Previous Education",
+        "Action"
+      ];
+    }
+
     return [];
   };
 
@@ -182,13 +193,13 @@ export default function Table({
         );
       }
 
-      if(course) {
+      if (course) {
         return (
           <tr key={index}>
             <td>{item.course_name}</td>
             <td>{item.course_type}</td>
             <td>{item.total_semesters}</td>
-             <td>
+            <td>
               <button
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
@@ -203,7 +214,7 @@ export default function Table({
               </button>
             </td>
           </tr>
-        )
+        );
       }
 
       if (semester) {
@@ -281,9 +292,40 @@ export default function Table({
             <td>{item.roll_number}</td>
             <td>{item.course_name}</td>
             <td>{getOrdinal(item.semester_number)}</td>
-            {/* <td>{item.marks}</td>
-            <td>{item.result}</td> */}
+           {/*  {/* <td>{item.marks}</td> */}
+            <td>{item.result}</td> 
 
+            <td>
+              <button
+                className={style["view-btn"]}
+                onClick={() => viewDetails?.(item.id)}
+              >
+                View
+              </button>
+              <button
+                className={style["edit-btn"]}
+                onClick={() => handleEdit?.(item.id)}
+              >
+                Edit
+              </button>
+              <button
+                className={style["del-btn"]}
+                onClick={() => openDeleteModal?.(item.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        );
+      }
+
+      if (studDetail) {
+        return (
+          <tr key={index}>
+            <td>{item.full_name}</td>
+            <td>{item.email}</td>
+            <td>{item.phone_number}</td>
+            <td>{item.previous_study_field}</td>
             <td>
               <button
                 className={style["view-btn"]}
@@ -326,7 +368,9 @@ export default function Table({
                     ? "Course Fees Detailed Table"
                     : stuFees
                       ? "Student Fees Detailed Table"
-                      : "Table View"}
+                      : studDetail
+                        ? "Student Detailing (Personal Details)"
+                        : "Table View"}
         </h2>
         <Image
           src={
@@ -342,7 +386,9 @@ export default function Table({
                       ? Fees
                       : stuFees
                         ? StudentFees
-                        : Courses
+                        : studDetail
+                          ? IdCard
+                          : Courses
           }
           height={120}
           width={120}
@@ -350,26 +396,28 @@ export default function Table({
         />
         {!course && !semester && (
           <>
-          <p className={style["sub-heading"]}>Total Records : {totalRecords}</p>
-           <div className={style["search-container"]}>
-          <input
-            className={style["search-input"]}
-            placeholder="Search Here..."
-            value={search}
-            onChange={(e) => {
-              const value = e.target.value;
-              setSearch?.(value);
-              if (value.trim() === "") {
-                onSearch?.();
-              }
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                onSearch?.();
-              }
-            }}
-          />
-          </div>
+            <p className={style["sub-heading"]}>
+              Total Records : {totalRecords}
+            </p>
+            <div className={style["search-container"]}>
+              <input
+                className={style["search-input"]}
+                placeholder="Search Here..."
+                value={search}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearch?.(value);
+                  if (value.trim() === "") {
+                    onSearch?.();
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onSearch?.();
+                  }
+                }}
+              />
+            </div>
           </>
         )}
         {/* <p className={style["sub-heading"]}>Total Records : {totalRecords}</p> */}
@@ -408,40 +456,39 @@ export default function Table({
           </tbody>
         </table>
         {!course && (
-           <div className={style["pagination"]}>
-          <button
-            className={style["prev-btn"]}
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage?.(currentPage! - 1)}
-          >
-            Prev
-          </button>
+          <div className={style["pagination"]}>
+            <button
+              className={style["prev-btn"]}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage?.(currentPage! - 1)}
+            >
+              Prev
+            </button>
 
-          {[...Array(totalPages)].map((_, index) => {
-            const page = index + 1;
-            return (
-              <span
-                key={page}
-                className={`${style["page-number"]} ${
-                  currentPage === page ? style.active : ""
-                }`}
-                onClick={() => setCurrentPage?.(page)}
-              >
-                {page}
-              </span>
-            );
-          })}
+            {[...Array(totalPages)].map((_, index) => {
+              const page = index + 1;
+              return (
+                <span
+                  key={page}
+                  className={`${style["page-number"]} ${
+                    currentPage === page ? style.active : ""
+                  }`}
+                  onClick={() => setCurrentPage?.(page)}
+                >
+                  {page}
+                </span>
+              );
+            })}
 
-          <button
-            className={style["next-btn"]}
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage?.(currentPage! + 1)}
-          >
-            Next
-          </button>
-        </div>
+            <button
+              className={style["next-btn"]}
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage?.(currentPage! + 1)}
+            >
+              Next
+            </button>
+          </div>
         )}
-       
       </div>
     </div>
   );

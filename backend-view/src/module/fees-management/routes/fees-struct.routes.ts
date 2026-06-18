@@ -7,11 +7,13 @@ import {
   deleteFeeStructure,
   getFeeStructureById,
   getFeeStructureDashboard,
+  getAllFeeStructure,
 } from "../controllers/fees-struct.controller.js";
 
 const router = express.Router();
 
 router.post("/create",authMiddleware,createFeeStructure);
+router.get("/all-fees",authMiddleware,getAllFeeStructure);
 router.get("/",authMiddleware, getFeeStructure);
 router.put("/:id", authMiddleware,updateFeesStructure);
 router.delete("/:id", authMiddleware,deleteFeeStructure);

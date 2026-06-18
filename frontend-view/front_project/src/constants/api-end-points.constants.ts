@@ -42,6 +42,7 @@ export const AUTH  = {
 
 export const FEES = {
     CREATEFEES:'/api/fee-structure/create',
+    GETALLFEES:'/api/fee-structure/all-fees',
     GETFEES:'/api/fee-structure',
     DELETEFEES:'/api/fee-structure',
     UPDATEFEES:'/api/fee-structure',
@@ -54,6 +55,12 @@ export const STUDENTFEES = {
     GETSTUDFEES:'/api/student-fees',
     DELETESTUDFEES:'/api/student-fees',
     UPDATESTUDFEES:'/api/student-fees'
+}
+
+
+export const STUDENTDETAILS ={
+    GETSTUDENTDETAILS:"/api/stud-detail",
+    CREATESTUDENTDETAILS:"/api/stud-detail/create",
 }
 
 

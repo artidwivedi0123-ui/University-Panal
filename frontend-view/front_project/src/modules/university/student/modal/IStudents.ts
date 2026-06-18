@@ -13,6 +13,7 @@ export interface IStudentsData {
   semester_id?: number;
    email:string;
   password?:string;
+  user_id?: number;
   
 }
 

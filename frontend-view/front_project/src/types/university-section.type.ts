@@ -5,7 +5,8 @@ export const UNIVERSITY_SECTION_TYPE = {
     STUDENTS:"students",
     SUBJECTS:"subjects",
     FEESTRUCTURE:"fee-structure",
-    STUDENTFEES:"student-fees"
+    STUDENTFEES:"student-fees",
+    STUDENTDETAIL:"studentsDetail"
     // CREATE_STUDENTS:"add-students"
 } as  const;
 

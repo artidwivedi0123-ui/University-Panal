@@ -1,11 +1,11 @@
 "use client";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
-import { UseFeesStructState } from "../fee-structure/useFeesStructState"
 import Form from "@/src/components/Form/Form";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import { useStudentFeesState } from "../student-fees/useStudentFeesState";
 import { useStudentsState } from "../../(university-Panal)/students/useStudentsState";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
+import { useFeesStructList } from "@/src/hooks/useFeesStructureState";
 
  const AddStudentFeesPage=()=>{
     const {handleStuFees,
@@ -13,11 +13,11 @@ import { withAdmin } from "@/src/hoc/withAdminHoc";
         stuFeesInput
     } = useStudentFeesState();
     const {allStudData,students}= useStudentsState();
-    const {feesStruct} = UseFeesStructState();
+    const {fees} = useFeesStructList();
 
     // console.log(" Check semester",semester);
 
-    console.log("Fees Structure",feesStruct);
+    console.log(" All Fees Structure",fees);
  
     return (
         <MainLayout>
@@ -27,7 +27,7 @@ import { withAdmin } from "@/src/hoc/withAdminHoc";
             onSubmit={handleSubmitStudFees}
             type={UNIVERSITY_SECTION_TYPE.STUDENTFEES}
             students={allStudData}
-            feeStructure={feesStruct}
+            feeStructure={fees}
 
             />
         </MainLayout>

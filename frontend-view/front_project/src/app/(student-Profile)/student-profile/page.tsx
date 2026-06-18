@@ -1,10 +1,10 @@
 "use client";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
-import { UseStudentProfileState } from "@/src/app/(university-Panal)/student-profile/useStudentProfileState";
+import { UseStudentProfileState } from "./useStudentProfileState";
 import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
-import style from "@/src/app/(university-Panal)/student-profile/student-profile.module.scss";
+import style from "@/src/app/(student-Profile)/student-profile/student-profile.module.scss";
 export default function StudentProfile() {
   const { studentProfile } = UseStudentProfileState();
   console.log("studentProfile",studentProfile);

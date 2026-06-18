@@ -153,6 +153,7 @@ export const createStudents = async (
 
 export const getAllStudents = async (req:Request,res:Response)=>{
   try {
+ 
     const resultData = await  pool.query(
       `
        SELECT
@@ -165,12 +166,15 @@ export const getAllStudents = async (req:Request,res:Response)=>{
         students.result,
         courses.course_name,
         courses.course_type,
-        semesters.semester_number
+        semesters.semester_number,
+        users.email
       FROM students
       JOIN courses
         ON students.course_id = courses.id
       JOIN semesters
         ON students.semester_id = semesters.id
+      JOIN users ON 
+         users.id  =students.user_id 
         ORDER BY students.id ASC
       `,
     );
