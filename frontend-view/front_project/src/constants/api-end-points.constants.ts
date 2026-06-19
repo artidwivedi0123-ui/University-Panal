@@ -61,6 +61,9 @@ export const STUDENTFEES = {
 export const STUDENTDETAILS ={
     GETSTUDENTDETAILS:"/api/stud-detail",
     CREATESTUDENTDETAILS:"/api/stud-detail/create",
+    GETSTUDENTDETAILSBYID:"/api/stud-detail",
+    DELETESTUDENTDETAIL:"/api/stud-detail",
+    UPDATESTUDENTDETAIL:"/api/stud-detail",
 }
 
 

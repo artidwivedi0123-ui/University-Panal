@@ -4,7 +4,20 @@ export interface IStudentProfileData {
   rollNumber: string;
   gender: string;
   course: string;
+  course_type:string;
   semester: number | any;
+  email:string;
+  phoneNumber:string;
+  address:string;
+  city:string;
+  state:string;
+  country:string;
+  dateOfBirth:string |any ;
+  fatherName:string;
+  motherName:string;
+  previousSchool:string;
+  previousCollege:string;
+  previousStudyField:string;
 }
 
 export interface IStudentResult {

@@ -1,7 +1,7 @@
 "use client";
 import style from "./sidebar.module.scss";
 import Image from "next/image";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   CourseManaged,
   Courses,
@@ -20,13 +20,15 @@ import {
 } from "@/src/assets";
 import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
 import { useAuth } from "@/src/context/AuthContext";
-import { title } from "process";
+
 
 
 export default function Sidebar() {
   const {user} = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+
+
   const AdminMenus = [
      {
       title:"Dashboard",
@@ -34,7 +36,7 @@ export default function Sidebar() {
       image:DashboardImg
     },
     {
-      title:"Course Mangement",
+      title:"Course",
       route:"/course",
       image:CourseManaged,
     },
@@ -49,42 +51,42 @@ export default function Sidebar() {
       image: Semester,
     },
     {
-      title: "Subjects Management",
+      title: "Subjects",
       route: UNIVERSITYROUTES.SUBJECTS,
       image: Subject,
     },
      {
-      title:"Subject Dashboard",
+      title:"Subject Information",
       route:UNIVERSITYROUTES.SUBJECTDASHBOARD,
       image:SubDash
     },
     {
-      title: "Student's Result  Management",
+      title: "Student",
       route: UNIVERSITYROUTES.STUDENTS,
       image: Students,
     },
       {
-      title:"Student's  Dashboard",
+      title:"Student's Information",
       route:UNIVERSITYROUTES.STUDENTDASHBOARD,
       image:StuDash
     },
     {
-      title:"Fee Structure Management",
+      title:"Fee Structure",
       route:"/fee-structure",
       image:Fees
     },
     {
-      title:"Fee Structure Dashboard",
+      title:"Fee Structure Retail",
       route:"/fees-dashboard",
       image:FeesDash
     },
     {
-      title:"Student Fees Management",
+      title:"Student Fees ",
       route:"/student-fees",
       image:StudentFees
     },
     {
-      title:"Student Profile Management",
+      title:"Student Profile ",
       route:"/student-details",
       image:IdCard
     }
@@ -93,9 +95,14 @@ export default function Sidebar() {
   ];
 
     const StudentMenus = [
+      {
+        title:"Student Profile",
+        route:"/student-detail",
+        image:IdCard
+      },
     {
-      title:"Student Profile",
-      route:"/student-profile",
+      title:"Student Result",
+      route:"/student-result",
       image:MIcon
     },
     {
@@ -107,7 +114,9 @@ export default function Sidebar() {
       title:"About  Fees",
       route:"/student-fee",
       image:Fees
+
     },
+    
      {
       title: "Available Courses",
       route: UNIVERSITYROUTES.COURSES,
@@ -118,6 +127,7 @@ export default function Sidebar() {
       route: UNIVERSITYROUTES.SEMESTERS,
       image: Semester,
     },
+    
     
   
   ];

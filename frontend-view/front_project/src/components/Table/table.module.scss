@@ -39,8 +39,7 @@
   width: max-content;
   min-width: 100%;
   border-collapse: collapse;
-
-
+  
   th {
     padding:0.8rem;
     white-space: nowrap;
@@ -60,45 +59,28 @@
 
 
 .addbtn {
-    margin:1.3rem;
-    padding:1.3rem;
-    border: none;
-    font-weight: bold;
-    font-size: 1.2rem;
-    border-radius:$border-radius-sm;
-    background-color: var(--color-dark-violet);
-    color: var(--color-white);
+  margin: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: $border-radius-sm;
+  background-color: var(--color-dark-violet);
+  color: var(--color-white);
+  cursor: pointer;
 }
 
-
-.del-btn {
-    margin: 0.9rem;
-    padding:0.7rem;
-    border: none;
-    font-weight: bold;
-    border-radius:$border-radius-sm;
-    background-color: var(--color-black);
-    color: var(--color-white);
-}
-
-.edit-btn {
-     margin: 0.9rem;
-    padding:0.7rem;
-    border: none;
-    font-weight: bold;
-    border-radius: $border-radius-sm;
-    background-color: var(--color-black);
-    color:var(--color-white);
-}
-
+.del-btn,
+.edit-btn,
 .view-btn {
-     margin: 0.9rem;
-    padding:0.7rem;
-    border: none;
-    font-weight: bold;
-    border-radius: $border-radius-sm;
-    background-color: var(--color-black);
-    color:var(--color-white);
+  margin: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  font-weight: bold;
+  border-radius: $border-radius-sm;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  cursor: pointer;
 }
 
 .pagination {
@@ -136,21 +118,57 @@
 }
 
 .search-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .search-input {
-  padding:0.8rem;
-  margin:1rem;
-  border:1px solid black;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.8rem;
+  margin: 1rem;
+  border: 1px solid black;
   border-radius: 1.3rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
   font-weight: bold;
-
-  &::placeholder{
-    color: rgb(53, 5, 53);
-  }
 }
 
+@media (max-width: 768px) {
+  .table-container {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .sub-heading {
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .addbtn,
+  .del-btn,
+  .edit-btn,
+  .view-btn {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+    margin: 0.3rem;
+  }
+
+  .pagination {
+    gap: 0.5rem;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+  }
+}

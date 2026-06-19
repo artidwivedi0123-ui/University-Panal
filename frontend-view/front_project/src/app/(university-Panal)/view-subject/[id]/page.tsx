@@ -1,5 +1,4 @@
 "use client";
-
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseSubjectState } from "../../subjects/useSubjectState";
 import DetailCard from "@/src/components/Card/Card";

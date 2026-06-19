@@ -4,6 +4,7 @@ import Table from "@/src/components/Table/Table";
 import { useStudentDetailsState } from "./useStudentDetailsState";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
+import ModalBox from "@/src/components/Modal/Modal";
 
 const  StudentDetailsPage= ()=>{
     const  {
@@ -15,7 +16,11 @@ const  StudentDetailsPage= ()=>{
         searchInput,
         setSearchInput,
         handleSearch,
-        totalRecordStudDet
+        totalRecordStudDet,
+        handleDeleteSubjectDetails,
+        showModal,
+        openDeleteModal,
+        closeDeleteModal
     } =
     useStudentDetailsState();
 
@@ -30,9 +35,26 @@ const  StudentDetailsPage= ()=>{
            setCurrentPage={setPage}
            totalPages={totalPages}
            totalRecords={totalRecordStudDet}
+           onSearch={handleSearch}
            addBtn={()=>router.push("/add-studetail")}
+           handleDelete={handleDeleteSubjectDetails}
+           openDeleteModal={openDeleteModal}
+           handleEdit={(id)=>router.push(`/edit-studetails/${id}`)}
+           viewDetails={(id)=>router.push(`/view-studetails/${id}`)}
            >
           </Table>
+
+          {
+            showModal && (
+                <ModalBox 
+                confirmText="Delete"
+                message="Are you really want to Delete this Student Details"
+                onCancel={closeDeleteModal}
+                onConfirm={handleDeleteSubjectDetails}
+                title="Delete Student Details"
+                />
+            )
+          }
         </MainLayout>
     )
 };

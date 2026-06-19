@@ -89,10 +89,7 @@ export const createStudentsDetails = async (req: Request, res: Response) => {
 
 // Get Student Details
 
-export const getStudentsDetails = async (
-  req: Request,
-  res: Response
-) => {
+export const getStudentsDetails = async (req: Request, res: Response) => {
   try {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 5;
@@ -134,7 +131,7 @@ export const getStudentsDetails = async (
       LIMIT $2
       OFFSET $3
       `,
-      [`%${search}%`, limit, offSet]
+      [`%${search}%`, limit, offSet],
     );
 
     const countResult = await pool.query(
@@ -148,12 +145,10 @@ export const getStudentsDetails = async (
         OR sp.email ILIKE $1
         OR s.roll_number ILIKE $1
       `,
-      [`%${search}%`]
+      [`%${search}%`],
     );
 
-    const totalRecords = Number(
-      countResult.rows[0].count
-    );
+    const totalRecords = Number(countResult.rows[0].count);
 
     res.status(200).json({
       success: true,
@@ -162,9 +157,7 @@ export const getStudentsDetails = async (
         page,
         limit,
         totalRecords,
-        totalPages: Math.ceil(
-          totalRecords / limit
-        ),
+        totalPages: Math.ceil(totalRecords / limit),
       },
     });
   } catch (error) {
@@ -172,8 +165,180 @@ export const getStudentsDetails = async (
 
     res.status(500).json({
       success: false,
-      message:
-        "Error while fetching student details",
+      message: "Error while fetching student details",
+    });
+  }
+};
+
+export const getStudentDetailsById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const idError = validateId(id);
+    if (idError) {
+      return res.status(400).json({
+        success: false,
+        message: idError,
+      });
+    }
+
+    const result = await pool.query(
+            `
+            SELECT
+          sp.*,
+          s.roll_number,
+          c.course_name,
+          sem.semester_number
+      FROM student_profile sp
+      JOIN students s
+          ON sp.student_id = s.id
+      JOIN courses c
+          ON s.course_id = c.id
+      JOIN semesters sem
+          ON s.semester_id = sem.id
+      WHERE sp.id = $1
+      `,
+      [id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Student Profile is not Found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: result.rows[0],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error to fetch details for  this profile",
+    });
+  }
+};
+
+export const updateStudentDetails = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const studentDetail: StudentDetailing = req.body;
+    const idError = validateId(id);
+    const studError = validateStudentDetailing(studentDetail);
+    if (idError) {
+      return res.status(400).json({
+        success: false,
+        message: idError,
+      });
+    }
+    if (studError) {
+      return res.status(400).json({
+        success: false,
+        message: studError,
+      });
+    }
+
+    const existingProfile = await pool.query(
+      `SELECT id FROM student_profile WHERE id = $1`,
+      [id],
+    );
+
+    if (existingProfile.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Student Profile not found",
+      });
+    }
+    const result = await pool.query(
+      `
+      UPDATE student_profile 
+      SET 
+          student_id = $1,
+        full_name = $2,
+        email = $3,
+        phone_number = $4,
+        address = $5,
+        city = $6,
+        state = $7,
+        country = $8,
+        date_of_birth = $9,
+        father_name = $10,
+        mother_name = $11,
+        previous_school = $12,
+        previous_college = $13,
+        previous_study_field = $14
+        WHERE id = $15
+        RETURNING *
+      `,
+      [
+        studentDetail.student_id,
+        studentDetail.full_name,
+        studentDetail.email,
+        studentDetail.phone_number,
+        studentDetail.address,
+        studentDetail.city,
+        studentDetail.state,
+        studentDetail.country,
+        studentDetail.date_of_birth,
+        studentDetail.father_name,
+        studentDetail.mother_name,
+        studentDetail.previous_school,
+        studentDetail.previous_college,
+        studentDetail.previous_study_field,
+        id,
+      ],
+    );
+    if (result.rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "This id of Student Profile is not found in DB",
+      });
+    }
+    res.status(200).json({
+      suceess: true,
+      message: "Student Profile Updated Successfully",
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error while Updating  details of Student",
+    });
+  }
+};
+
+export const deleteStudentDetails = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const idError = validateId(id);
+    if (idError) {
+      return res.status(400).json({
+        sucsess: false,
+        message: idError,
+      });
+    }
+    const result = await pool.query(
+      `
+      DELETE FROM 
+      student_profile  
+      WHERE id = $1
+      RETURNING *
+      `,
+      [id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Student Profile is not Found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Student Profile Deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error in deleting Student Profile",
     });
   }
 };

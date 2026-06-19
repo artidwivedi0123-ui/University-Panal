@@ -107,9 +107,7 @@ export default function Table({
         "Semester",
         "Total Fees",
         "Amount Paid",
-        "Due Amount",
         "Payment Status",
-        "Payment Date",
         "Action",
       ];
     }
@@ -172,9 +170,7 @@ export default function Table({
             <td>{getOrdinal(item.semester_number)}</td>
             <td>{currencyFormatter(item.total_fee)}</td>
             <td>{currencyFormatter(item.amount_paid)}</td>
-            <td>{currencyFormatter(item.due_amount)}</td>
             <td>{item.payment_status}</td>
-            <td>{formatDateTime(item.payment_date)}</td>
             <td>
               <button
                 className={style["edit-btn"]}

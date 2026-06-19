@@ -9,8 +9,6 @@ import { withAdmin } from "@/src/hoc/withAdminHoc";
 
 const FeesDashboard=() =>{
   const { feesDashboard } = UseFeesStructState();
-
-  
   const cards = [
     {
       title: "Total Fee Structure",
@@ -34,6 +32,7 @@ const FeesDashboard=() =>{
 
   return (
     <MainLayout>
+      <h3>Fees Structure</h3>
       <Dashboard cards={cards} />
     </MainLayout>
   );

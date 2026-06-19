@@ -14,7 +14,7 @@ export interface IStudentsData {
    email:string;
   password?:string;
   user_id?: number;
-  
+
 }
 
 

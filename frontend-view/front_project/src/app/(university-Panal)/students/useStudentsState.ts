@@ -72,24 +72,7 @@ export const useStudentsState = () => {
   }, [fetchStudents]);
 
 
-  const fetchAllStudents = useCallback(()=>{
-    setLoading(true);
 
-    StudentApiProvider.apolloInstance.getAllStudents(
-      (res)=>{
-        setLoading(false);
-        setAllStudData(res.data);
-      },
-      (err)=>{
-        toast.error(err.response?.data?.message || "Error while fetching Students");
-      }
-    )
-
-  },[]);
-
-  useEffect(()=>{
-    fetchAllStudents();
-  },[fetchAllStudents]);
 
  const handleChangeStudent = (
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -292,8 +275,7 @@ export const useStudentsState = () => {
     totalRecordStu,
     totalStudents,
     stuDashboard,
-    courses,
-    allStudData
+    courses
   };
 };
 

@@ -1,12 +1,12 @@
 "use client";
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
-import { UseStudentProfileState } from "../student-profile/useStudentProfileState";
+import { UseStudentProfileState } from "../student-result/useStudentProfileState";
 import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
-import style from "@/src/app/(student-Profile)/student-profile/student-profile.module.scss";
-export default function StudentProfile() {
+import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
+export default function StudentSubjects() {
   const { studentProfile } = UseStudentProfileState();
-  console.log("studentProfile",studentProfile);
+
   return (
     <MainLayout>
      <div className={style["table-container"]}>

@@ -4,7 +4,7 @@ interface DetailCardProps {
   title: string;
   fields: {
     label: string;
-    value: string | number;
+    value: string | number ;
   }[];
 }
 
@@ -13,20 +13,19 @@ export default function DetailCard({
   fields,
 }: DetailCardProps) {
   return (
-    <div>
-        <h3 className={style.heading}>View Details</h3>
     <div className={style.card}>
-      <h2>{title}</h2>
+  <h1 className={style.heading}>View Details</h1>
 
-      <div className={style.grid}>
-        {fields.map((field, index) => (
-          <div key={index} className={style.item}>
-            <strong>{field.label}:</strong>
-            <span>{field.value}</span>
-          </div>
-        ))}
+  <h2>{title}</h2>
+
+  <div className={style.grid}>
+    {fields?.map((field, index) => (
+      <div key={index} className={style.item}>
+        <strong>{field.label}</strong>
+        <span>{field.value || "N/A"}</span>
       </div>
-    </div>
-    </div>
+    ))}
+  </div>
+</div>
   );
 }

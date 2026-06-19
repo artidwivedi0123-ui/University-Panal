@@ -10,9 +10,7 @@ export const loginUser = async (
 ) => {
   try {
     const login : Login = req.body;
-
     const error = validateLogin(login);
-
     if (error) {
       return res.status(400).json({
         success: false,

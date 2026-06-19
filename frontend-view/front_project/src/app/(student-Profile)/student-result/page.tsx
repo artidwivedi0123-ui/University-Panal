@@ -4,7 +4,7 @@ import { UseStudentProfileState } from "./useStudentProfileState";
 import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
-import style from "@/src/app/(student-Profile)/student-profile/student-profile.module.scss";
+import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
 export default function StudentProfile() {
   const { studentProfile } = UseStudentProfileState();
   console.log("studentProfile",studentProfile);

@@ -40,8 +40,6 @@ export default function Form({
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const stufees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
   const studDetail = type === UNIVERSITY_SECTION_TYPE.STUDENTDETAIL;
-  const { studentDetail, setStuDetailInput,stuDetailInput } =
-    useStudentDetailsState();
 
   const filteredSemesters =
     semester?.filter(
@@ -510,28 +508,14 @@ export default function Form({
             <Select
               name="student_id"
               classname={style["select"]}
-              value={stuDetailInput.student_id || ""}
+              value={formData.student_id || ""}
               options={
                 students?.map((student) => ({
                   label: `${student.name} (${student.roll_number})`,
                   value: student.id!,
                 })) || []
               }
-              onChange={(e) => {
-                console.log("Selected Value:", e.target.value);
-                const studentId = Number(e.target.value);
-                const selectedStudent = students?.find(
-                  (student) => Number(student.id) === Number(studentId),
-                );
-
-                console.log("Selected Student:", selectedStudent);
-                setStuDetailInput((prev) => ({
-                  ...prev,
-                  student_id: studentId,
-                  full_name: selectedStudent?.name || "",
-                  email: selectedStudent?.email || "",
-                }));
-              }}
+              onChange={handleChange}
             />
 
             <label className={style["label"]}>Full Name</label>
@@ -637,7 +621,7 @@ export default function Form({
             <label className={style["label"]}>Previous College</label>
             <Input
               name="previous_college"
-              value={formData?.previous_college ?? ""}
+              value={formData?.previous_college}
               onChange={handleChange}
               placeholder="Enter Previous College"
               classname={style["input"]}

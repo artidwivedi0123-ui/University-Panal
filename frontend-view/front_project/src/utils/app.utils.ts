@@ -15,7 +15,7 @@ export const formatDateTime = (date: string) => {
     month: "long",
     day: "2-digit",
     year: "numeric",
-    weekday:"short",
+    // weekday:"short",
     hour12: true,
   });
 };
