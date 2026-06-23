@@ -3,9 +3,11 @@ import { useCoursesState } from "@/src/app/(university-Panal)/courses/useCourses
 import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import Card from "@/src/components/CardContainer/CardContainer";
 import style from "@/src/app/(university-Panal)/courses/course.module.scss";
+import { useTranslations } from "next-intl";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 export default function CoursePage() {
   const { course } = useCoursesState();
-  console.log("courses",course);
+  const courseTrans = useTranslations(TRANSLATIONSAPPCONSTANTS.UNIVERSITYTABLE);
   return (
     <>
       <MainLayout>
@@ -17,11 +19,11 @@ export default function CoursePage() {
               key={index}
               fields={[
                 {
-                  label: "Course Type",
+                  label: courseTrans(TRANSLATIONSAPPCONSTANTS.COURSETYPE),
                   value: item.course_type,
                 },
                 {
-                  label: "Total Semester",
+                  label: courseTrans(TRANSLATIONSAPPCONSTANTS.TOTALSEM),
                   value: item.total_semesters,
                 },
               ]}

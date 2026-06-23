@@ -8,18 +8,16 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {logout} = UseAuthState();
+  const { logout } = UseAuthState();
   return (
     <div className={style["layout-container"]}>
       <Sidebar />
       <div className={style["main-content"]}>
-          
-        <button  onClick={logout}
-        className={style["btn"]}>Logout</button>
+        <button onClick={logout} className={style["btn"]}>
+          Logout
+        </button>
         {children}
-        
       </div>
-
     </div>
   );
 }

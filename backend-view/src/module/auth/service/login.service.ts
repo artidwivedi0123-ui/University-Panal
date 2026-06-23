@@ -1,8 +1,8 @@
-import pool from "../../../db/db.js";
+import pool from "@src/db/db.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { Login } from "../model/login.model.js";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/token.js";
+
+import { Login } from "@src/module/auth/model/login.model.js";
+import { generateAccessToken, generateRefreshToken } from "@src/utils/token.js";
 
 export const loginService = async (login: Login) => {
   const result = await pool.query(

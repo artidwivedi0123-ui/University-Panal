@@ -1,4 +1,4 @@
-import { Semester } from "../models/semester.model.js";
+import { Semester } from "@src/module/universityPanel/models/semester.model.js";
 
 export const validateSemesterInput = (semester: Semester) => {
   switch (true) {

@@ -1,5 +1,5 @@
-import { Request, Response,NextFunction } from "express";
-import { AuthRequest } from "../model/auth-req.model.js";
+import {  Response,NextFunction } from "express";
+import { AuthRequest } from "@src/module/auth/model/auth-req.model.js";
 export const roleMiddleware = (...roles: string[]) => {
   return (
     req: AuthRequest,

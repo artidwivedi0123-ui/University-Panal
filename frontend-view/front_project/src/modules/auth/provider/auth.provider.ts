@@ -1,15 +1,17 @@
 import { AxiosService } from "@/src/services/axios.service";
 import {
+  IForgotPassword,
+  IForgotPasswordResponse,
   ILoginInput,
   ILoginResponse,
   IRegisterInput,
   IRegisterResponse,
+  IResetPassword,
+  IResetPasswordResponse,
 } from "../modal/auth";
 import { AUTH } from "@/src/constants/api-end-points.constants";
-
 export class AuthApiProvider extends AxiosService {
   static apolloInstance = new AuthApiProvider();
-
   async register(
     params: IRegisterInput,
     success: (data: IRegisterResponse) => void,
@@ -30,16 +32,49 @@ export class AuthApiProvider extends AxiosService {
   ) {
     try {
       const res = await this.post<ILoginResponse>(AUTH.LOGIN, params);
-
       success(res.data);
     } catch (err) {
       error(err);
     }
   }
+
   async logout(success: (data: any) => void, error: (err: any) => void) {
     try {
       const res = await this.post(AUTH.LOGOUT, {});
       success(res.data);
+    } catch (err) {
+      error(err);
+    }
+  }
+
+  async forgotPassword(
+    params: IForgotPassword,
+    success: (data: IForgotPasswordResponse) => void,
+    error: (err: string | any) => void,
+  ) {
+    try {
+      const response = await this.post<IForgotPasswordResponse>(
+        AUTH.FORGOTPASSWORD,
+        params,
+      );
+      success(response.data);
+    } catch (err) {
+      error(err);
+    }
+  }
+  async resetPassword(
+    token: string,
+    params: IResetPassword,
+    success: (data: IResetPasswordResponse) => void,
+    error: (err: any) => void,
+  ) {
+    try {
+      const response = await this.post<IResetPasswordResponse>(
+        `${AUTH.RESETPASSWORD}/${token}`,
+        params,
+      );
+
+      success(response.data);
     } catch (err) {
       error(err);
     }

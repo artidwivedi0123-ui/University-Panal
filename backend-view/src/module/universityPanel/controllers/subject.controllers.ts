@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import pool from "../../../db/db.js";
-import { Subject } from "../models/subject.model.js";
-import { validateSubject } from "../validation/subject.validation.js";
-import { validateId } from "../../../validation/common.validation.js";
+import pool from "@src/db/db.js";
+import { Subject } from "@src/module/universityPanel/models/subject.model.js";
+import { validateSubject } from "@src/module/universityPanel/validation/subject.validation.js";
+import { validateId } from "@src/validation/common.validation.js";
 
 
 

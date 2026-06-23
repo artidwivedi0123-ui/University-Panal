@@ -3,18 +3,10 @@ import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseSubjectState } from "../../subjects/useSubjectState";
 import DetailCard from "@/src/components/Card/Card";
 
-
 export default function SubjectDetails() {
-  const {
-    subjectDetails,
-    loading,
-  } = UseSubjectState();
-
+  const { subjectDetails, loading } = UseSubjectState();
   if (loading) return <h2>Loading...</h2>;
-
-  if (!subjectDetails)
-    return <h2>Subject Not Found</h2>;
-
+  if (!subjectDetails) return <h2>Subject Not Found</h2>;
   return (
     <MainLayout>
       <DetailCard

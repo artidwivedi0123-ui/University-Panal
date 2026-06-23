@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import pool from "../../../db/db.js";
+import pool from "@src/db/db.js";
 import bcrypt from "bcryptjs";
-import { Student } from "../models/student.model.js";
-import { validateStudent } from "../validation/student.validation.js";
-import { validateId } from "../../../validation/common.validation.js";
+import { Student } from "@src/module/universityPanel/models/student.model.js";
+import { validateStudent } from "@src/module/universityPanel/validation/student.validation.js";
+import { validateId } from "@src/validation/common.validation.js";
 
 // add(create) students
 export const createStudents = async (

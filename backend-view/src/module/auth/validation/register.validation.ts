@@ -1,4 +1,4 @@
-import { Register } from "../model/register.model.js";
+import { Register } from "@src/module/auth/model/register.model.js";
 
 export const validateRegister = (register:Register) => {
 

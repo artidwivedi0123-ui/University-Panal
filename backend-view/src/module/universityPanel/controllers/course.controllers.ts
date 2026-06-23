@@ -1,8 +1,8 @@
 import { Request,Response } from "express";
-import pool from "../../../db/db.js";
-import { Course } from "../models/course.model.js";
-import { validateCourse } from "../validation/course.validation.js";
-import { validateId } from "../../../validation/common.validation.js";
+import pool from "@src/db/db.js";
+import { Course } from "@src/module/universityPanel/models/course.model.js";
+import { validateCourse } from "@src/module/universityPanel/validation/course.validation.js";
+import { validateId } from "@src/validation/common.validation.js";
 
 
 /*
@@ -157,7 +157,7 @@ export const updateCourse = async (req: Request, res: Response) => {
       WHERE id = $4
       RETURNING *
       `,
-      [course.course_name, course.course_type, id],
+      [course.course_name, course.course_type,course.total_semesters, id],
     );
 
     //  Invalid data validation with id /4583 not found in DB

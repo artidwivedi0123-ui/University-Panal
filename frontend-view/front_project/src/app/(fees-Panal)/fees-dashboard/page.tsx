@@ -7,7 +7,7 @@ import { FeesDash, StuDash } from "@/src/assets";
 import { currencyFormatter } from "@/src/utils/app.utils";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-const FeesDashboard=() =>{
+const FeesDashboard = () => {
   const { feesDashboard } = UseFeesStructState();
   const cards = [
     {
@@ -27,7 +27,7 @@ const FeesDashboard=() =>{
         `Library Fee : ${currencyFormatter(Number(course.library_fee))}`,
         `Other Fee : ${currencyFormatter(Number(course.other_fee))}`,
       ],
-    })) || [])
+    })) || []),
   ];
 
   return (
@@ -37,4 +37,4 @@ const FeesDashboard=() =>{
     </MainLayout>
   );
 };
-export default  withAdmin(FeesDashboard);
+export default withAdmin(FeesDashboard);

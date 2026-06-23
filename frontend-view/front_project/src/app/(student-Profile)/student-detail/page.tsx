@@ -7,7 +7,6 @@ import style from "@/src/app/(student-Profile)/student-result/student-profile.mo
 import { formatDateTime } from "@/src/utils/app.utils";
 export default function StudentProfile() {
   const { studentProfile } = UseStudentProfileState();
-  console.log("studentProfile", studentProfile);
   return (
     <MainLayout>
       <div className={style["table-container"]}>
@@ -81,8 +80,7 @@ export default function StudentProfile() {
               <th>Previous College</th>
               <td>
                 {studentProfile?.profile?.course_type === "PG"
-                  ? studentProfile?.profile?.previousCollege || "N/A"
-                  : studentProfile?.profile?.previousSchool || "N/A"}
+                   && studentProfile?.profile?.previousCollege || "N/A" }
               </td>
             </tr>
             <tr>

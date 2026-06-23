@@ -1,9 +1,6 @@
-import {
-  Courses,
-  Semester,
-  Students,
-  Subject,
-} from "@/src/assets";
+import { Courses, Semester, Students, Subject } from "@/src/assets";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
+import { useTranslations } from "next-intl";
 
 interface DashboardProps {
   studentsCount: number;
@@ -18,29 +15,29 @@ export const UseDashboard = ({
   semesterCount,
   courseCount,
 }: DashboardProps) => {
-
+  const dashTrans  = useTranslations(TRANSLATIONSAPPCONSTANTS.UNIVERSITYADMINDASH);
   const dashboardDetails = [
     {
-      title: "Total Courses",
-      description: "Available Courses",
+      title: dashTrans(TRANSLATIONSAPPCONSTANTS.TOTALCOURSE),
+      description: dashTrans(TRANSLATIONSAPPCONSTANTS.DESCRIPTIONCOR),
       count: courseCount,
       image: Courses,
     },
     {
-      title: "Total Semesters",
-      description: "Respective Course Semesters",
+      title: dashTrans(TRANSLATIONSAPPCONSTANTS.TOTALSEMESTER),
+      description: dashTrans(TRANSLATIONSAPPCONSTANTS.DESCRIPTIONSEM),
       count: semesterCount,
       image: Semester,
     },
     {
-      title: "Total Subjects",
-      description: "Subjects Across Semesters",
+      title: dashTrans(TRANSLATIONSAPPCONSTANTS.TOTALSUBJECTS),
+      description: dashTrans(TRANSLATIONSAPPCONSTANTS.DESCRIPTIONSUB),
       count: subjectsCount,
       image: Subject,
     },
     {
-      title: "Total Students",
-      description: "University Students",
+      title: dashTrans(TRANSLATIONSAPPCONSTANTS.TOTALSTUDENTS),
+      description: dashTrans(TRANSLATIONSAPPCONSTANTS.DESCRIPTIONSTU),
       count: studentsCount,
       image: Students,
     },
@@ -48,5 +45,6 @@ export const UseDashboard = ({
 
   return {
     dashboardDetails,
+    dashTrans
   };
 };

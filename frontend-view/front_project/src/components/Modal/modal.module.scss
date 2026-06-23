@@ -1,37 +1,35 @@
-@use '@/src/styles/variables'  as *;
+@use "@/src/styles/variables" as *;
 
-.par-container{
-display: flex;
-justify-content: center;
-align-items: center;
-   z-index: 999;
+.par-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
     backdrop-filter: blur(8px);
-    width:$max-width;
-    height:$max-height;
+    width: $max-width;
+    height: $max-height;
     position: fixed;
     text-align: center;
     justify-content: center;
-     top:0;
-    left:0;
+    top: 0;
+    left: 0;
 }
 .container {
     border-radius: $border-radius-lg;
-    background-color:white;
-    border:0.7px solid black;
-    color:var(--color-black);
+    background-color: white;
+    border: 0.7px solid black;
+    color: var(--color-black);
     max-width: 50vw;
     margin: $margin-md;
-    padding:$padding-md;
-   
+    padding: $padding-md;
 
     &__title {
         text-align: center;
-        background-color:white;
+        background-color: white;
         color: var(--color-black);
         font-size: $font-md;
         font-weight: bolder;
         border-radius: $border-radius-md;
-
     }
     &__para {
         margin: $margin-sm;
@@ -48,7 +46,7 @@ align-items: center;
         font-size: $font-sm;
     }
     &__btn2 {
-        margin:$margin-sm;
+        margin: $margin-sm;
         background-color: var(--color-orange);
         color: var(--color-white);
         border-color: var(--color-white);

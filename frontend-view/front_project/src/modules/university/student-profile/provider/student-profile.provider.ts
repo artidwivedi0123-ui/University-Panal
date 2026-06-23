@@ -4,7 +4,6 @@ import { STUDENTPROFILE } from "@/src/constants/api-end-points.constants";
 
 export class StudentProfileApiProvider extends AxiosService {
   static apolloInstance = new StudentProfileApiProvider();
-
   async getStudentProfile(
     success: (data: IStudentProfileResponse) => void,
     error: (err: string | any) => void,

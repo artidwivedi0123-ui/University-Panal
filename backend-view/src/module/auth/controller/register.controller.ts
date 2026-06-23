@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { registerService } from "../service/register.service.js";
-import { Register } from "../model/register.model.js";
-import { validateRegister } from "../validation/register.validation.js";
-import pool from "../../../db/db.js";
+import { registerService } from "@src/module/auth/service/register.service.js";
+import { Register } from "@src/module/auth/model/register.model.js";
+import { validateRegister } from "@src/module/auth/validation/register.validation.js";
+import pool from "@src/db/db.js";
 
 export const registerUser = async (
   req: Request,

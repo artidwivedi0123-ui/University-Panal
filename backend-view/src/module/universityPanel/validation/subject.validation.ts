@@ -1,4 +1,4 @@
-import { Subject } from "../models/subject.model.js";
+import { Subject } from "@src/module/universityPanel/models/subject.model.js";
 
 export const validateSubject = (data: Subject) => {
   const { subject_name, subject_code, credits, semester_id, course_name } =

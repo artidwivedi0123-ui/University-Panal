@@ -24,7 +24,6 @@ export interface IStudentFeesInputResponse {
   data: IStudentFeesData;
 }
 
-
 export interface IStudentFees {
   id?: number;
   name: string;
@@ -39,16 +38,15 @@ export interface IStudentFees {
 }
 
 export interface IStudentFeesResponse {
-        success:boolean;
-        data:IStudentFees[];
-        pagination :{
-        page:number;
-        limit:number;
-        totalRecords:number;
-        totalPage:number;
-        }
+  success: boolean;
+  data: IStudentFees[];
+  pagination: {
+    page: number;
+    limit: number;
+    totalRecords: number;
+    totalPage: number;
+  };
 }
-
 
 export interface IStudentFeesDetailsById {
   id?: number;

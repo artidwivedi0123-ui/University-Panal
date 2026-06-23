@@ -17,7 +17,9 @@ export class FeesApiProvider extends AxiosService {
     error: (err: any | string) => void,
   ) {
     try {
-      const response = await this.get<IFeeStructureResponseData>(FEES.GETALLFEES);
+      const response = await this.get<IFeeStructureResponseData>(
+        FEES.GETALLFEES,
+      );
       success(response.data);
     } catch (err) {
       error(err);

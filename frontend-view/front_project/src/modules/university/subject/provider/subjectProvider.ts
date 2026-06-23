@@ -11,7 +11,6 @@ import { SUBJECT } from "@/src/constants/api-end-points.constants";
 
 export class SubjectApiProvider extends AxiosService {
   static apolloInstance = new SubjectApiProvider();
-
   async getSubjects(
     page: number,
     limit: number,

@@ -8,26 +8,25 @@ import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
 import { useStudentList } from "@/src/hooks/useStudentListState";
 
-const AddSudentDetails =()=>{
-    const {
-        handleStudeDetailChange,
-        stuDetailInput,
-        handleSubmitStudentDetails
-    } = useStudentDetailsState();
-  const {student} = useStudentList();
+const AddSudentDetails = () => {
+  const {
+    handleStudeDetailChange,
+    stuDetailInput,
+    handleSubmitStudentDetails,
+  } = useStudentDetailsState();
+  const { student } = useStudentList();
 
-    return (
-        <MainLayout>
-            <Form
-            formData={stuDetailInput}
-            handleChange={handleStudeDetailChange}
-            onSubmit={handleSubmitStudentDetails}
-            type={UNIVERSITY_SECTION_TYPE.STUDENTDETAIL}
-            students={student}
-            >
-            </Form>
-        </MainLayout>
-    )
+  return (
+    <MainLayout>
+      <Form
+        formData={stuDetailInput}
+        handleChange={handleStudeDetailChange}
+        onSubmit={handleSubmitStudentDetails}
+        type={UNIVERSITY_SECTION_TYPE.STUDENTDETAIL}
+        students={student}
+      ></Form>
+    </MainLayout>
+  );
 };
 
-export  default withAdmin(AddSudentDetails);
+export default withAdmin(AddSudentDetails);

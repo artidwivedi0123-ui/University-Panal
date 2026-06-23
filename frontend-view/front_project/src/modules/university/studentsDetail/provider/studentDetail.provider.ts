@@ -45,7 +45,7 @@ export class StudentDetailApiProvider extends AxiosService {
 
   async getStudentDetailsById(
     id: number,
-    success: (data:IStudentDetailsResponseData) => void,
+    success: (data: IStudentDetailsResponseData) => void,
     error: (err: any | string) => void,
   ) {
     try {
@@ -76,14 +76,13 @@ export class StudentDetailApiProvider extends AxiosService {
   }
 
   async deleteStudentDetails(
-    id:number,
-    success:(data:IStudentDetailsData)=>void,
-    error:(err:string | any)=>void,
-  )
-  {
+    id: number,
+    success: (data: IStudentDetailsData) => void,
+    error: (err: string | any) => void,
+  ) {
     try {
-      const response  = await this.delete<IStudentDetailsData>(
-        `${STUDENTDETAILS.DELETESTUDENTDETAIL}/${id}`
+      const response = await this.delete<IStudentDetailsData>(
+        `${STUDENTDETAILS.DELETESTUDENTDETAIL}/${id}`,
       );
       success(response.data);
     } catch (err) {

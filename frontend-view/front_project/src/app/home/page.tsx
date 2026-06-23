@@ -1,98 +1,111 @@
 "use client";
-
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
 import style from "@/src/app/home/home.module.scss";
-import { fessLogo, RegisterLogo, UniversityIcon, UniversityLogo } from "@/src/assets";
+import {
+  fessLogo,
+  RegisterLogo,
+  UniversityIcon,
+  UniversityLogo,
+} from "@/src/assets";
+import { withPublicAuth } from "@/src/hoc/withPublicHoc";
+import { useTranslations } from "next-intl";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 
-export default function HomePage() {
+function HomePage() {
   const router = useRouter();
+  const homeTrans = useTranslations(TRANSLATIONSAPPCONSTANTS.HOME);
 
   return (
-  <div className={style["home-container"]}>
-    <h2>Welcome to the  Campus Study Connect University</h2>
+    <div className={style["home-container"]}>
+      <h2>{homeTrans(TRANSLATIONSAPPCONSTANTS.HOMEPAGE)}</h2>
 
-     <Image
-        src={UniversityIcon}
-        width={180}
-        height={180}
-        alt="University"
-      />
+      <Image src={UniversityIcon} width={180} height={180} alt="University" />
       <div className={style["head-cont"]}>
-      <h4 className={style["heading"]}>Explore Our Programs</h4>
-<ul>
-  <li><strong>10+</strong> Undergraduate & Postgraduate Courses</li>
-  <li><strong>50+</strong> Industry-Level Professional Subjects</li>
-  <li><strong>10,000+</strong> Students Enrolled Hierarchically</li>
-</ul>
-</div>
+        <h4 className={style["heading"]}>
+          {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLOREMORE)}
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              {homeTrans(TRANSLATIONSAPPCONSTANTS.COURSEESTIMATE)}
+            </strong>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.EXLORECOURSE)}
+          </li>
+          <li>
+            <strong>
+              {homeTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTESTIMATE)}
+            </strong>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLORESUBJECTS)}
+          </li>
+          <li>
+            <strong>
+              {homeTrans(TRANSLATIONSAPPCONSTANTS.STUDENTESTIMATE)}
+            </strong>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLORESTUDENT)}
+          </li>
+        </ul>
+      </div>
 
-  <div className={style["home-container__cards"]}>
+      <div className={style["home-container__cards"]}>
+        <div className={style["home-container__card"]}>
+          <Image
+            src={RegisterLogo}
+            width={180}
+            height={180}
+            alt="Registration"
+          />
 
-    <div className={style["home-container__card"]}>
-      <Image
-        src={RegisterLogo}
-        width={180}
-        height={180}
-        alt="Registration"
-      />
+          <h2 className={style["home-container__title"]}>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.JOINCAMPUS)}
+          </h2>
 
-      <h2 className={style["home-container__title"]}>
-       Join the Campus Study Connect
-      </h2>
+          <button
+            className={style["home-container__btn"]}
+            onClick={() => router.push("/register")}
+          >
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.REGISTERANDJOIN)}
+          </button>
+        </div>
 
-      <button
-        className={style["home-container__btn"]}
-        onClick={() => router.push("/register")}
-      >
-       Register and Join Us!!
-      </button>
+        <div className={style["home-container__card"]}>
+          <Image
+            src={UniversityLogo}
+            width={180}
+            height={180}
+            alt="University"
+            loading="eager"
+            unoptimized
+          />
+
+          <h2 className={style["home-container__title"]}>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLORING)}
+          </h2>
+
+          <button
+            className={style["home-container__btn"]}
+            onClick={() => router.push("/university-dashboard")}
+          >
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLORE)}
+          </button>
+        </div>
+
+        <div className={style["home-container__card"]}>
+          <Image src={fessLogo} width={180} height={180} alt="University" />
+
+          <h2 className={style["home-container__title"]}>
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.LETCONNECT)}
+          </h2>
+
+          <button
+            className={style["home-container__btn"]}
+            onClick={() => router.push("/login")}
+          >
+            {homeTrans(TRANSLATIONSAPPCONSTANTS.LOGINANDJOIN)}
+          </button>
+        </div>
+      </div>
     </div>
-    
-    <div className={style["home-container__card"]}>
-      <Image
-        src={UniversityLogo}
-        width={180}
-        height={180}
-        alt="University"
-        loading="eager"
-        unoptimized
-      />
-
-      <h2 className={style["home-container__title"]}>
-        See complete Panal of Campus Study  Connet 
-      </h2>
-
-      <button
-        className={style["home-container__btn"]}
-        onClick={() => router.push("/university-dashboard")}
-      >
-        Explore !!
-      </button>
-    </div> 
-
-     <div className={style["home-container__card"]}>
-      <Image
-        src={fessLogo}
-        width={180}
-        height={180}
-        alt="University"
-      />
-
-      <h2 className={style["home-container__title"]}>
-        Login  for Checking Your Data
-      </h2>
-
-      <button
-        className={style["home-container__btn"]}
-        onClick={() => router.push("/login")}
-      >
-        Login 
-      </button>
-    </div> 
-
-  </div>
-</div>
   );
 }
+export default withPublicAuth(HomePage);

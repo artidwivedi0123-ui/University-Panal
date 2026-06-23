@@ -1,3 +1,4 @@
+"use client";
 import {
   UNIVERSITY_SECTION_PAGES_ROUTES,
   UNIVERSITY_SECTION_TYPE,
@@ -15,16 +16,12 @@ import {
   Students,
   Subject,
 } from "@/src/assets";
-import {
-  currencyFormatter,
-  formatDateTime,
-  getOrdinal,
-} from "@/src/utils/app.utils";
-
+import { currencyFormatter, getOrdinal } from "@/src/utils/app.utils";
+import { useTranslations } from "next-intl";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 interface TableProps {
   data: any[];
   type: UNIVERSITY_SECTION_PAGES_ROUTES;
-  handleDelete?: (id: any) => void;
   handleEdit?: (id: any) => void;
   viewDetails?: (id: any) => void;
   addBtn?: () => void;
@@ -41,7 +38,6 @@ interface TableProps {
 export default function Table({
   data,
   type,
-  handleDelete,
   handleEdit,
   viewDetails,
   addBtn,
@@ -61,64 +57,82 @@ export default function Table({
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const stuFees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
   const studDetail = type === UNIVERSITY_SECTION_TYPE.STUDENTDETAIL;
+  const unitableTrans = useTranslations(
+    TRANSLATIONSAPPCONSTANTS.UNIVERSITYTABLE,
+  );
+
   const getHeaders = () => {
     if (course) {
-      return ["Course Name", "Course Type", "Total Semester", "Actions"];
+      return [
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSENAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSETYPE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.TOTALSEM),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
+      ];
     }
 
     if (semester) {
-      return ["Semester", "Course Name", "Course Type", "Actions"];
+      return [
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSENAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSETYPE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
+      ];
     }
 
     if (subjects) {
-      return ["Subject Name", "Subject Code", "Semester", "Actions"];
+      return [
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTNAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTCODE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
+      ];
     }
 
     if (students) {
       return [
-        "Student's Icon",
-        "Student Name",
-        "Roll No",
-        "Course",
-        "Semester",
-        // "Marks",
-        "Result",
-        "Actions",
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTICON),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ROLLNUMBER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.RESULT),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
       ];
     }
     if (fees) {
       return [
-        "Course Name",
-        "Semester Number",
-        "Tutition Fees",
-        "Exam Fees",
-        "Library Fees",
-        "Other Fees",
-        "Total Fees",
-        "Action",
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.TUITIONFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.EXAMFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.LIBRARYFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.OTHERFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.TOTALFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
       ];
     }
 
     if (stuFees) {
       return [
-        "Student Name",
-        "Roll Number",
-        "Course Name",
-        "Semester",
-        "Total Fees",
-        "Amount Paid",
-        "Payment Status",
-        "Action",
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ROLLNUMBER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSE),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.TOTALFEES),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.AMOUNTPAID),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.PAYMENTSTATUS),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
       ];
     }
 
     if (studDetail) {
       return [
-        "Student Name",
-        "Student Email",
-        "Student Contact Number",
-        "Student Previous Education",
-        "Action"
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTEMAIL),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTCONTACT),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTEDUCATION),
+        unitableTrans(TRANSLATIONSAPPCONSTANTS.ACTIONS),
       ];
     }
 
@@ -148,13 +162,13 @@ export default function Table({
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -176,13 +190,13 @@ export default function Table({
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -200,13 +214,13 @@ export default function Table({
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -226,13 +240,13 @@ export default function Table({
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -252,19 +266,19 @@ export default function Table({
                 className={style["view-btn"]}
                 onClick={() => viewDetails?.(item.id)}
               >
-                View
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.VIEW)}
               </button>
               <button
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -288,27 +302,27 @@ export default function Table({
             <td>{item.roll_number}</td>
             <td>{item.course_name}</td>
             <td>{getOrdinal(item.semester_number)}</td>
-           {/*  {/* <td>{item.marks}</td> */}
-            <td>{item.result}</td> 
+            {/*  {/* <td>{item.marks}</td> */}
+            <td>{item.result}</td>
 
             <td>
               <button
                 className={style["view-btn"]}
                 onClick={() => viewDetails?.(item.id)}
               >
-                View
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.VIEW)}
               </button>
               <button
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -327,19 +341,19 @@ export default function Table({
                 className={style["view-btn"]}
                 onClick={() => viewDetails?.(item.id)}
               >
-                View
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.VIEW)}
               </button>
               <button
                 className={style["edit-btn"]}
                 onClick={() => handleEdit?.(item.id)}
               >
-                Edit
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.EDIT)}
               </button>
               <button
                 className={style["del-btn"]}
                 onClick={() => openDeleteModal?.(item.id)}
               >
-                Delete
+                {unitableTrans(TRANSLATIONSAPPCONSTANTS.DELETE)}
               </button>
             </td>
           </tr>
@@ -353,20 +367,20 @@ export default function Table({
       <div className={style["table-header"]}>
         <h2 className={style["heading"]}>
           {course
-            ? "Course Table"
+            ? unitableTrans(TRANSLATIONSAPPCONSTANTS.COURSET)
             : semester
-              ? "Semester Table"
+              ? unitableTrans(TRANSLATIONSAPPCONSTANTS.SEMESTERT)
               : subjects
-                ? "Subjects Table"
+                ? unitableTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTT)
                 : students
-                  ? "Students Detailed Table"
+                  ? unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDENTT)
                   : fees
-                    ? "Course Fees Detailed Table"
+                    ? unitableTrans(TRANSLATIONSAPPCONSTANTS.FEEST)
                     : stuFees
-                      ? "Student Fees Detailed Table"
+                      ? unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDEFEEST)
                       : studDetail
-                        ? "Student Detailing (Personal Details)"
-                        : "Table View"}
+                        ? unitableTrans(TRANSLATIONSAPPCONSTANTS.STUDETAILT)
+                        : unitableTrans(TRANSLATIONSAPPCONSTANTS.TABLEVIEW)}
         </h2>
         <Image
           src={
@@ -393,12 +407,13 @@ export default function Table({
         {!course && !semester && (
           <>
             <p className={style["sub-heading"]}>
-              Total Records : {totalRecords}
+              {unitableTrans(TRANSLATIONSAPPCONSTANTS.TOTALRECORDS)}
+              {totalRecords}
             </p>
             <div className={style["search-container"]}>
               <input
                 className={style["search-input"]}
-                placeholder="Search Here..."
+                placeholder={unitableTrans(TRANSLATIONSAPPCONSTANTS.SEARCH)}
                 value={search}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -419,14 +434,22 @@ export default function Table({
         {/* <p className={style["sub-heading"]}>Total Records : {totalRecords}</p> */}
         <button className={style["addbtn"]} onClick={addBtn}>
           {course
-            ? "Add Course"
+            ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDCOURSE)
             : semester
-              ? "Add Semester"
+              ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDSEMESTER)
               : subjects
-                ? "Add Subjects"
+                ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDSUBJECTS)
                 : students
-                  ? "Add Students"
-                  : "Add "}
+                  ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDSTUDENTS)
+                  : fees
+                    ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDFEES)
+                    : stuFees
+                      ? unitableTrans(TRANSLATIONSAPPCONSTANTS.ADDSTUDENTFEES)
+                      : studDetail
+                        ? unitableTrans(
+                            TRANSLATIONSAPPCONSTANTS.ADDSTUDENTPROFILE,
+                          )
+                        : unitableTrans(TRANSLATIONSAPPCONSTANTS.ADD)}
         </button>
       </div>
 
@@ -445,7 +468,7 @@ export default function Table({
             ) : (
               <tr>
                 <td colSpan={10} className={style["empty-data"]}>
-                  No Data Found
+                  {unitableTrans(TRANSLATIONSAPPCONSTANTS.NODATAFOUND)}
                 </td>
               </tr>
             )}
@@ -458,7 +481,7 @@ export default function Table({
               disabled={currentPage === 1}
               onClick={() => setCurrentPage?.(currentPage! - 1)}
             >
-              Prev
+              {unitableTrans(TRANSLATIONSAPPCONSTANTS.PREV)}
             </button>
 
             {[...Array(totalPages)].map((_, index) => {
@@ -481,7 +504,7 @@ export default function Table({
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage?.(currentPage! + 1)}
             >
-              Next
+              {unitableTrans(TRANSLATIONSAPPCONSTANTS.NEXT)}
             </button>
           </div>
         )}

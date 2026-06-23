@@ -1,18 +1,20 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import refreshRoutes from  "../src/module/auth/routes/refresh.routes.js";
-import logoutRoutes from "../src/module/auth/routes/logout.routes.js";
-import courseRoutes from "../src/module/universityPanel/routes/course.routes.js";
-import semesterRoutes from "../src/module/universityPanel/routes/semester.routes.js";
-import subjectRoutes from "../src/module/universityPanel/routes/subject.routes.js";
-import studentRoutes  from "../src/module/universityPanel/routes/student.routes.js"
-import loginRoutes from "../src/module/auth/routes/login.routes.js";
-import registerRoutes from "../src/module/auth/routes/register.routes.js";
-import feesStructureRoutes from  "../src/module/fees-management/routes/fees-struct.routes.js";
-import studentFeesRoutes from  "../src/module/fees-management/routes/student-fees.routes.js";
-import studentDetailingRoutes from "../src/module/student-profile/routes/student-detail.routes.js";
-import studentProfileRoute from "../src/module/student-profile/routes/student-profile.routes.js";
+import refreshRoutes from  "@src/module/auth/routes/refresh.routes.js";
+import logoutRoutes from "@src/module/auth/routes/logout.routes.js";
+import courseRoutes from "@src/module/universityPanel/routes/course.routes.js";
+import semesterRoutes from "@src/module/universityPanel/routes/semester.routes.js";
+import subjectRoutes from "@src/module/universityPanel/routes/subject.routes.js";
+import studentRoutes  from "@src/module/universityPanel/routes/student.routes.js"
+import loginRoutes from "@src/module/auth/routes/login.routes.js";
+import  resetPasswordRoutes from "@src/module/auth/routes/reset-password.routes.js";
+import forgotPasswordRoutes from "@src/module/auth/routes/forget-password.routes.js";
+import registerRoutes from "@src/module/auth/routes/register.routes.js";
+import feesStructureRoutes from  "@src/module/fees-management/routes/fees-struct.routes.js";
+import studentFeesRoutes from  "@src/module/fees-management/routes/student-fees.routes.js";
+import studentDetailingRoutes from "@src/module/student-profile/routes/student-detail.routes.js";
+import studentProfileRoute from "@src/module/student-profile/routes/student-profile.routes.js";
 dotenv.config();
 
 const app = express();
@@ -33,6 +35,8 @@ app.use("/auth/",loginRoutes);
 app.use("/auth/",registerRoutes);
 app.use("/auth",logoutRoutes);
 app.use("/auth",refreshRoutes);
+app.use("/auth",forgotPasswordRoutes);
+app.use("/auth",resetPasswordRoutes);
 
 // university Panel Routes
 app.use("/api/course",courseRoutes);

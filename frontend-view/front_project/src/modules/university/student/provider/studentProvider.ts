@@ -113,11 +113,13 @@ export class StudentApiProvider extends AxiosService {
   }
 
   async getAllStudents(
-    success:(data:IAllStudentsResponse)=>void,
-    error:(err:string | any)=>void,
+    success: (data: IAllStudentsResponse) => void,
+    error: (err: string | any) => void,
   ) {
     try {
-      const response = await this.get<IAllStudentsResponse>(STUDENT.ALLSTUDENTS);
+      const response = await this.get<IAllStudentsResponse>(
+        STUDENT.ALLSTUDENTS,
+      );
       success(response.data);
     } catch (err) {
       error(err);

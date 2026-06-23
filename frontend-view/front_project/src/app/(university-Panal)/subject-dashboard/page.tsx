@@ -7,39 +7,28 @@ import { DashboardImg, SubDash } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
 
 export default function SubjectDashPage() {
+  const { subDashboard, totalSubjects, courses } = UseSubjectState();
 
-  const {
-    subDashboard,
-    totalSubjects,
-    courses
-  } = UseSubjectState();
+  const cards = [
+    {
+      title: "Total Subjects",
+      count: totalSubjects,
+      subjects: courses.map((c) => `${c.courseName} (${c.totalSubjects})`),
+      image: SubDash,
+    },
 
-const cards = [
- {
-  title: "Total Subjects",
-  count: totalSubjects,
-  subjects: courses.map(
-    (c) => `${c.courseName} (${c.totalSubjects})`
-  ),
-  image: SubDash,
-},
-
-  ...subDashboard.map((item) => ({
-    title: `${item.courseName} - Semester :)
+    ...subDashboard.map((item) => ({
+      title: `${item.courseName} - Semester :)
     ${getOrdinal(item.semester)}`,
-    count: item.totalSubjects,
-    subjects: item.subjects,
-    image: SubDash,
-  })),
-];
+      count: item.totalSubjects,
+      subjects: item.subjects,
+      image: SubDash,
+    })),
+  ];
 
-  
   return (
     <MainLayout>
-      <Dashboard
-        title="Subject Dashboard"
-        cards={cards}
-      />
+      <Dashboard title="Subject Dashboard" cards={cards} />
     </MainLayout>
   );
 }

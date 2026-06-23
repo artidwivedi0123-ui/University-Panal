@@ -5,7 +5,6 @@ import { UseFeesStructState } from "./useFeesStructState";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import ModalBox from "@/src/components/Modal/Modal";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
-
 const FeeStructureFees = () => {
   const {
     feesStruct,
@@ -33,7 +32,6 @@ const FeeStructureFees = () => {
           console.log("Fees Id", id);
           router.push(`/edit-fees/${id}`);
         }}
-        handleDelete={handleDeleteFeesRecord}
         openDeleteModal={openDeleteModal}
         search={searchInput}
         setCurrentPage={setPage}

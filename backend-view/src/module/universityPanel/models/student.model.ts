@@ -5,9 +5,9 @@ export interface Student {
   gender: string;
   course_id: number;
   semester_id: number;
-  marks?: number;
-  grade_points?: number;
-  result?: string;
+  marks: number;
+  grade_points: number;
+  result: string;
   email: string;
   password?: string;
   user_id?: number;

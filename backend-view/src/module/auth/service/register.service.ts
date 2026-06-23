@@ -1,6 +1,6 @@
-import pool from "../../../db/db.js";
+import pool from "@src/db/db.js";
 import bcrypt from "bcryptjs";
-import { Register } from "../model/register.model.js";
+import { Register } from "@src/module/auth/model/register.model.js";
 
 export const registerService = async (
   register: Register

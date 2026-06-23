@@ -16,7 +16,7 @@ export interface ISubjectInput {
 }
 
 export interface ISubjectById {
-id: number;
+  id: number;
   subject_name: string;
   subject_code: string;
   credits: number;
@@ -25,8 +25,8 @@ id: number;
 }
 
 export interface ISubjectByIdResponse {
-    success:boolean;
-    data:ISubjectById;
+  success: boolean;
+  data: ISubjectById;
 }
 
 export interface ISubjectResponse {
@@ -48,12 +48,11 @@ export interface ICreateSubjectResponse {
 }
 
 export interface ISubjectDashboard {
-    courseName:string;
-    semester:number;
-    totalSubjects:number;
-    subjects:string[];
+  courseName: string;
+  semester: number;
+  totalSubjects: number;
+  subjects: string[];
 }
-
 
 export interface ICourseSummary {
   courseName: string;
@@ -65,4 +64,4 @@ export interface ISubjectDashboardResponse {
   totalSubjects: number;
   courses: ICourseSummary[];
   semesterWise: ISubjectDashboard[];
-};
+}

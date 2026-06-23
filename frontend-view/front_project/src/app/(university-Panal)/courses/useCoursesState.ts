@@ -11,7 +11,9 @@ import { toast } from "react-toastify";
 export const useCoursesState = () => {
   const params = useParams();
   const id = params?.id as string;
-  const [courseDetailId, setCourseDetailsId] = useState<ICourseById | null>(null);
+  const [courseDetailId, setCourseDetailsId] = useState<ICourseById | null>(
+    null,
+  );
   const isEdit = !!id;
   const [course, setCourse] = useState<ICourseData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,7 +23,7 @@ export const useCoursesState = () => {
   const [courseData, setCourseData] = useState<ICourseInput>({
     course_name: "",
     course_type: "",
-    total_semesters:0
+    total_semesters: 0,
   });
   const fetchCourses = useCallback(() => {
     setLoading(true);
@@ -29,7 +31,7 @@ export const useCoursesState = () => {
       (res) => {
         setLoading(false);
         setCourse(res?.data);
-        console.log("Course Response Data",res?.data);
+        console.log("Course Response Data", res?.data);
       },
       (err) => {
         setLoading(false);
@@ -53,94 +55,97 @@ export const useCoursesState = () => {
     }));
   };
 
-  const handleSubmitCourse = (e:React.SubmitEvent<HTMLFormElement>)=>{
+  const handleSubmitCourse = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const payload:ICourseInput = {
-      course_name:courseData.course_name,
-      course_type:courseData.course_type,
-      total_semesters:courseData.total_semesters
+    const payload: ICourseInput = {
+      course_name: courseData.course_name,
+      course_type: courseData.course_type,
+      total_semesters: courseData.total_semesters,
     };
-    if(isEdit) {
+    if (isEdit) {
       CourseApiProvider.apolloInstance.updateCourse(
-      Number(id),
-      payload,
-      ()=>{
-        toast.success("Course Updated Successfully");
-        router.push("/course");
-      },
-      (err)=>{
-        toast.error(err?.response?.data?.message || "Error in  updating  Course");
-      },
-    );
-  }
-  else {
-    CourseApiProvider.apolloInstance.createCourse(
-      payload,
-      (res)=> {
-        toast.success("Course Added Successfully");
-      router.push(UNIVERSITYROUTES.COURSES);
-      },
-      (err)=>{
-        toast.error(err?.response?.data?.message || "Error  in adding  Course");
-      }
-    )
-  }
-};
+        Number(id),
+        payload,
+        () => {
+          toast.success("Course Updated Successfully");
+          router.push(UNIVERSITYROUTES.COURSES);
+        },
+        (err) => {
+          toast.error(
+            err?.response?.data?.message || "Error in  updating  Course",
+          );
+        },
+      );
+    } else {
+      CourseApiProvider.apolloInstance.createCourse(
+        payload,
+        (res) => {
+          toast.success("Course Added Successfully");
+          router.push(UNIVERSITYROUTES.COURSES);
+        },
+        (err) => {
+          toast.error(
+            err?.response?.data?.message || "Error  in adding  Course",
+          );
+        },
+      );
+    }
+  };
 
-  const openDeleteModal = (id:number)=>{
+  const openDeleteModal = (id: number) => {
     setSelectCourseId(id);
     setShowModal(true);
   };
 
-
-  const closeDeleteModal = ()=>{
+  const closeDeleteModal = () => {
     setSelectCourseId(null);
     setShowModal(false);
   };
 
-  const  handleDeleteCourse  =  ()=>{
+  const handleDeleteCourse = () => {
     setLoading(true);
-    if(selectCourseId ===  null) return ;
+    if (selectCourseId === null) return;
 
     CourseApiProvider.apolloInstance.deleteCourse(
       selectCourseId,
-      (res)=>{
+      (res) => {
         setLoading(false);
-        setCourse((prev)=> prev?.filter((cou)=>cou.id !==  selectCourseId));
+        setCourse((prev) => prev?.filter((cou) => cou.id !== selectCourseId));
         toast.success("Course Deleted Successfully");
         closeDeleteModal();
       },
-      (err)=>{
-        toast.error(err?.response?.data?.message || "Error  in Deleting Course");
-      }
-    )
+      (err) => {
+        toast.error(
+          err?.response?.data?.message || "Error  in Deleting Course",
+        );
+      },
+    );
   };
 
-  
-  const fetchCourseById = useCallback(()=>{
-    if(!id) return ;
-    
+  const fetchCourseById = useCallback(() => {
+    if (!id) return;
+
     CourseApiProvider.apolloInstance.getCourseById(
       Number(id),
-      (res)=>{
+      (res) => {
         setCourseDetailsId(res.data);
         setCourseData({
-        course_name:res.data.course_name,
-        course_type:res.data.course_type,
-        total_semesters:res.data.total_semesters
+          course_name: res.data.course_name,
+          course_type: res.data.course_type,
+          total_semesters: res.data.total_semesters,
         });
       },
-      (err)=>{
-        toast.error(err?.response.data?.message || "Error  in Fetching this Course");
-      }
+      (err) => {
+        toast.error(
+          err?.response.data?.message || "Error  in Fetching this Course",
+        );
+      },
     );
-  },[id]);
+  }, [id]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchCourseById();
-  },[fetchCourseById]);
-  
+  }, [fetchCourseById]);
 
   return {
     course,
@@ -153,6 +158,6 @@ export const useCoursesState = () => {
     handleChangeCourse,
     handleDeleteCourse,
     handleSubmitCourse,
-    courseData
+    courseData,
   };
 };

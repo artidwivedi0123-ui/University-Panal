@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { logoutService } from "../service/logout.service.js";
-import { AuthRequest } from "../model/auth-req.model.js";
+import { logoutService } from "@src/module/auth/service/logout.service.js";
+import { AuthRequest } from "@src/module/auth/model/auth-req.model.js";
 
 export const logout = async (
   req: AuthRequest,

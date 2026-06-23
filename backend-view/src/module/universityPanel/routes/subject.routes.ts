@@ -1,5 +1,5 @@
 import express from "express";
-import { authMiddleware } from "../../auth/middleware/auth.middleware.js";
+import { authMiddleware } from "@src/module/auth/middleware/auth.middleware.js";
 import {
   createSubjects,
   getSubjectById,
@@ -7,8 +7,8 @@ import {
   getSubjects,
   updateSubject,
   deleteSubject,
-} from "../controllers/subject.controllers.js";
-import { roleMiddleware } from "../../auth/middleware/role.middleware.js";
+} from "@src/module/universityPanel/controllers/subject.controllers.js";
+import { roleMiddleware } from "@src/module/auth/middleware/role.middleware.js";
 
 const router = express.Router();
 

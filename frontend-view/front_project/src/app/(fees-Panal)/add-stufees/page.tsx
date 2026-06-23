@@ -14,10 +14,6 @@ const AddStudentFeesPage = () => {
   const { student } = useStudentList();
   const { fees } = useFeesStructList();
 
-  // console.log(" Check semester",semester);
-
-  console.log(" All Fees Structure", fees);
-
   return (
     <MainLayout>
       <Form

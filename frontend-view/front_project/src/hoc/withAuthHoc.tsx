@@ -1,17 +1,11 @@
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
+import { AUTHROUTES } from "@/src/constants/routes.contants";
 
-export const withAuth = (
-  WrappedComponent: React.ComponentType
-) => {
-  return function ProtectedRoute(
-    props: any
-  ) {
-    const {
-      isAuthenticated,
-      loading,
-    } = useAuth();
+export const withAuth = (WrappedComponent: React.ComponentType) => {
+  return function ProtectedRoute(props: any) {
+    const { isAuthenticated, loading } = useAuth();
 
     const router = useRouter();
 
@@ -19,13 +13,9 @@ export const withAuth = (
       if (loading) return;
 
       if (!isAuthenticated) {
-        router.replace("/login");
+        router.replace(AUTHROUTES.LOGIN);
       }
-    }, [
-      loading,
-      isAuthenticated,
-      router,
-    ]);
+    }, [loading, isAuthenticated, router]);
 
     if (loading) {
       return <div>Loading...</div>;
@@ -35,10 +25,6 @@ export const withAuth = (
       return null;
     }
 
-    return (
-      <WrappedComponent
-        {...props}
-      />
-    );
+    return <WrappedComponent {...props} />;
   };
 };

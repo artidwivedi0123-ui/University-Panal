@@ -12,15 +12,10 @@ type DashboardType = {
 
 type DashboardView = {
   title?: string;
-  description?: string;
   cards?: DashboardType[];
 };
 
-export default function Dashboard({
-  title,
-  description,
-  cards,
-}: DashboardView) {
+export default function Dashboard({ title, cards }: DashboardView) {
   return (
     <div className={style["main-container"]}>
       <h2 className={style["title"]}>{title}</h2>

@@ -11,16 +11,14 @@ export interface IStudentsData {
   semester_number: number;
   course_id?: number;
   semester_id?: number;
-   email:string;
-  password?:string;
+  email: string;
+  password?: string;
   user_id?: number;
-
 }
 
-
 export interface IAllStudentsResponse {
-  success:boolean;
-  data:IStudentsData[];
+  success: boolean;
+  data: IStudentsData[];
 }
 
 export interface IStudentResponse {
@@ -33,7 +31,7 @@ export interface IStudentResponse {
     totalRecords: number;
     totalPages: number;
   };
-};
+}
 
 export interface IStudentsInput {
   name: string;
@@ -44,8 +42,8 @@ export interface IStudentsInput {
   result: string;
   course_id: number;
   semester_id: number;
-  email:string;
-  password?:string;
+  email: string;
+  password?: string;
 }
 
 export interface IStudentById {
@@ -58,8 +56,8 @@ export interface IStudentById {
   marks: number;
   grade_points: number;
   result: string;
-  email:string;
-  password?:string;
+  email: string;
+  password?: string;
 }
 
 export interface IStudentByIdResponse {
@@ -67,24 +65,22 @@ export interface IStudentByIdResponse {
   data: IStudentById;
 }
 
-
 export interface IStudentDashboard {
-  course_name:string;
-  course_type:string;
-  semester_number:number;
-  total_students:number;
-  students:string[];
+  course_name: string;
+  course_type: string;
+  semester_number: number;
+  total_students: number;
+  students: string[];
 }
 
 export interface IStudentCourseSummary {
-  courseName:string;
-  totalStudents:number;
+  courseName: string;
+  totalStudents: number;
 }
 
-
 export interface IStudentDashboardResponse {
-  success:boolean;
-  totalStudents:number;
-  students:IStudentCourseSummary[];
-  dashboard:IStudentDashboard[];
+  success: boolean;
+  totalStudents: number;
+  students: IStudentCourseSummary[];
+  dashboard: IStudentDashboard[];
 }

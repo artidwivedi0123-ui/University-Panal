@@ -1,4 +1,5 @@
 import { APPCONSTANTS } from "@/src/constants/app.constants";
+import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
 import {
   IStudentDetailInput,
   IStudentDetailsById,
@@ -15,8 +16,11 @@ export const useStudentDetailsState = () => {
   const isEdit = !!id;
   const [selectedStuDelId, setSelectedStuDelId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [studentDetailbyId, setStudentDetailById] =useState<IStudentDetailsById | null>(null);
-  const [studentDetail, setStudentDetails] = useState<IStudentDetailsData[]>([]);
+  const [studentDetailbyId, setStudentDetailById] =
+    useState<IStudentDetailsById | null>(null);
+  const [studentDetail, setStudentDetails] = useState<IStudentDetailsData[]>(
+    [],
+  );
   const [page, setPage] = useState<number>(APPCONSTANTS.PAGE);
   const [limit, setLimit] = useState<number>(APPCONSTANTS.LIMIT);
   const [loading, setLoading] = useState<boolean>(false);
@@ -94,14 +98,12 @@ export const useStudentDetailsState = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    console.log(name,value);
+    console.log(name, value);
     setStuDetailInput((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
-  
 
   const handleSubmitStudentDetails = (
     e: React.SubmitEvent<HTMLFormElement>,
@@ -114,7 +116,7 @@ export const useStudentDetailsState = () => {
         payload,
         (res) => {
           toast.success("Student Details Updated Sucessfully");
-          router.push("/student-details");
+          router.push(UNIVERSITYROUTES.STUDENTPROFILEDETAIL);
         },
         (err) => {
           toast.error(
@@ -131,7 +133,7 @@ export const useStudentDetailsState = () => {
           console.log(res.data);
           console.log("Student Input", setStuDetailInput);
           toast.success("Student Detail added successfully");
-          router.push("/student-details");
+          router.push(UNIVERSITYROUTES.STUDENTPROFILEDETAIL);
         },
         (err) => {
           setLoading(false);
@@ -185,22 +187,21 @@ export const useStudentDetailsState = () => {
       Number(id),
       (res) => {
         setStudentDetailById(res.data);
-        console.log("Response  for the Date of Birth",res.data.date_of_birth);
         setStuDetailInput({
-          student_id:res.data.student_id,
-          full_name:res.data.full_name,
-          email:res.data.email,
-          phone_number:res.data.phone_number,
-          address:res.data.address,
-          city:res.data.city,
-          state:res.data.state,
-          country:res.data.country,
-          date_of_birth:res.data.date_of_birth?.split("T")[0] || "",
-          father_name:res.data.father_name,
-          mother_name:res.data.mother_name,
-          previous_college:res.data.previous_college,
-          previous_school:res.data.previous_school,
-          previous_study_field:res.data.previous_study_field,
+          student_id: res.data.student_id,
+          full_name: res.data.full_name,
+          email: res.data.email,
+          phone_number: res.data.phone_number,
+          address: res.data.address,
+          city: res.data.city,
+          state: res.data.state,
+          country: res.data.country,
+          date_of_birth: res.data.date_of_birth?.split("T")[0] || "",
+          father_name: res.data.father_name,
+          mother_name: res.data.mother_name,
+          previous_college: res.data.previous_college,
+          previous_school: res.data.previous_school,
+          previous_study_field: res.data.previous_study_field,
         });
       },
       (err) => {
@@ -235,6 +236,6 @@ export const useStudentDetailsState = () => {
     handleDeleteSubjectDetails,
     showModal,
     selectedStuDelId,
-    loading
+    loading,
   };
 };

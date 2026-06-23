@@ -20,7 +20,7 @@ export const useStudentsState = () => {
   const [studentDetails, setStudentDetails] = useState<IStudentById | null>(
     null,
   );
-  const [allStudData,setAllStudData] = useState<IStudentsData[]>([]);
+
   const [selectedStudentId, setSelectedStudentId] = useState<number | null>(
     null,
   );
@@ -43,8 +43,8 @@ export const useStudentsState = () => {
     result: "",
     course_id: 0,
     semester_id: 0,
-    email:"",
-    password:"",
+    email: "",
+    password: "",
   });
   const limit = APPCONSTANTS.LIMIT;
   const router = useRouter();
@@ -65,67 +65,64 @@ export const useStudentsState = () => {
         console.error(err);
       },
     );
-  },[page,search,limit]);
+  }, [page, search, limit]);
 
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]);
 
-
-
-
- const handleChangeStudent = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-) => {
-  const { name, value } = e.target;
-  setStudentData((prev) => ({
-    ...prev,
-    [name]:
-      ["marks", "grade_points", "course_id", "semester_id"].includes(name)
+  const handleChangeStudent = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setStudentData((prev) => ({
+      ...prev,
+      [name]: ["marks", "grade_points", "course_id", "semester_id"].includes(
+        name,
+      )
         ? Number(value)
         : value,
-  }));
-};
-
+    }));
+  };
 
   const validateStudent = (data: typeof studentData) => {
-  switch (true) {
-    case !data.course_id || !data.semester_id:
-      return "Please select Course and Semester";
+    switch (true) {
+      case !data.course_id || !data.semester_id:
+        return "Please select Course and Semester";
 
-    case !data.name?.trim():
-      return "Student Name is required";
+      case !data.name?.trim():
+        return "Student Name is required";
 
-    case !data.roll_number?.trim():
-      return "Student Roll Number is required";
+      case !data.roll_number?.trim():
+        return "Student Roll Number is required";
 
-    case !data.gender:
-      return "Please select Gender";
+      case !data.gender:
+        return "Please select Gender";
 
-    case !["M", "F"].includes(data.gender):
-      return "Gender must be M or F";
+      case !["M", "F"].includes(data.gender):
+        return "Gender must be M or F";
 
-    case !data.result:
-      return "Please select Result";
+      case !data.result:
+        return "Please select Result";
 
-    case !["Pass", "Fail"].includes(data.result):
-      return "Result must be Pass or Fail";
+      case !["Pass", "Fail"].includes(data.result):
+        return "Result must be Pass or Fail";
 
-    case data.marks < 0 || data.marks > 100:
-      return "Marks must be between 0 and 100";
+      case data.marks < 0 || data.marks > 100:
+        return "Marks must be between 0 and 100";
 
-    case data.grade_points < 0 || data.grade_points > 10:
-      return "Grade Points must be between 0 and 10";
+      case data.grade_points < 0 || data.grade_points > 10:
+        return "Grade Points must be between 0 and 10";
 
-    default:
-      return null;
-  }
-};
+      default:
+        return null;
+    }
+  };
 
   const handleSubmitStudent = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const checkError = validateStudent(studentData);
-    if(checkError) {
+    if (checkError) {
       return toast.error(checkError);
     }
     const payload: IStudentsInput = {
@@ -137,8 +134,8 @@ export const useStudentsState = () => {
       result: studentData.result,
       course_id: studentData.course_id,
       semester_id: studentData.semester_id,
-      email:studentData.email,
-      password:studentData.password
+      email: studentData.email,
+      password: studentData.password,
     };
     if (isEdit) {
       StudentApiProvider.apolloInstance.updateStudent(
@@ -165,7 +162,7 @@ export const useStudentsState = () => {
       );
     }
   };
-  
+
   const openDeleteModal = (id: number) => {
     setSelectedStudentId(id);
     setShowModal(true);
@@ -176,7 +173,7 @@ export const useStudentsState = () => {
     setShowModal(false);
   };
 
-  const handleDeleteStudent =() => {
+  const handleDeleteStudent = () => {
     setLoading(true);
     if (selectedStudentId === null) return;
 
@@ -211,13 +208,13 @@ export const useStudentsState = () => {
           result: res.data.result,
           course_id: res.data.course_id,
           semester_id: res.data.semester_id,
-          password:res.data.password,
-          email:res.data.email
+          password: res.data.password,
+          email: res.data.email,
         });
       },
       console.error,
     );
-  },[id]);
+  }, [id]);
 
   useEffect(() => {
     fetchStudentById();
@@ -226,7 +223,7 @@ export const useStudentsState = () => {
   const handleSearch = useCallback(() => {
     setPage(1);
     setSearch(searchInput);
-  },[searchInput]);
+  }, [searchInput]);
 
   const fetchStuDashboard = useCallback(() => {
     StudentApiProvider.apolloInstance.getStudentDashboard(
@@ -239,15 +236,11 @@ export const useStudentsState = () => {
         toast.error(err.response.data.message || "Error  while adding content");
       },
     );
-  },[]);
+  }, []);
 
   useEffect(() => {
     fetchStuDashboard();
   }, [fetchStuDashboard]);
-
-
-
-  
 
   return {
     studentDetails,
@@ -275,10 +268,6 @@ export const useStudentsState = () => {
     totalRecordStu,
     totalStudents,
     stuDashboard,
-    courses
+    courses,
   };
 };
-
-
-
- 

@@ -1,4 +1,4 @@
-import pool from "../../../db/db.js";
+import pool from "@src/db/db.js";
 
 export const logoutService = async (userId: number) => {
   await pool.query(

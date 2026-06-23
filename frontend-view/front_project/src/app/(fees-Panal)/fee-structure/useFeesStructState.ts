@@ -1,6 +1,6 @@
 import {
   IFeeDashboardData,
-    IFeesDetailsById,
+  IFeesDetailsById,
   IFeeStructureData,
   IFeeStructureInput,
 } from "@/src/modules/fees/fees-struct/modal/IFees";
@@ -12,17 +12,17 @@ export const UseFeesStructState = () => {
   const params = useParams();
   const id = params?.id as string;
   const isEdit = !!id;
-  const [feesDetails,setFeesDetails]= useState<IFeesDetailsById | null>(null);
+  const [feesDetails, setFeesDetails] = useState<IFeesDetailsById | null>(null);
   const [fees, setFees] = useState<IFeeStructureData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [page,setPage]= useState<number>(1);
-  const [search,setSearch]= useState<string>("");
-  const [totalPages,setTotalPages]= useState<number>(0);
-  const [searchInput,setSearchInput] = useState<string>("");
-  const [limit,setLimit] = useState<number>(10);
-  const [showModal,setShowModal] = useState<boolean>(false);
-  const [totalRecords,setTotalRecords] = useState<number>(0);
-  const [selectedFeesId,setSelecteFeesId] = useState<number | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [search, setSearch] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [limit, setLimit] = useState<number>(10);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [totalRecords, setTotalRecords] = useState<number>(0);
+  const [selectedFeesId, setSelecteFeesId] = useState<number | null>(null);
   const [feesData, setFeesData] = useState<IFeeStructureInput>({
     course_id: 0,
     semester_id: 0,
@@ -31,7 +31,9 @@ export const UseFeesStructState = () => {
     library_fee: "" as any,
     other_fee: "" as any,
   });
-  const [feesDashboard,setFeesDashboard] = useState<IFeeDashboardData | null>(null);
+  const [feesDashboard, setFeesDashboard] = useState<IFeeDashboardData | null>(
+    null,
+  );
   const router = useRouter();
   const fetchFees = () => {
     setLoading(true);
@@ -42,7 +44,7 @@ export const UseFeesStructState = () => {
       (res) => {
         setLoading(false);
         setFees(res?.data);
-        console.log("Response for the Fees",res.data);
+        console.log("Response for the Fees", res.data);
         setTotalPages(res.pagination.totalPage);
         setTotalRecords(res.pagination.totalRecords);
       },
@@ -55,24 +57,20 @@ export const UseFeesStructState = () => {
 
   useEffect(() => {
     fetchFees();
-  }, [page,search,limit]);
+  }, [page, search, limit]);
 
- const handleChangeFees = (
-  e: React.ChangeEvent<
-    HTMLInputElement | HTMLSelectElement
-  >
-) => {
-  const { name, value } = e.target;
-  setFeesData((prev) => ({
-    ...prev,
-    [name]:
-      name === "course_id" ||
-      name === "semester_id" ||
-      name.includes("_fee")
-        ? Number(value)
-        : value,
-  }));
-};
+  const handleChangeFees = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFeesData((prev) => ({
+      ...prev,
+      [name]:
+        name === "course_id" || name === "semester_id" || name.includes("_fee")
+          ? Number(value)
+          : value,
+    }));
+  };
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,89 +112,83 @@ export const UseFeesStructState = () => {
     }
   };
 
-  const fetchFeesById = useCallback(() =>{
-    if(!id) return ;
+  const fetchFeesById = useCallback(() => {
+    if (!id) return;
     FeesApiProvider.apolloInstance.getFeesById(
-        Number(id),
-        (res)=>{
-            setFeesDetails(res.data);
+      Number(id),
+      (res) => {
+        setFeesDetails(res.data);
         setFeesData({
-            course_id:res.data.course_id,
-            semester_id:res.data.semester_id,
-            exam_fee:res.data.exam_fee,
-            library_fee:res.data.library_fee,
-            other_fee:res.data.other_fee,
-            tuition_fee:res.data.tuition_fee,
+          course_id: res.data.course_id,
+          semester_id: res.data.semester_id,
+          exam_fee: res.data.exam_fee,
+          library_fee: res.data.library_fee,
+          other_fee: res.data.other_fee,
+          tuition_fee: res.data.tuition_fee,
         });
-        }, 
-        (err)=>{
-            console.log(err);
-            toast.error("Error in fetch error");
-        }
-    )
-  },[id]);
+      },
+      (err) => {
+        console.log(err);
+        toast.error("Error in fetch error");
+      },
+    );
+  }, [id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchFeesById();
-  },[fetchFeesById]);
+  }, [fetchFeesById]);
 
+  const handleSearch = () => {
+    setPage(1);
+    setSearch(searchInput);
+  };
 
- const handleSearch = () => {
-  setPage(1);
-  setSearch(searchInput);
-};
-
-
-  const openDeleteModal = (id:number)=>{
+  const openDeleteModal = (id: number) => {
     setSelecteFeesId(id);
     setShowModal(true);
   };
 
-const  closeDeleteModal =() =>
-{
-  setSelecteFeesId(null);
-  setShowModal(false);
-};
+  const closeDeleteModal = () => {
+    setSelecteFeesId(null);
+    setShowModal(false);
+  };
 
+  const handleDeleteFeesRecord = () => {
+    setLoading(true);
+    if (selectedFeesId === null) return;
 
+    FeesApiProvider.apolloInstance.deleteFees(
+      selectedFeesId,
+      (res) => {
+        setLoading(false);
+        setFees((prev) => prev.filter((it) => it.id !== selectedFeesId));
+        toast.success("Fees Record Deleted Successfully");
+        closeDeleteModal();
+      },
+      (err) => {
+        setLoading(false);
+        toast.error(
+          err?.response?.data?.meesage || "Error while deleting Fees Record",
+        );
+      },
+    );
+  };
 
-const handleDeleteFeesRecord = ()=>{
-  setLoading(true);
-  if(selectedFeesId === null) return;
-
-  FeesApiProvider.apolloInstance.deleteFees(
-    selectedFeesId,
-    (res)=>{
-      setLoading(false);
-      setFees((prev)=>prev.filter((it)=>it.id !== selectedFeesId));
-      toast.success("Fees Record Deleted Successfully");
-      closeDeleteModal();
-    },
-    (err)=>{
-      setLoading(false);
-      toast.error(err?.response?.data?.meesage || "Error while deleting Fees Record");
-    }
-  )
-};
-
-
-const fetchFeesDasboard = ()=>{
-  setLoading(false);
-  FeesApiProvider.apolloInstance.getFeesDashboard(
-    (res)=>{
+  const fetchFeesDasboard = () => {
+    setLoading(false);
+    FeesApiProvider.apolloInstance.getFeesDashboard(
+      (res) => {
         setFeesDashboard(res.data);
-    },
-    (err)=>{
-      toast.error("Error in fetch Fees Dashboard");
-    }
-  )
-};
+      },
+      (err) => {
+        toast.error("Error in fetch Fees Dashboard");
+      },
+    );
+  };
 
-useEffect(()=>{
-  fetchFeesDasboard();
-},[]);
-
-
+  useEffect(() => {
+    fetchFeesDasboard();
+  }, []);
 
   return {
     feesData,
@@ -222,6 +214,6 @@ useEffect(()=>{
     totalPages,
     totalRecords,
     handleSearch,
-    feesDashboard
+    feesDashboard,
   };
 };

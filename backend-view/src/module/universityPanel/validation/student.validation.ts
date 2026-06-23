@@ -1,4 +1,4 @@
-import { Student } from "../models/student.model.js";
+import { Student } from "@src/module/universityPanel/models/student.model.js";
 
 
 export const validateStudent = (data: Student) => {

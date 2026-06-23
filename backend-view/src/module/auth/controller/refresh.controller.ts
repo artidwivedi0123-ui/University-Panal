@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { refreshService } from "../service/refresh.service.js";
+import { refreshService } from "@src/module/auth/service/refresh.service.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
   try {

@@ -1,4 +1,5 @@
 import { APPCONSTANTS } from "@/src/constants/app.constants";
+import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
 import {
   ICourseSummary,
   ISubjectById,
@@ -16,7 +17,9 @@ export const UseSubjectState = () => {
   const params = useParams();
   const id = params?.id as string;
   const isEdit = !!id;
-  const [selectedSubjectId, setSelectedSubjectId] = useState<number | null>(null);
+  const [selectedSubjectId, setSelectedSubjectId] = useState<number | null>(
+    null,
+  );
   const [page, setPage] = useState<number>(APPCONSTANTS.PAGE);
   const [search, setSearch] = useState<string>("");
   const [searchInput, setSearchInput] = useState<string>("");
@@ -26,7 +29,9 @@ export const UseSubjectState = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [subDashboard, setSubDashboard] = useState<ISubjectDashboard[]>([]);
   const [totalSubjects, setTotalSubjects] = useState<number>(0);
-  const [subjectDetails, setSubjectDetails] = useState<ISubjectById | null>(null);
+  const [subjectDetails, setSubjectDetails] = useState<ISubjectById | null>(
+    null,
+  );
   const [subjectData, setSubjectData] = useState<ISubjectData>({
     subject_name: "",
     credits: 4,
@@ -49,7 +54,7 @@ export const UseSubjectState = () => {
       },
       console.error,
     );
-  },[page,limit,search]);
+  }, [page, limit, search]);
 
   useEffect(() => {
     fetchSubjects();
@@ -87,7 +92,7 @@ export const UseSubjectState = () => {
         () => {
           toast.success("Subject Updated Successfully!!");
           console.log("payload", payload);
-          router.push("/subjects");
+          router.push(UNIVERSITYROUTES.SUBJECTS);
         },
         (err) => {
           toast.error(err?.response?.data.message);
@@ -99,7 +104,7 @@ export const UseSubjectState = () => {
         (res) => {
           setLoading(false);
           toast.success("Subject Added Successfully");
-          router.push("/subjects");
+          router.push(UNIVERSITYROUTES.SUBJECTS);
         },
         (err) => {
           setLoading(false);
@@ -121,7 +126,7 @@ export const UseSubjectState = () => {
     setShowModal(false);
   };
 
-  const handleDeleteSubject = ()=> {
+  const handleDeleteSubject = () => {
     setLoading(true);
     if (selectedSubjectId === null) return;
 
@@ -147,7 +152,6 @@ export const UseSubjectState = () => {
       Number(id),
       (res) => {
         setSubjectDetails(res.data);
-        console.log("Subject By ID =", res.data);
         setSubjectData({
           subject_name: res.data.subject_name,
           course_name: res.data.course_name,
@@ -160,16 +164,16 @@ export const UseSubjectState = () => {
         console.error(err);
       },
     );
-  },[id]);
+  }, [id]);
 
   useEffect(() => {
     fetchSubjectById();
-  },[fetchSubjectById]);
+  }, [fetchSubjectById]);
 
   const handleSearch = useCallback(() => {
     setPage(1);
     setSearch(searchInput);
-  },[searchInput]);
+  }, [searchInput]);
 
   const fetchSubDashboard = useCallback(() => {
     SubjectApiProvider.apolloInstance.getSubjectDashboard(
@@ -182,7 +186,7 @@ export const UseSubjectState = () => {
         toast.error("Error in fetching Subject Dashboard");
       },
     );
-  },[]);
+  }, []);
 
   useEffect(() => {
     fetchSubDashboard();

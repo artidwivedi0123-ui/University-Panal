@@ -1,4 +1,4 @@
-import { Login } from "../model/login.model.js";
+import { Login } from "@src/module/auth/model/login.model.js";
 
 export const validateLogin = (
 login:Login

@@ -7,7 +7,7 @@ import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import ModalBox from "@/src/components/Modal/Modal";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
 
-const StudentsPage=()=> {
+const StudentsPage = () => {
   const {
     students,
     router,
@@ -26,7 +26,6 @@ const StudentsPage=()=> {
   return (
     <>
       <MainLayout>
-    
         <Table
           data={students}
           type={UNIVERSITY_SECTION_TYPE.STUDENTS}
@@ -42,7 +41,6 @@ const StudentsPage=()=> {
           handleEdit={(id) => router.push(`/edit-student/${id}`)}
           viewDetails={(id) => router.push(`/view-student/${id}`)}
         />
-    
 
         {showModal && (
           <ModalBox

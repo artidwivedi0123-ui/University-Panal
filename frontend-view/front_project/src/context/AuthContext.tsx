@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { AUTHENUM, ROLENUM } from "../constants/enum.constants";
 
 interface User {
   id?: number;
@@ -20,6 +21,7 @@ interface AuthContextType {
   loading:boolean;
   login: (user: User) => void;
   logoutUser: () => void;
+  role: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(
@@ -34,29 +36,34 @@ export const AuthProvider = ({
   const [user, setUser] =
     useState<User | null>(null);
     const [loading,setLoading] = useState(true);
+     const [role, setRole] = useState<string | null>(null);
 
 useEffect(() => {
   const storedUser =
-    localStorage.getItem("user");
+    localStorage.getItem(AUTHENUM.USER);
 
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-  }
+if (storedUser) {
+  const parsedUser = JSON.parse(storedUser);
+  setUser(parsedUser);
+  setRole(parsedUser.role);
+}
 
   setLoading(false);
 }, []);
 
   const login = (userData: User) => {
     setUser(userData);
+    setRole(userData.role);
     localStorage.setItem(
-      "user",
+      AUTHENUM.USER,
       JSON.stringify(userData)
     );
   };
 
   const logoutUser = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    setRole(null);
+    localStorage.removeItem(AUTHENUM.USER);
   };
 
   return (
@@ -66,7 +73,8 @@ useEffect(() => {
         isAuthenticated: !!user,
         login,
         logoutUser,
-        loading
+        loading,
+        role
       }}
     >
       {children}

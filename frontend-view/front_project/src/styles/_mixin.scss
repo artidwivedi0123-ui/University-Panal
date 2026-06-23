@@ -1,11 +1,11 @@
-@use  './variables';
+@use "./variables";
 @mixin button {
     border-radius: variables.$border-radius-md;
     color: variables.$color-black;
     padding: variables.$padding-md;
     margin: variables.$margin-md;
 }
-@mixin center{
+@mixin center {
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -45,5 +45,3 @@
         @content;
     }
 }
-
-

@@ -1,9 +1,10 @@
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const validateRegister = (
   full_name: string,
   email: string,
-  password: string
+  password: string,
 ) => {
-
   if (!full_name.trim()) {
     return "Full Name is required";
   }
@@ -12,8 +13,7 @@ export const validateRegister = (
     return "Email is required";
   }
 
-  const emailRegex =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
   if (!emailRegex.test(email)) {
     return "Invalid Email";
@@ -30,11 +30,7 @@ export const validateRegister = (
   return null;
 };
 
-export const validateLogin = (
-  email: string,
-  password: string
-) => {
-
+export const validateLogin = (email: string, password: string) => {
   if (!email.trim()) {
     return "Email is required";
   }
@@ -42,6 +38,14 @@ export const validateLogin = (
   if (!password.trim()) {
     return "Password is required";
   }
-
   return null;
 };
+
+export const validateForgetPassword = (email:string)=>{
+  if(!email.trim()){
+    return "Email is Required";
+  } 
+  if (!emailRegex.test(email)) {
+    return "Wrong Email Format";
+  }
+}

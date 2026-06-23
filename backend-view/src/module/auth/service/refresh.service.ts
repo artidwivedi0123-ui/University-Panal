@@ -1,6 +1,6 @@
-import pool from "../../../db/db.js";
+import pool from "@src/db/db.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/token.js";
+import { generateAccessToken, generateRefreshToken } from "@src/utils/token.js";
 
 export const refreshService = async (refreshToken: string) => {
   try {

@@ -1,27 +1,22 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  );
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin:1.4rem;
-    padding:1.2rem;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.4rem;
+  padding: 1.2rem;
+  flex-direction: column;
 }
 
-
-.heading{
+.heading {
   text-align: center;
   font-size: 1.7rem;
   font-weight: bolder;
-  color:rgb(61, 1, 61);
- 
+  color: rgb(61, 1, 61);
 }

@@ -1,5 +1,5 @@
 import express from "express";
-import { refreshToken } from "../controller/refresh.controller.js";
+import { refreshToken } from "@src/module/auth/controller/refresh.controller.js";
 
 const router  =  express.Router();
 

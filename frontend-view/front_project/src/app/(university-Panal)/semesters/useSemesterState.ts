@@ -16,9 +16,9 @@ export const UseSemesterState = () => {
       (err) => {
         console.log(err);
         setLoading(false);
-      }
+      },
     );
-  },[]);
+  }, []);
 
   useEffect(() => {
     fetchSemester();

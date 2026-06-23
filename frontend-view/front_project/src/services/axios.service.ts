@@ -15,15 +15,11 @@ export class AxiosService {
     });
   }
 
-
-  async delete<T>(url:string):Promise<AxiosResponse<T>> {
+  async delete<T>(url: string): Promise<AxiosResponse<T>> {
     return apiClient.delete<T>(url);
   }
 
-  async put<T,D = unknown>(
-    url:string,
-    data?:D,
-  ): Promise<AxiosResponse<T>> {
-    return apiClient.put<T>(url,data);
+  async put<T, D = unknown>(url: string, data?: D): Promise<AxiosResponse<T>> {
+    return apiClient.put<T>(url, data);
   }
 }

@@ -5,9 +5,9 @@ import {
   deleteCourse,
   updateCourse,
   getCourseById,
-} from "../controllers/course.controllers.js";
-import { authMiddleware } from "../../auth/middleware/auth.middleware.js";
-import { roleMiddleware } from "../../auth/middleware/role.middleware.js";
+} from "@src/module/universityPanel/controllers/course.controllers.js";
+import { authMiddleware } from "@src/module/auth/middleware/auth.middleware.js";
+import { roleMiddleware } from "@src/module/auth/middleware/role.middleware.js";
 
 const router = express.Router();
 

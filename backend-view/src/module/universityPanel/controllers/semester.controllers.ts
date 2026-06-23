@@ -1,8 +1,8 @@
 import { Request,Response  } from "express";
-import pool from "../../../db/db.js";
-import { Semester } from "../models/semester.model.js";
-import { validateSemesterInput } from "../validation/semester.validation.js";
-import { validateId } from "../../../validation/common.validation.js";
+import pool from "@src/db/db.js";
+import { Semester } from "@src/module/universityPanel/models/semester.model.js";
+import { validateSemesterInput } from "@src/module/universityPanel/validation/semester.validation.js";
+import { validateId } from "@src/validation/common.validation.js";
 
 
 

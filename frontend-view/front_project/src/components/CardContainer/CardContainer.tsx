@@ -8,22 +8,17 @@ interface CardProps {
   }[];
 }
 
-export default function Card({
-  title,
-  fields,
-}: CardProps) {
+export default function Card({ title, fields }: CardProps) {
   return (
     <div className={style.card}>
       <h3>{title}</h3>
-    <div className={style.grid}>
-         {fields.map((field, index) => (
-        <p key={index}>
-          <strong>{field.label}:</strong>{" "}
-          {field.value}
-        </p>
-      ))}
+      <div className={style.grid}>
+        {fields.map((field, index) => (
+          <p key={index}>
+            <strong>{field.label}:</strong> {field.value}
+          </p>
+        ))}
+      </div>
     </div>
-    </div>
-     
   );
 }

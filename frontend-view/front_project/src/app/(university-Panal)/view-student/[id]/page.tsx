@@ -5,10 +5,7 @@ import DetailCard from "@/src/components/Card/Card";
 import { useStudentsState } from "../../students/useStudentsState";
 
 export default function ViewStudentPage() {
-  const {
-    studentDetails,
-    loading,
-  } = useStudentsState();
+  const { studentDetails, loading } = useStudentsState();
   if (loading) {
     return <p>Loading...</p>;
   }

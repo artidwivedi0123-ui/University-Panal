@@ -9,7 +9,6 @@ import { ISemesterData } from "@/src/modules/university/semester/modal/ISemester
 import Select from "../select/Select";
 import { IStudentsData } from "@/src/modules/university/student/modal/IStudents";
 import { IFeeStructureData } from "@/src/modules/fees/fees-struct/modal/IFees";
-import { useStudentDetailsState } from "@/src/app/(university-Panal)/student-details/useStudentDetailsState";
 interface FormProps {
   formData: any;
   handleChange: (
@@ -69,7 +68,7 @@ export default function Form({
   const selectedStudent = students?.find(
     (student) => Number(student.id) === Number(formData.student_id),
   );
-  // console.log("Selected Students",selectedStudent);
+  console.log("Selected Students",selectedStudent);
 
   const filteredFees = feeStructure?.filter(
     (fee) =>

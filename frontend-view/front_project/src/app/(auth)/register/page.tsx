@@ -1,9 +1,10 @@
 "use client";
 import AuthForm from "@/src/components/AuthForm/AuthForm";
 import { UseAuthState } from "@/src/components/AuthForm/useAuthState";
+import { withPublicAuth } from "@/src/hoc/withPublicHoc";
 import { AUTH_SECTION_TYPE } from "@/src/types/auth-section.type";
 
-export default  function Register (){
+ function Register (){
     const {
         handleRegisterChange,
         handleRegisterSubmit,
@@ -19,4 +20,5 @@ export default  function Register (){
          type={AUTH_SECTION_TYPE.REGISTER}
          />
     )
-}
+};
+export default withPublicAuth(Register)

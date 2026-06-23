@@ -1,8 +1,8 @@
-@use '@/src/styles/variables' as *;
+@use "@/src/styles/variables" as *;
 
 .container {
   width: $min-width;
-  max-width:$max-width;
+  max-width: $max-width;
   margin: $margin-lg auto;
   padding: $padding-sm;
   background-color: var(--color-white);
@@ -30,9 +30,8 @@
 }
 
 .label {
-  font-size:1.1rem;
-  font-weight:bold;
- 
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .input {
@@ -41,7 +40,7 @@
   border: 1px solid #cbd5e1;
   border-radius: $border-radius-md;
   font-size: 0.9rem;
-  font-weight:bold;
+  font-weight: bold;
   outline: none;
   transition: 0.3s ease;
 }
@@ -85,8 +84,8 @@
 }
 
 .select {
-  padding:0.9rem;
+  padding: 0.9rem;
   border-radius: $border-radius-sm;
-  font-size:0.98rem;
+  font-size: 0.98rem;
   font-weight: bold;
 }

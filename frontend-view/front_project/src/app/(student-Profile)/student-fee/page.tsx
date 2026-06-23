@@ -3,11 +3,14 @@ import MainLayout from "@/src/components/Main-Layout/Layout/Main-layout";
 import { UseStudentProfileState } from "../student-result/useStudentProfileState";
 import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
-import { currencyFormatter, formatDateTime, getOrdinal } from "@/src/utils/app.utils";
+import {
+  currencyFormatter,
+  formatDateTime,
+  getOrdinal,
+} from "@/src/utils/app.utils";
 import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
 export default function StudentFees() {
   const { studentProfile } = UseStudentProfileState();
-  console.log("studentProfile", studentProfile);
   return (
     <MainLayout>
       <div className={style["table-container"]}>
@@ -63,8 +66,8 @@ export default function StudentFees() {
               <td>{formatDateTime(studentProfile?.fees?.payment_date)}</td>
             </tr>
             <tr>
-              <th>Semester</th>
-              <td>{(studentProfile?.fees?.payment_status)}</td>
+              <th>Status of Payment</th>
+              <td>{studentProfile?.fees?.payment_status}</td>
             </tr>
           </tbody>
         </table>

@@ -1,5 +1,5 @@
-@use './variables.scss' as *;
-@use './mixin.scss';
+@use "./variables.scss" as *;
+@use "./mixin.scss";
 
 * {
   margin: 0;
@@ -7,11 +7,11 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 
 body {
   line-height: 1.5;

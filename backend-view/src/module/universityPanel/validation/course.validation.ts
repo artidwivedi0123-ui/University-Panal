@@ -1,4 +1,4 @@
-import { Course } from "../models/course.model.js";
+import { Course } from "@src/module/universityPanel/models/course.model.js";
 
 export const validateCourse = (
   course: Partial<Course>
