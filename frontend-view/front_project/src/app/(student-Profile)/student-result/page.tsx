@@ -5,12 +5,13 @@ import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
 import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 export default function StudentProfile() {
-  const { studentProfile } = UseStudentProfileState();
+  const { studentProfile,  studentTrans } = UseStudentProfileState();
   return (
     <MainLayout>
       <div className={style["table-container"]}>
-        <h3 className={style["heading"]}>Student Detailing</h3>
+        <h3 className={style["heading"]}>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTRESULTDETAILS)}</h3>
 
         <div className={style["profile-image"]}>
           <Image
@@ -30,37 +31,37 @@ export default function StudentProfile() {
         <table className={style["table"]}>
           <tbody>
             <tr>
-              <th>Student Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME)}</th>
               <td>{studentProfile?.profile?.name}</td>
             </tr>
 
             <tr>
-              <th>Roll Number</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.ROLLNUMBER)}</th>
               <td>{studentProfile?.profile?.rollNumber}</td>
             </tr>
 
             <tr>
-              <th>Course Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.COURSE)}</th>
               <td>{studentProfile?.profile?.course}</td>
             </tr>
 
             <tr>
-              <th>Semester</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER)}</th>
               <td>{getOrdinal(studentProfile?.profile?.semester)}</td>
             </tr>
 
             <tr>
-              <th>Marks</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.MARKSOBTAINED)}</th>
               <td>{studentProfile?.results?.marks}</td>
             </tr>
 
             <tr>
-              <th>Grade Points</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.GRADEPOINTS)}</th>
               <td>{studentProfile?.results?.grade_points}</td>
             </tr>
 
             <tr>
-              <th>Result</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.RESULT)}</th>
               <td>{studentProfile?.results?.result}</td>
             </tr>
           </tbody>

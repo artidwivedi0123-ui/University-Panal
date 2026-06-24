@@ -9,12 +9,13 @@ import {
   getOrdinal,
 } from "@/src/utils/app.utils";
 import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 export default function StudentFees() {
-  const { studentProfile } = UseStudentProfileState();
+  const { studentProfile,studentTrans } = UseStudentProfileState();
   return (
     <MainLayout>
       <div className={style["table-container"]}>
-        <h3 className={style["heading"]}>Student' Fees Detailing</h3>
+        <h3 className={style["heading"]}>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTFEESDETAILING)}</h3>
 
         <div className={style["profile-image"]}>
           <Image
@@ -34,39 +35,39 @@ export default function StudentFees() {
         <table className={style["table"]}>
           <tbody>
             <tr>
-              <th>Student Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME)}</th>
               <td>{studentProfile?.profile?.name}</td>
             </tr>
 
             <tr>
-              <th>Roll Number</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.ROLLNUMBER)}</th>
               <td>{studentProfile?.profile?.rollNumber}</td>
             </tr>
 
             <tr>
-              <th>Course Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.COURSE)}</th>
               <td>{studentProfile?.profile?.course}</td>
             </tr>
 
             <tr>
-              <th>Semester</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.SEMESTER)}</th>
               <td>{getOrdinal(studentProfile?.profile?.semester)}</td>
             </tr>
 
             <tr>
-              <th>Amount Paid</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.AMOUNTPAID)}</th>
               <td>{currencyFormatter(studentProfile?.fees.amount_paid)}</td>
             </tr>
             <tr>
-              <th>Due Amount</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.DUEAMOUNTFEES)}</th>
               <td>{currencyFormatter(studentProfile?.fees?.due_amount)}</td>
             </tr>
             <tr>
-              <th>Date of Payment</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.DATEOFPAYEMENT)}</th>
               <td>{formatDateTime(studentProfile?.fees?.payment_date)}</td>
             </tr>
             <tr>
-              <th>Status of Payment</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STATUSOFPAYMENT)}</th>
               <td>{studentProfile?.fees?.payment_status}</td>
             </tr>
           </tbody>

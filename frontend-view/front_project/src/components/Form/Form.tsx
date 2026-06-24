@@ -4,11 +4,13 @@ import {
 } from "@/src/types/university-section.type";
 import style from "@/src/components/Form/form.module.scss";
 import Input from "../Input/Input";
-import { ICourseData } from "@/src/modules/university/course/modal/ICourse";
+import { ICourseData, ICourseEnum } from "@/src/modules/university/course/modal/ICourse";
 import { ISemesterData } from "@/src/modules/university/semester/modal/ISemester";
 import Select from "../select/Select";
 import { IStudentsData } from "@/src/modules/university/student/modal/IStudents";
 import { IFeeStructureData } from "@/src/modules/fees/fees-struct/modal/IFees";
+import { useTranslations } from "next-intl";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 interface FormProps {
   formData: any;
   handleChange: (
@@ -39,6 +41,7 @@ export default function Form({
   const fees = type === UNIVERSITY_SECTION_TYPE.FEESTRUCTURE;
   const stufees = type === UNIVERSITY_SECTION_TYPE.STUDENTFEES;
   const studDetail = type === UNIVERSITY_SECTION_TYPE.STUDENTDETAIL;
+  const formTrans   = useTranslations(TRANSLATIONSAPPCONSTANTS.UNIVERSITYFORM);
 
   const filteredSemesters =
     semester?.filter(
@@ -68,7 +71,6 @@ export default function Form({
   const selectedStudent = students?.find(
     (student) => Number(student.id) === Number(formData.student_id),
   );
-  console.log("Selected Students",selectedStudent);
 
   const filteredFees = feeStructure?.filter(
     (fee) =>
@@ -78,66 +80,66 @@ export default function Form({
   return (
     <div className={style["container"]}>
       <h2 className={style["heading"]}>
-        {cou && "Add Courses in University Panel"}
-        {sem && "Add Semester in  University Panel"}
-        {sub && "Add Subject in University Panel"}
-        {stu && "Add Students in University  Panel"}
-        {fees && "Add Fees Details in University Panal"}
-        {stufees && "Add Student Fees Details in University Panal"}
-        {studDetail && "Add Student Details in University Panel"}
+        {cou &&  formTrans(TRANSLATIONSAPPCONSTANTS.ADDCOURSETITLE)}
+        {sem && formTrans(TRANSLATIONSAPPCONSTANTS.ADDSEMESTERTITLE)}
+        {sub &&  formTrans(TRANSLATIONSAPPCONSTANTS.ADDSUBJECTTITLE)}
+        {stu && formTrans(TRANSLATIONSAPPCONSTANTS.ADDSTUDENTSTITLE)}
+        {fees &&  formTrans(TRANSLATIONSAPPCONSTANTS.ADDSFEESDETAILSTITLE)}
+        {stufees &&  formTrans(TRANSLATIONSAPPCONSTANTS.ADDSTUDENTFEESTITLE)}
+        {studDetail &&  formTrans(TRANSLATIONSAPPCONSTANTS.ADDSTUDETAILTITLE)}
       </h2>
 
       <form className={style["form"]} onSubmit={onSubmit}>
         {cou && (
           <>
             <div className={style["field"]}>
-              <label className={style["label"]}>Course Name</label>
+              <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.COURSENAME)}</label>
               <Input
                 name="course_name"
                 value={formData.course_name}
-                placeholder="Course Name"
+                placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERCOURSENAME)}
                 onChange={handleChange}
                 type="text"
                 classname={style["input"]}
               />
-              <label className={style["label"]}> Choose Course Type</label>
+              <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSECOURSETYPE)}</label>
               <div className={style["radio-group"]}>
                 <label className={style["radio-label"]}>
                   <input
                     type="radio"
                     name="course_type"
-                    value="UG"
-                    checked={formData.course_type === "UG"}
+                    value={ICourseEnum.UG}
+                    checked={formData.course_type === ICourseEnum.UG}
                     onChange={handleChange}
                   />
-                  UG
+                  {ICourseEnum.UG}
                 </label>
                 <label className={style["radio-label"]}>
                   <input
                     type="radio"
                     name="course_type"
-                    value="PG"
-                    checked={formData.course_type === "PG"}
+                    value={ICourseEnum.PG}
+                    checked={formData.course_type === ICourseEnum.PG}
                     onChange={handleChange}
                   />
-                  PG
+                  {ICourseEnum.PG}
                 </label>
               </div>
-              <label className={style["label"]}>Total Semester</label>
+              <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.TOTALSEMESTERS)}</label>
               <Input
                 classname={style["input"]}
                 name="total_semesters"
                 onChange={handleChange}
                 type="number"
                 value={Number(formData.total_semesters)}
-                placeholder="Enter Total Semester"
+                placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERTOTALSEM)}
               />
             </div>
           </>
         )}
         {sem && (
           <>
-            <label className={style["label"]}>Course</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSECOURSE)}</label>
 
             <Select
               name="course_id"
@@ -152,7 +154,7 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Semester Number</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESEMESTER)}</label>
 
             <Input
               name="semester_number"
@@ -165,7 +167,7 @@ export default function Form({
         )}
         {sub && (
           <>
-            <label className={style["label"]}>Subject Name</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTNAME)}</label>
 
             <Input
               name="subject_name"
@@ -173,9 +175,10 @@ export default function Form({
               onChange={handleChange}
               type="text"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSUBJECT)}
             />
 
-            <label className={style["label"]}>Subject Code</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTCODE)}</label>
 
             <Input
               name="subject_code"
@@ -183,17 +186,19 @@ export default function Form({
               onChange={handleChange}
               type="text"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSUBJECTCODE)}
             />
-            <label className={style["label"]}>Credits</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTCREDITS)}</label>
             <Input
               name="credits"
-              value={formData.credits || 4}
+              value={formData.credits || ""}
               onChange={handleChange}
               type="number"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSUBJECTCREIDTS)}
             />
 
-            <label className={style["label"]}>Course</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSECOURSE)}</label>
 
             <Select
               name="course_name"
@@ -208,7 +213,7 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Semester</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESEMESTER)}</label>
 
             <Select
               name="semester_id"
@@ -228,14 +233,15 @@ export default function Form({
         )}
         {stu && (
           <>
-            <label className={style["label"]}>Email</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.EMAIL)}</label>
             <Input
               name="email"
               value={formData.email || ""}
               onChange={handleChange}
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSTUDEEMAIL)}
             />
-            <label className={style["label"]}>Password</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PASSWORD)}</label>
             <Input
               name="password"
               type="password"
@@ -243,16 +249,17 @@ export default function Form({
               onChange={handleChange}
               classname={style["input"]}
             />
-            <label className={style["label"]}>Student Name</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME)}</label>
             <Input
               name="name"
               value={formData.name || ""}
               onChange={handleChange}
               type="text"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERNAME)}
             />
 
-            <label className={style["label"]}>Roll Number</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.ENROLLEDROLLNUMBER)}</label>
 
             <Input
               name="roll_number"
@@ -260,9 +267,10 @@ export default function Form({
               onChange={handleChange}
               type="text"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERROLLNUMBER)}
             />
 
-            <label className={style["label"]}>Gender</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.GENDER)}</label>
             <Select
               name="gender"
               value={formData.gender || ""}
@@ -270,17 +278,17 @@ export default function Form({
               classname={style["select"]}
               options={[
                 {
-                  label: "Male",
+                  label: "Boy",
                   value: "M",
                 },
                 {
-                  label: "Female",
+                  label: "Girl",
                   value: "F",
                 },
               ]}
             />
 
-            <label className={style["label"]}>Course</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSECOURSE)}</label>
 
             <Select
               name="course_id"
@@ -295,7 +303,7 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Semester</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESEMESTER)}</label>
 
             <Select
               name="semester_id"
@@ -314,7 +322,7 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Marks</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTMARKS)}</label>
 
             <Input
               name="marks"
@@ -322,9 +330,10 @@ export default function Form({
               onChange={handleChange}
               type="number"
               classname={style["input"]}
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERMARKS)}
             />
 
-            <label className={style["label"]}>Grade Points</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTGRADEPOINTS)}</label>
 
             <Input
               name="grade_points"
@@ -332,9 +341,10 @@ export default function Form({
               onChange={handleChange}
               type="number"
               classname={style["input"]}
+               placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERGP)}
             />
 
-            <label className={style["label"]}>Result</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.RESULTS)}</label>
 
             <Select
               name="result"
@@ -638,7 +648,7 @@ export default function Form({
         )}
 
         <button className={style["button"]} type="submit">
-          {cou && "Add Course"}
+          {cou &&  "Add Course"}
           {sem && "Add Semester"}
           {sub && "Add Subjects"}
           {stu && "Add Students"}

@@ -5,12 +5,13 @@ import Image from "next/image";
 import { FIcon, MIcon, Students } from "@/src/assets";
 import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
 import { formatDateTime } from "@/src/utils/app.utils";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 export default function StudentProfile() {
-  const { studentProfile } = UseStudentProfileState();
+  const { studentProfile,studentTrans } = UseStudentProfileState();
   return (
     <MainLayout>
       <div className={style["table-container"]}>
-        <h3 className={style["heading"]}>Student' Detail Card</h3>
+        <h3 className={style["heading"]}>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTIDCARD)}</h3>
         <div className={style["profile-image"]}>
           <Image
             src={
@@ -29,62 +30,62 @@ export default function StudentProfile() {
         <table className={style["table"]}>
           <tbody>
             <tr>
-              <th>Student Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME)}</th>
               <td>{studentProfile?.profile?.name}</td>
             </tr>
 
             <tr>
-              <th>Email Id</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.EMAILID)}</th>
               <td>{studentProfile?.profile?.email}</td>
             </tr>
 
             <tr>
-              <th>Phone Number</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.CONTACTNUMBER)}</th>
               <td>{studentProfile?.profile?.phoneNumber}</td>
             </tr>
 
             <tr>
-              <th>Address</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.ADDRESSDETAILS)}</th>
               <td>{studentProfile?.profile?.address}</td>
             </tr>
             <tr>
-              <th>Date of Birth</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.DATEOFBIRTH)}</th>
               <td>{formatDateTime(studentProfile?.profile?.dateOfBirth)}</td>
             </tr>
 
             <tr>
-              <th>City</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.CITY)}</th>
               <td>{studentProfile?.profile.city}</td>
             </tr>
             <tr>
-              <th>State</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STATE)}</th>
               <td>{studentProfile?.profile?.state}</td>
             </tr>
             <tr>
-              <th>Country</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.COUNTRY)}</th>
               <td>{studentProfile?.profile?.country}</td>
             </tr>
             <tr>
-              <th>Father's Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.FATHERNAME)}</th>
               <td>{studentProfile?.profile?.fatherName}</td>
             </tr>
             <tr>
-              <th>Mother's Name</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.MOTHERNAME)}</th>
               <td>{studentProfile?.profile?.motherName}</td>
             </tr>
             <tr>
-              <th>Previous School</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSSCHOOL)}</th>
               <td>{studentProfile?.profile?.previousSchool}</td>
             </tr>
             <tr>
-              <th>Previous College</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSCOLLEGE)}</th>
               <td>
                 {studentProfile?.profile?.course_type === "PG"
                    && studentProfile?.profile?.previousCollege || "N/A" }
               </td>
             </tr>
             <tr>
-              <th>Previous Study Field</th>
+              <th>{studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSEDUCATIONFIELD)}</th>
               <td>{studentProfile?.profile?.previousStudyField}</td>
             </tr>
           </tbody>

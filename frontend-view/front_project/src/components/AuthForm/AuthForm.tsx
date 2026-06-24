@@ -121,9 +121,9 @@ export default function AuthForm({
         </label>
         <Input
         type="password"
-        name="password"
+        name="new_password"
         placeholder={authTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERNEWPASS)}
-        value={formData.password}
+        value={formData.new_password}
         onChange={onChange}
         classname={style["input"]}
       />
@@ -132,9 +132,9 @@ export default function AuthForm({
         </label>
       <Input
         type="password"
-        name="confirmPassword"
+        name="confirm_password"
         placeholder={authTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERCONFIRMPASS)}
-        value={formData.confirmPassword}
+        value={formData.confirm_password}
         onChange={onChange}
         classname={style["input"]}
       /></>

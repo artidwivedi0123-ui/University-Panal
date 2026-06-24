@@ -2,6 +2,7 @@ import { UNIVERSITYROUTES } from "@/src/constants/routes.contants";
 import {
   ICourseById,
   ICourseData,
+  ICourseEnum,
   ICourseInput,
 } from "@/src/modules/university/course/modal/ICourse";
 import { CourseApiProvider } from "@/src/modules/university/course/provider/courseProvider";
@@ -22,7 +23,7 @@ export const useCoursesState = () => {
   const router = useRouter();
   const [courseData, setCourseData] = useState<ICourseInput>({
     course_name: "",
-    course_type: "",
+    course_type: ICourseEnum.UG,
     total_semesters: 0,
   });
   const fetchCourses = useCallback(() => {

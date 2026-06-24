@@ -6,8 +6,9 @@ import { FIcon, MIcon, Students } from "@/src/assets";
 import style from "@/src/app/(student-Profile)/student-result/student-profile.module.scss";
 import { currencyFormatter, formatDateTime } from "@/src/utils/app.utils";
 import DetailCard from "@/src/components/Card/Card";
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 export default function StudentDashboard() {
-  const { studentProfile } = UseStudentProfileState();
+  const { studentProfile,studentTrans } = UseStudentProfileState();
   return (
     <MainLayout>
       <div className={style["table-container"]}>
@@ -28,104 +29,104 @@ export default function StudentDashboard() {
         </div>
 
         <DetailCard
-          title="Student Dashboard"
+          title={studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTDASHBOARD)}
           fields={[
             {
-              label: "Name",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTNAME),
               value: studentProfile?.profile?.name ?? "",
             },
             {
-              label: "Roll Number",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.ROLLNUMBER),
               value: studentProfile?.profile?.rollNumber ?? "",
             },
             {
-              label: "Gender",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.GENDER),
               value: studentProfile?.profile?.gender ?? "",
             },
             {
-              label: "Email Id",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.EMAILID),
               value: studentProfile?.profile?.email ?? "",
             },
             {
-              label: "Contact Number",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.CONTACTNUMBER),
               value: studentProfile?.profile?.phoneNumber ?? "",
             },
             {
-              label: "Address Details",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.ADDRESSDETAILS),
               value: studentProfile?.profile?.address ?? "",
             },
             {
-              label: "City",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.CITY),
               value: studentProfile?.profile?.city ?? "",
             },
             {
-              label: "State",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STATE),
               value: studentProfile?.profile?.state ?? "",
             },
             {
-              label: "Country",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.COUNTRY),
               value: studentProfile?.profile?.country ?? "",
             },
             {
-              label: "Father Name",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.FATHERNAME),
               value: studentProfile?.profile?.fatherName ?? "",
             },
             {
-              label: "Mother Name",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.MOTHERNAME),
               value: studentProfile?.profile?.motherName ?? "",
             },
             {
-              label: "Student Previous School",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSSCHOOL),
               value: studentProfile?.profile?.previousSchool ?? "",
             },
             {
-              label: "Student Previous College",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSCOLLEGE),
               value: studentProfile?.profile?.previousCollege ?? "",
             },
             {
-              label: "Student Previous Education Field",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STUDENTPREVIOUSEDUCATIONFIELD),
               value: studentProfile?.profile?.previousStudyField ?? "",
             },
             {
-              label: "Course",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.COURSE),
               value: studentProfile?.profile?.course ?? "",
             },
             {
-              label: "Subjects",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTS),
               value: studentProfile?.subjects
                 .map((it) => it.subject_name)
                 .join(" , ") ?? "",
             },
             {
-              label: "Course Category",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.COURSETYPE),
               value: studentProfile?.profile?.course_type ?? ""
             },
             {
-              label: "Amount Paid",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.AMOUNTPAID),
               value: currencyFormatter(studentProfile?.fees?.amount_paid),
             },
             {
-              label: "Due Amount Fees",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.DUEAMOUNTFEES),
               value: currencyFormatter(studentProfile?.fees?.due_amount),
             },
             {
-              label: "Date of  the Payment",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.DATEOFPAYEMENT),
               value: formatDateTime(studentProfile?.fees?.payment_date),
             },
             {
-              label: "Status of Payment",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.STATUSOFPAYMENT),
               value: studentProfile?.fees?.payment_status ?? "",
             },
             {
-              label: "Marks Obtained",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.MARKSOBTAINED),
               value: studentProfile?.results?.marks ?? "",
             },
             {
-              label: "Grade Points",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.GRADEPOINTS),
               value: studentProfile?.results?.grade_points ?? "",
             },
             {
-              label: "Result",
+              label: studentTrans(TRANSLATIONSAPPCONSTANTS.RESULT),
               value: studentProfile?.results?.result ?? "",
             },
           ]}

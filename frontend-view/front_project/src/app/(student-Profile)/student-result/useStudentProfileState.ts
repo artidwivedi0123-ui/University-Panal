@@ -1,8 +1,10 @@
+import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
 import {
   IStudentProfileData,
   IStudentProfileResponse,
 } from "@/src/modules/university/student-profile/modal/IStudentProfile";
 import { StudentProfileApiProvider } from "@/src/modules/university/student-profile/provider/student-profile.provider";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,6 +13,7 @@ export const UseStudentProfileState = () => {
     IStudentProfileResponse["data"] | null
   >(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const studentTrans = useTranslations(TRANSLATIONSAPPCONSTANTS.STUDENTSPANEL);
 
   const fetchStudentProfile = useCallback(() => {
     setLoading(true);
@@ -35,5 +38,6 @@ export const UseStudentProfileState = () => {
   return {
     studentProfile,
     loading,
+    studentTrans
   };
 };

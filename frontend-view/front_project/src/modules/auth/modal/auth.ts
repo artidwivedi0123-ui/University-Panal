@@ -52,7 +52,8 @@ export interface IForgotPasswordResponse {
 }
 
 export interface IResetPassword {
-  password:string;
+     new_password:string;
+    confirm_password:string;
 }
 export interface IResetPasswordResponse  {
   success:boolean;

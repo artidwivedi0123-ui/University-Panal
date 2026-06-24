@@ -21,8 +21,8 @@ export const UseAuthState = () => {
     password: "",
   });
   const [resetPassData, setResetPassData] = useState({
-    password: "",
-    confirmPassword: "",
+      new_password:"",
+    confirm_password:""
   });
   const { user, login, logoutUser } = useAuth();
   const [loginData, setLoginData] = useState({
@@ -177,7 +177,7 @@ export const UseAuthState = () => {
   ) => {
     e.preventDefault();
 
-    if (resetPassData.password !== resetPassData.confirmPassword) {
+    if (resetPassData.new_password !== resetPassData.confirm_password) {
       toast.error("Passwords do not match");
       return;
     }
@@ -187,14 +187,15 @@ export const UseAuthState = () => {
     AuthApiProvider.apolloInstance.resetPassword(
       token,
       {
-        password: resetPassData.password,
+        new_password: resetPassData.new_password,
+        confirm_password:resetPassData.confirm_password,
       },
       (res) => {
         toast.success(res.message);
 
         setResetPassData({
-          password: "",
-          confirmPassword: "",
+          new_password: "",
+          confirm_password: "",
         });
 
         router.push(AUTHROUTES.LOGIN);

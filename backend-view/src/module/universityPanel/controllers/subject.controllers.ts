@@ -28,7 +28,7 @@ export const createSubjects = async (req: Request, res: Response) => {
         subject_code,
         credits,
         semester_id,
-        course_name
+        course_name                              
       )
       VALUES ($1,$2,$3,$4,$5)
       RETURNING *

@@ -57,11 +57,11 @@ export default function Sidebar() {
       route: UNIVERSITYROUTES.SUBJECTS,
       image: Subject,
     },
-    {
-      title: sidebarTrans(TRANSLATIONSAPPCONSTANTS.SUBDASH),
-      route: UNIVERSITYROUTES.SUBJECTDASHBOARD,
-      image: SubDash,
-    },
+    // {
+    //   title: sidebarTrans(TRANSLATIONSAPPCONSTANTS.SUBDASH),
+    //   route: UNIVERSITYROUTES.SUBJECTDASHBOARD,
+    //   image: SubDash,
+    // },
     {
       title: sidebarTrans(TRANSLATIONSAPPCONSTANTS.STUDENTS),
       route: UNIVERSITYROUTES.STUDENTS,
