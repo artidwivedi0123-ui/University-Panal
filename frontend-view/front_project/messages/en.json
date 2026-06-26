@@ -184,7 +184,7 @@
     "pass": "Pass",
     "fail": "Fail",
     "tuitionfees": "Tuition Fees",
-    "placeholdertuitionFees": "Enter Amount of  the Student Fees",
+    "placeholdertuitionFees": "Enter Amount of  the Tuition Fees",
     "examFees": "Exam Fees",
     "placeholderExamFees": "Enter  Amount of  the Exam Fees",
     "libraryFees": "Library Fees",
@@ -194,12 +194,14 @@
     "totalfees": "Total Fees",
     "placeholderTotalFees": "Enter Amount of Total Fees",
     "chooseStudentName": "Choose Enrolled  Student",
-    "chooseFees": "Choose Fees Structure for the  Enrolled Student in Respective Course with the  Semester Id",
+    "chooseFees": "Choose Fees Structure for the  Enrolled Student  Course with the Respective Semester",
     "amountPay": "Amount Paid By Student",
     "placeholderAmountPay": "Enter the Amount Paid By the Student",
     "paymentDate": "Date of the Payment",
     "dueAmount": "Remaining Fees",
     "paymentStatus": "Status of  the Payment",
+    "fullName":" Student Full Name",
+    "placeholderStudentFullName":"Enter Student's Full Name",
     "stphNumber": "Student Phone Number",
     "placeholderPhoneNumber": "Enter Phone Number",
     "addressDetails": "Address Details",
@@ -232,7 +234,8 @@
     "semesterbtn": "Add Semester / Update Semester",
     "subjectsbtn": "Add Subjects / Update Subjects",
     "feesbtn": "Add Fees Record / Update Fees Record",
-    "addStudentFees": "Add Student Fees Record / Update Student Record",
-    "addStudentDetails": "Add Student Extra Details / Update Student Details"
+    "studentbtn":"Add Student Record  / Update Student Record",
+    "studentFeesbtn": "Add Student Fees Record / Update Student Record",
+    "StudentDetailsbtn": "Add Student Extra Details / Update Student Details"
   }
 }

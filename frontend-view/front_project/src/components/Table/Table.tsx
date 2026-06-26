@@ -296,6 +296,7 @@ export default function Table({
                 width={70}
                 height={70}
                 alt="images"
+                loading="eager"
               />
             </td>
             <td>{item.name}</td>
@@ -403,6 +404,7 @@ export default function Table({
           height={120}
           width={120}
           alt="table-image"
+          loading="eager"
         />
         {!course && !semester && (
           <>

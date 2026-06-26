@@ -367,7 +367,7 @@ export default function Form({
 
         {fees && (
           <>
-            <label className={style["label"]}>Course</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSECOURSE)}</label>
 
             <Select
               name="course_id"
@@ -383,7 +383,7 @@ export default function Form({
                 })) || []
               }
             />
-            <label className={style["label"]}>Semester</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESEMESTER)}</label>
             <Select
               name="semester_id"
               value={formData.semester_id}
@@ -394,49 +394,49 @@ export default function Form({
                 value: sem.id!,
               }))}
             />
-            <label className={style["label"]}>Tuition Fees</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.TUITIONFEES)}</label>
             <Input
               name="tuition_fee"
               onChange={handleChange}
               value={formData.tuition_fee}
               type="number"
-              placeholder="Enter Amount of Tuition Fees"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERTUITIONFEES)}
               classname={style["input"]}
             />
-            <label className={style["label"]}>Exam Fees</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.EXAMFEES)}</label>
             <Input
               name="exam_fee"
               onChange={handleChange}
               value={formData.exam_fee}
               type="number"
-              placeholder="Enter Amount of Exam Fees"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDEREXAMFEES)}
               classname={style["input"]}
             />
-            <label className={style["label"]}>Library Fees</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.LIBRARYFEES)}</label>
             <Input
               name="library_fee"
               onChange={handleChange}
               value={formData.library_fee}
               type="number"
-              placeholder="Enter Amount of Libaray Fees"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERLIBFEES)}
               classname={style["input"]}
             />
-            <label className={style["label"]}>Other Fees</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.OTHERFEES)}</label>
             <Input
               name="other_fee"
               onChange={handleChange}
               value={formData.other_fee}
               type="number"
-              placeholder="Enter Amount of Other Fees"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACHOLDEROTHERFEES)}
               classname={style["input"]}
             />
-            <label className={style["label"]}>Total Fees</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.TOTALFEES)}</label>
             <Input
               name="total_fee"
               onChange={handleChange}
               value={Number(totalFee)}
               type="number"
-              placeholder="Enter Amount of Total Fees"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERTOTALFEES)}
               classname={style["input"]}
             />
           </>
@@ -444,7 +444,7 @@ export default function Form({
 
         {stufees && (
           <>
-            <label className={style["label"]}>Student</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESTUDENTNAME)}</label>
             <Select
               name="student_id"
               value={formData.student_id || ""}
@@ -458,7 +458,7 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Fee Structure</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSEFEES)}</label>
             <Select
               name="fee_structure_id"
               value={formData.fee_structure_id || ""}
@@ -472,17 +472,17 @@ export default function Form({
               }
             />
 
-            <label className={style["label"]}>Amount Paid</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.AMOUNTPAY)}</label>
             <Input
               name="amount_paid"
               value={formData.amount_paid}
               onChange={handleChange}
               type="number"
-              placeholder="Enter Amount Paid"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERAMOUNTPAY)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Payment Date</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PAYMENTDATE)}</label>
             <Input
               name="payment_date"
               value={formData.payment_date}
@@ -491,7 +491,7 @@ export default function Form({
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Due Amount</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.DUEAMOUNT)}</label>
             <Input
               name="due_amount"
               value={remaining}
@@ -500,20 +500,19 @@ export default function Form({
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Payment Status</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PAYMENTSTATUS)}</label>
             <Input
               name="payment_status"
               value={payment_status}
               onChange={handleChange}
               classname={style["input"]}
-              placeholder="Enter Payment Status"
             />
           </>
         )}
 
         {studDetail && (
           <>
-            <label className={style["label"]}>Select Student</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CHOOSESTUDENTNAME)}</label>
             <Select
               name="student_id"
               classname={style["select"]}
@@ -527,71 +526,71 @@ export default function Form({
               onChange={handleChange}
             />
 
-            <label className={style["label"]}>Full Name</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.FULLNAME)}</label>
             <Input
               name="full_name"
               value={formData.full_name}
               onChange={handleChange}
-              placeholder="Enter Full Name"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSTUDENTFULLNAME)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Email</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.EMAIL)}</label>
             <Input
               name="email"
               value={formData.email}
               onChange={handleChange}
               type="email"
-              placeholder="Enter Email"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSTUDEEMAIL)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Phone Number</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.STPHNUMBER)}</label>
             <Input
               name="phone_number"
               value={formData.phone_number}
               onChange={handleChange}
-              placeholder="Enter Phone Number"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERPHONENUMBER)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Address</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.ADDRESSDETAILS)}</label>
             <Input
               name="address"
               value={formData.address}
               onChange={handleChange}
-              placeholder="Enter Address"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACHOLDERADD)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>City</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.CITY)}</label>
             <Input
               name="city"
               value={formData.city}
               onChange={handleChange}
-              placeholder="Enter City"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERCITY)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>State</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.STATE)}</label>
             <Input
               name="state"
               value={formData.state}
               onChange={handleChange}
-              placeholder="Enter State"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERSTATE)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Country</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.COUNTRY)}</label>
             <Input
               name="country"
               value={formData.country}
               onChange={handleChange}
-              placeholder="Enter Country"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERCOU)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Date Of Birth</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.DATEOFBIRTH)}</label>
             <Input
               name="date_of_birth"
               value={formData.date_of_birth}
@@ -600,61 +599,61 @@ export default function Form({
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Father Name</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.FTHNAME)}</label>
             <Input
               name="father_name"
               value={formData.father_name}
               onChange={handleChange}
-              placeholder="Enter Father Name"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACHOLDERFNAME)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Mother Name</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.MTHNAME)}</label>
             <Input
               name="mother_name"
               value={formData.mother_name}
               onChange={handleChange}
-              placeholder="Enter Mother Name"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERMNAME)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Previous School</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PRESCHOOL)}</label>
             <Input
               name="previous_school"
               value={formData.previous_school}
               onChange={handleChange}
-              placeholder="Enter Previous School"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACEHOLDERPRESCHOOL)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Previous College</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PRECOLLEGE)}</label>
             <Input
               name="previous_college"
               value={formData?.previous_college}
               onChange={handleChange}
-              placeholder="Enter Previous College"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACHOLDERPRECOLLEGE)}
               classname={style["input"]}
             />
 
-            <label className={style["label"]}>Previous Study Field</label>
+            <label className={style["label"]}>{formTrans(TRANSLATIONSAPPCONSTANTS.PREEDUCATION)}</label>
             <Input
               name="previous_study_field"
               value={formData.previous_study_field}
               onChange={handleChange}
-              placeholder="Commerce / Science / Arts"
+              placeholder={formTrans(TRANSLATIONSAPPCONSTANTS.PLACHOLDERPREVIOUSEDU)}
               classname={style["input"]}
             />
           </>
         )}
 
         <button className={style["button"]} type="submit">
-          {cou &&  "Add Course"}
-          {sem && "Add Semester"}
-          {sub && "Add Subjects"}
-          {stu && "Add Students"}
-          {fees && "Add Fees Record"}
-          {stufees && "Add Student Fees Record"}
-          {studDetail && "Add Student Personal Detail"}
+          {cou &&  formTrans(TRANSLATIONSAPPCONSTANTS.COURSEBTN)}
+          {sem && formTrans(TRANSLATIONSAPPCONSTANTS.SEMESTERBTN)}
+          {sub && formTrans(TRANSLATIONSAPPCONSTANTS.SUBJECTSBTN)}
+          {stu && formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTBTN)}
+          {fees && formTrans(TRANSLATIONSAPPCONSTANTS.FEESBTN)}
+          {stufees && formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTFEESBTN)}
+          {studDetail &&  formTrans(TRANSLATIONSAPPCONSTANTS.STUDENTDETAILSBTN)}
         </button>
       </form>
     </div>

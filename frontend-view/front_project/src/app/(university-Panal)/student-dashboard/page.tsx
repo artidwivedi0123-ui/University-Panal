@@ -6,6 +6,7 @@ import { useStudentsState } from "../students/useStudentsState";
 import { StuDash } from "@/src/assets";
 import { getOrdinal } from "@/src/utils/app.utils";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
+import StudentsBarChart from "@/src/components/ReusableChartComponent/StudentChartBar";
 const StudentDashPage = () => {
   const { stuDashboard, totalStudents, courses } = useStudentsState();
 
@@ -28,6 +29,12 @@ const StudentDashPage = () => {
 
   return (
     <MainLayout>
+      <div>
+        <h2>Analysis of Student with Courses</h2>
+        <StudentsBarChart
+        students={stuDashboard}
+        />
+      </div>
       <Dashboard title="Student Dashboard" cards={cards} />
     </MainLayout>
   );

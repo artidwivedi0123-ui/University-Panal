@@ -29,6 +29,7 @@ export default function StudentFees() {
             width={80}
             height={80}
             alt="profile"
+            loading="eager"
           />
         </div>
 

@@ -27,6 +27,7 @@ export default function Dashboard({ title, cards }: DashboardView) {
               width={60}
               height={60}
               alt={card.title ?? ""}
+              loading="eager"
             />
 
             <h3>{card.title}</h3>

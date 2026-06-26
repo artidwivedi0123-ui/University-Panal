@@ -5,6 +5,7 @@ import Table from "@/src/components/Table/Table";
 import { UNIVERSITY_SECTION_TYPE } from "@/src/types/university-section.type";
 import ModalBox from "@/src/components/Modal/Modal";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
+import Loading from "@/src/components/Loading/Loading";
 const CourseManagedPage = () => {
   const {
     course,
@@ -13,7 +14,9 @@ const CourseManagedPage = () => {
     showModal,
     openDeleteModal,
     closeDeleteModal,
+    loading
   } = useCoursesState();
+  
   return (
     <MainLayout>
       <Table

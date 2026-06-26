@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../context/AuthContext';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import Loading from '../components/Loading/Loading';
 export default async  function RootLayout({
   children,
 }: Readonly<{

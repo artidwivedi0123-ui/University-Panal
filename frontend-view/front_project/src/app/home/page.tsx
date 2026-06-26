@@ -20,7 +20,13 @@ function HomePage() {
     <div className={style["home-container"]}>
       <h2>{homeTrans(TRANSLATIONSAPPCONSTANTS.HOMEPAGE)}</h2>
 
-      <Image src={UniversityIcon} width={180} height={180} alt="University" />
+      <Image
+        src={UniversityIcon}
+        width={180}
+        height={180}
+        alt="University"
+        loading="eager"
+      />
       <div className={style["head-cont"]}>
         <h4 className={style["heading"]}>
           {homeTrans(TRANSLATIONSAPPCONSTANTS.EXPLOREMORE)}
@@ -54,6 +60,7 @@ function HomePage() {
             width={180}
             height={180}
             alt="Registration"
+            loading="eager"
           />
 
           <h2 className={style["home-container__title"]}>
@@ -91,7 +98,9 @@ function HomePage() {
         </div>
 
         <div className={style["home-container__card"]}>
-          <Image src={fessLogo} width={180} height={180} alt="University" />
+          <Image src={fessLogo} width={180}
+          loading="eager"
+          height={180} alt="University" />
 
           <h2 className={style["home-container__title"]}>
             {homeTrans(TRANSLATIONSAPPCONSTANTS.LETCONNECT)}

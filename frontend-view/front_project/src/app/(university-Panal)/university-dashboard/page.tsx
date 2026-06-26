@@ -10,6 +10,7 @@ import { useCoursesState } from "../courses/useCoursesState";
 import { UseDashboard } from "@/src/components/Dashboard/useDashboardState";
 import { withAdmin } from "@/src/hoc/withAdminHoc";
 import { TRANSLATIONSAPPCONSTANTS } from "@/src/constants/translationConstants";
+import UniversityChartBar from "@/src/components/ReusableChartComponent/universityChartBar";
 const UniversityDashboardPage = () => {
   const { totalRecordStu } = useStudentsState();
   const { totalRecords } = UseSubjectState();
@@ -24,7 +25,10 @@ const UniversityDashboardPage = () => {
 
   return (
     <MainLayout>
-      <h2 className={style["dashb-heading"]}>{dashTrans(TRANSLATIONSAPPCONSTANTS.SUMMARY)}</h2>
+          <h2 className={style["dashb-heading"]}>{dashTrans(TRANSLATIONSAPPCONSTANTS.SUMMARY)}</h2>
+      <UniversityChartBar
+      dash={dashboardDetails}
+      />
       <Dashboard cards={dashboardDetails} />
     </MainLayout>
   );

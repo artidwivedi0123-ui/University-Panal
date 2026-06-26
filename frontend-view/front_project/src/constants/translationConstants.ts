@@ -170,6 +170,7 @@ export const TRANSLATIONSAPPCONSTANTS = {
     "PLACEHOLDERAMOUNTPAY": "placeholderAmountPay",
     "PAYMENTDATE": "paymentDate",
     "DUEAMOUNT": "dueAmount",
+    "PLACEHOLDERSTUDENTFULLNAME": "placeholderStudentFullName",
     "STPHNUMBER": "stphNumber",
     "PLACEHOLDERPHONENUMBER": "placeholderPhoneNumber",
     "FTHNAME": "fthname",
@@ -197,5 +198,7 @@ export const TRANSLATIONSAPPCONSTANTS = {
     "SEMESTERBTN": "semesterbtn",
     "SUBJECTSBTN": "subjectsbtn",
     "FEESBTN": "feesbtn",
-    "ADDSTUDENTDETAILS": "addStudentDetails"
+    "STUDENTBTN": "studentbtn",
+    "STUDENTFEESBTN": "studentFeesbtn",
+    "STUDENTDETAILSBTN": "StudentDetailsbtn"
 };

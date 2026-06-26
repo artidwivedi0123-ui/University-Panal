@@ -25,6 +25,7 @@ export default function StudentProfile() {
             width={80}
             height={80}
             alt="profile"
+            loading="eager"
           />
         </div>
 

@@ -1,9 +1,10 @@
 "use client";
 import AuthForm from "@/src/components/AuthForm/AuthForm";
 import { UseAuthState } from "@/src/components/AuthForm/useAuthState";
+import withForgotFlow from "@/src/hoc/withForgetPassHoc";
 import { AUTH_SECTION_TYPE } from "@/src/types/auth-section.type";
 
-export default function ForgetPasswordPage(){
+function ForgetPasswordPage(){
     const  {forgotpass,handleForgetChange,handleForgetSubmit,loading} = UseAuthState();
     return (
         <AuthForm
@@ -15,4 +16,5 @@ export default function ForgetPasswordPage(){
          >
         </AuthForm>
     )
-}
+};
+export default withForgotFlow(ForgetPasswordPage);
